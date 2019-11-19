@@ -26,7 +26,7 @@ threads = args.threads
 logfilepath=os.path.join(outpath,name + '.log')
 logfile=open(logfilepath,"w+")
 current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-logfile.write(current_time % " | This is metafunk2 starting to run \r\n \r\n")
+logfile.write("'{0}' | This is metafunk2 starting to run \r\n".format(current_time))
 logfile.close()
 
 #####
@@ -35,7 +35,7 @@ logfile.close()
 
 logfile=open(logfilepath,"a+")
 current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-logfile.write(current_time % " | This is metafunk2 starting quality filtering \r\n")
+logfile.write("'{0}' | This is metafunk2 starting quality filtering \r\n".format(current_time))
 logfile.close()
 
 from quality_filtering import quality_filtering
