@@ -12,7 +12,7 @@ import subprocess
 def quality_filtering(read1,read2,outpath,name,threads):
     #Create quality_filtering subdirectory
     subdir = "quality_filtering"
-    absdir = os.path.join(outpath, subdir)
+    absdir = os.path.join(outpath, name + subdir)
     if not os.path.exists(absdir):
         os.makedirs(absdir)
 
