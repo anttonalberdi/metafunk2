@@ -9,5 +9,6 @@ import random
 import argparse
 
 def quality_filtering(read1,read2,outpath,name,threads):
+    os.makedirs(quality_filtering)
     myCmd = 'AdapterRemoval --file1 '+read1+' --file2 '+read2+' --basename '+outpath+'/quality_filtering/'+name+' --minquality 30 --trimqualities --trimns --maxns 5 --threads '+threads+''
     os.system(myCmd)
