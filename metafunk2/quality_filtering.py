@@ -12,12 +12,12 @@ import subprocess
 def quality_filtering(read1,read2,outpath,name,threads):
     #Create quality_filtering subdirectory
     subdir = "quality_filtering"
-    absdir = os.path.join(outpath, name + subdir)
+    absdir = os.path.join(outpath, name + '.' + subdir)
     if not os.path.exists(absdir):
         os.makedirs(absdir)
 
     #Run Adapterremoval
-    ARCmd = 'AdapterRemoval --file1 '+read1+' --file2 '+read2+' --basename '+outpath+'/quality_filtering/'+name+' --minquality 30 --trimqualities --trimns --maxns 5 --threads '+threads+''
+    ARCmd = 'AdapterRemoval --file1 '+read1+' --file2 '+read2+' --basename '+outpath+'/'+name+'.quality_filtering/'+name+' --minquality 30 --trimqualities --trimns --maxns 5 --threads '+threads+''
     subprocess.check_call(ARCmd, shell=True)
 
     #Modify output names
