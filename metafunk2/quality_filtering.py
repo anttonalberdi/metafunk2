@@ -16,4 +16,4 @@ def quality_filtering(read1,read2,outpath,name,threads):
         os.makedirs(absdir)
     myCmd = 'AdapterRemoval --file1 '+read1+' --file2 '+read2+' --basename '+outpath+'/quality_filtering/'+name+' --minquality 30 --trimqualities --trimns --maxns 5 --threads '+threads+''
     FNULL = open(os.devnull, 'w')
-    subprocess.Popen(myCmd, shell=True, stdout=FNULL)
+    subprocess.Popen(myCmd, shell=True)

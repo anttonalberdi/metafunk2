@@ -22,5 +22,12 @@ refgenpath = args.refgenpath
 outpath = args.outpath
 threads = args.threads
 
+logfile=open("log.txt","w+")
+logfile.write("This is metafunk2 starting to run \r\n")
+
+#####
+# Quality filtering step
+#####
+
 from quality_filtering import quality_filtering
 quality_filtering(read1,read2,outpath,name,threads)
