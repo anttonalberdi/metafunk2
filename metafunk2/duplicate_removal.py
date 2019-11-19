@@ -12,9 +12,9 @@ import subprocess
 def duplicate_removal(read1,read2,outpath,name,threads):
     #Create quality_filtering subdirectory
     prevdir = "quality_filtering"
-    absprevdirr = os.path.join(outpath, name + prevdir)
+    absprevdirr = os.path.join(outpath, name + '.' + prevdir)
     newdir = "duplicate_removal"
-    absnewdir = os.path.join(outpath, name + newdir)
+    absnewdir = os.path.join(outpath, name + '.' + newdir)
     if not os.path.exists(absnewdir):
         os.makedirs(absnewdir)
 
