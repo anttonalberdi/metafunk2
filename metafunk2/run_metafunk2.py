@@ -22,13 +22,27 @@ refgenpath = args.refgenpath
 outpath = args.outpath
 threads = args.threads
 
-logfilepath=os.path.join(outpath,name + 'log')
+logfilepath=os.path.join(outpath,name + '.log')
 logfile=open(logfilepath,"w+")
-logfile.write("This is metafunk2 starting to run \r\n")
+current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+logfile.write(current_time % " | This is metafunk2 starting to run \r\n \r\n")
+logfile.close()
 
 #####
 # Quality filtering step
 #####
 
+logfile=open(logfilepath,"a+")
+current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+logfile.write(current_time % " | This is metafunk2 starting quality filtering \r\n")
+logfile.close()
+
 from quality_filtering import quality_filtering
 quality_filtering(read1,read2,outpath,name,threads)
+
+#####
+# Duplicate removal  step
+#####
+
+from duplicate_removal import duplicate_removal
+duplicate_removal(read1,read2,outpath,name,threads)

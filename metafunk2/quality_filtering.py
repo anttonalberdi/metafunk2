@@ -27,3 +27,11 @@ def quality_filtering(read1,read2,outpath,name,threads):
     read2out = os.path.join(absdir, name + '.2' + '.fq')
     os.rename(read1in,read1out)
     os.rename(read2in,read2out)
+
+    #Remove unnecesary files
+    discarded = os.path.join(absdir, name +  '.discarded')
+    os.remove(discarded)
+    settings = os.path.join(absdir, name +  '.settings')
+    os.remove(settings)
+    singleton = os.path.join(absdir, name + '.singleton' + '.truncated')
+    os.remove(singleton)
