@@ -26,4 +26,6 @@ def duplicate_removal(read1,read2,outpath,name,threads):
 
     #Run seqkit rmdup
     Rmdup1Cmd = 'cat '+read1in+' | seqkit rmdup -s -o '+read1out+''
+    subprocess.check_call(Rmdup1Cmd, shell=True)
     Rmdup2Cmd = 'cat '+read2in+' | seqkit rmdup -s -o '+read2out+''
+    subprocess.check_call(Rmdup2Cmd, shell=True)
