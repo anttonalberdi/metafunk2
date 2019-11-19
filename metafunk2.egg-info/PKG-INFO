@@ -1,0 +1,16 @@
+Metadata-Version: 2.1
+Name: metafunk2
+Version: 2.0
+Summary: Taxonomic and functional metagenomics pipeline
+Home-page: https://github.com/anttonalberdi/metafunk2
+Author: Antton Alberdi
+Author-email: antton.alberdi@gbio.ku.dk
+License: UNKNOWN
+Description: # metafunk2
+        Taxonomic and functional metagenomics pipeline
+        
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: GPL-3
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown

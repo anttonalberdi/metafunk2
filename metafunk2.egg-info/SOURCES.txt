@@ -1,0 +1,11 @@
+README.md
+setup.py
+bin/duplicate_removal
+bin/quality_filtering
+metafunk2/__init__.py
+metafunk2/run_metafunk2.py
+metafunk2.egg-info/PKG-INFO
+metafunk2.egg-info/SOURCES.txt
+metafunk2.egg-info/dependency_links.txt
+metafunk2.egg-info/top_level.txt
+metafunk2/test/__init__.py
