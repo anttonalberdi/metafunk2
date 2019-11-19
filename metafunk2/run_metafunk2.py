@@ -22,7 +22,7 @@ refgenpath = args.refgenpath
 outpath = args.outpath
 threads = args.threads
 
-logfilepath=os.path.join(outpath,name,'log')
+logfilepath=os.path.join(outpath,name + 'log')
 logfile=open(logfilepath,"w+")
 logfile.write("This is metafunk2 starting to run \r\n")
 
