@@ -15,5 +15,4 @@ def quality_filtering(read1,read2,outpath,name,threads):
     if not os.path.exists(absdir):
         os.makedirs(absdir)
     myCmd = 'AdapterRemoval --file1 '+read1+' --file2 '+read2+' --basename '+outpath+'/quality_filtering/'+name+' --minquality 30 --trimqualities --trimns --maxns 5 --threads '+threads+''
-    #os.system(myCmd)
-    subprocess.Popen(myCmd, shell=True)
+    subprocess.Popen(myCmd, shell=True, stdout=FNULL)
