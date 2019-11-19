@@ -12,7 +12,10 @@ module load pigz/2.3.4
 module load seqkit/0.7.1
 module load jre/1.8.0
 module load bbmap/36.49
-python metafunk2/metafunk2/run_metafunk2.py -n sample1 -1 metafunk2_test/GH2_3b_1.fastq.gz -2 metafunk2_test/GH2_3b_2.fastq.gz -r refgenome -o /home/projects/ku-cbd/people/antalb/metafunk2_test -t 8
+python metafunk2/metafunk2/run_metafunk2.py -n sample1 -1 metafunk2_test/GH2_3b_1.fastq.gz -2 metafunk2_test/GH2_3b_2.fastq.gz -r /home/projects/ku-cbd/people/antalb/mMyoMyo_m19_AffsNnoesSC.p1.fa.gz -o /home/projects/ku-cbd/people/antalb/metafunk2_test -t 8
+
+
+
 
 ####
 # SCI-PY tutorial
@@ -22,7 +25,8 @@ python metafunk2/metafunk2/run_metafunk2.py -n sample1 -1 metafunk2_test/GH2_3b_
 cd /Users/jpl786/github/metafunk2/
 
 #Build in developer mode
-python setup.py develop
+python setup.py build
+python setup.py install
 
 
 

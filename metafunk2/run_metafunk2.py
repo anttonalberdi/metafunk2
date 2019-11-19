@@ -30,6 +30,10 @@ logfile.write("{0} | This is metafunk2 starting to run \r\n".format(current_time
 logfile.close()
 
 #####
+# Checking dependencies
+#####
+
+#####
 # Quality filtering step
 #####
 
@@ -42,7 +46,7 @@ from quality_filtering import quality_filtering
 quality_filtering(read1,read2,outpath,name,threads)
 
 #####
-# Duplicate removal  step
+# Duplicate removal step
 #####
 
 logfile=open(logfilepath,"a+")
@@ -52,3 +56,21 @@ logfile.close()
 
 from duplicate_removal import duplicate_removal
 duplicate_removal(read1,read2,outpath,name,threads)
+
+#####
+# Mapping against reference genomes
+#####
+
+logfile=open(logfilepath,"a+")
+current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+logfile.write("{0} | This is metafunk2 starting map reads agains reference genomes \r\n".format(current_time))
+logfile.close()
+
+from genome_mapping import check_genome
+check_genome(refgenpath)
+
+from genome_mapping import index_genome
+index_genome(refgenpath)
+
+from genome_mapping import genome_mapping
+index_genome(refgenpath)
