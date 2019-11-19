@@ -21,13 +21,17 @@ def duplicate_removal(read1,read2,outpath,name,threads):
     #Declare input and output files
     read1in = os.path.join(absprevdirr, name +  '.1.fq')
     read2in = os.path.join(absprevdirr, name +  '.2.fq')
+    read1tempout = os.path.join(absnewdir, name +  '.1.temp.fq')
+    read2tempout = os.path.join(absnewdir, name +  '.2.temp.fq')
     read1out = os.path.join(absnewdir, name +  '.1.fq')
     read2out = os.path.join(absnewdir, name +  '.2.fq')
 
     #Run seqkit rmdup
-    print(read1in)
-    print(read1out)
-    Rmdup1Cmd = 'cat '+read1in+' | seqkit rmdup -s -o '+read1out+''
+    Rmdup1Cmd = 'cat '+read1in+' | seqkit rmdup -s -d bla -o '+read1tempout+''
     subprocess.check_call(Rmdup1Cmd, shell=True)
-    Rmdup2Cmd = 'cat '+read2in+' | seqkit rmdup -s -o '+read2out+''
+    Rmdup2Cmd = 'cat '+read2in+' | seqkit rmdup -s -o '+read2tempout+''
     subprocess.check_call(Rmdup2Cmd, shell=True)
+
+    #Repa
+    RepCmd = 'repair.sh in='+read1tempout+' in2='+read2tempout+' out='+read1out+' out2='+read2out+' overwrite=t'
+    subprocess.check_call(RepCmd, shell=True)
