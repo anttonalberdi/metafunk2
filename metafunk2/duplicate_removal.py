@@ -35,3 +35,7 @@ def duplicate_removal(read1,read2,outpath,name,threads):
     #Repa
     RepCmd = 'repair.sh in='+read1tempout+' in2='+read2tempout+' out='+read1out+' out2='+read2out+' overwrite=t'
     subprocess.check_call(RepCmd, shell=True)
+
+    #Remove temporal files
+    os.remove(read1tempout)
+    os.remove(read2tempout)
