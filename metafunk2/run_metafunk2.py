@@ -68,11 +68,14 @@ current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
 logfile.write("{0} | This is metafunk2 starting map reads agains reference genomes \r\n".format(current_time))
 logfile.close()
 
-from genome_mapping import check_genome
-check_genome(refgenpath)
+from genome_mapping import copy_genome
+copy_genome(refgenpath)
 
-from genome_mapping import index_genome
-index_genome(refgenpath)
+#from genome_mapping import check_genome
+#check_genome(refgenpath)
 
-from genome_mapping import genome_mapping
-index_genome(refgenpath)
+#from genome_mapping import index_genome
+#index_genome(refgenpath)
+
+#from genome_mapping import genome_mapping
+#index_genome(refgenpath)
