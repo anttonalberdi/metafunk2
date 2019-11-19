@@ -2,11 +2,11 @@ import setuptools
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
-    
+
 setuptools.setup(
-     name='metafunk',  
+     name='metafunk2',  
      version='2.0',
-     scripts=['dokr'] ,
+     scripts=['metafunk2'] ,
      author="Antton Alberdi",
      author_email="antton.alberdi@gbio.ku.dk",
      description="Taxonomic and functional metagenomics pipeline",
