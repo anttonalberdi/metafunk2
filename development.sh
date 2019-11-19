@@ -8,7 +8,7 @@ mkdir metafunk2_test
 mkdir metafunk2_test/quality_filtering
 
 module load AdapterRemoval/2.1.3
-python metafunk2/metafunk2/run_metafunk2.py -n sample1 -1 metafunk2_test/GH2_3b_1.fastq.gz -2 metafunk2_test/GH2_3b_2.fastq.gz -r refgenome -o /home/projects/ku-cbd/people/antalb/metafunk2_test -t 5
+python metafunk2/metafunk2/run_metafunk2.py -n sample1 -1 metafunk2_test/GH2_3b_1.fastq.gz -2 metafunk2_test/GH2_3b_2.fastq.gz -r refgenome -o /home/projects/ku-cbd/people/antalb/metafunk2_test -t 8
 
 ####
 # SCI-PY tutorial
