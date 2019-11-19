@@ -11,6 +11,6 @@ import argparse
 def quality_filtering(read1,read2,outpath,name,threads):
     subdir = "quality_filtering"
     absdir = os.path.join(outpath, subdir)
-    os.makedir(absdir)
+    os.makedirs(absdir)
     myCmd = 'AdapterRemoval --file1 '+read1+' --file2 '+read2+' --basename '+outpath+'/quality_filtering/'+name+' --minquality 30 --trimqualities --trimns --maxns 5 --threads '+threads+''
     os.system(myCmd)
