@@ -25,6 +25,8 @@ def duplicate_removal(read1,read2,outpath,name,threads):
     read2out = os.path.join(absnewdir, name +  '.2.fq')
 
     #Run seqkit rmdup
+    print(read1in)
+    print(read1out)
     Rmdup1Cmd = 'cat '+read1in+' | seqkit rmdup -s -o '+read1out+''
     subprocess.check_call(Rmdup1Cmd, shell=True)
     Rmdup2Cmd = 'cat '+read2in+' | seqkit rmdup -s -o '+read2out+''
