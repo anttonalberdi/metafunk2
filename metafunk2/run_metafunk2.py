@@ -4,6 +4,7 @@ import subprocess
 import sys
 import os
 import argparse
+import time
 
 #Argument parsing
 parser = argparse.ArgumentParser(description='Runs metafunk2 pipeline.')
