@@ -19,8 +19,8 @@ def duplicate_removal(read1,read2,outpath,name,threads):
         os.makedirs(absnewdir)
 
     #Declare input and output files
-    read1in = os.path.join(absprevdirr, name +  '.1.fq')
-    read2in = os.path.join(absprevdirr, name +  '.2.fq')
+    read1in = os.path.join(prevdir, name +  '.1.fq')
+    read2in = os.path.join(prevdir, name +  '.2.fq')
     read1out = os.path.join(absprevdirr, name +  '.1.fq')
     read2out = os.path.join(absprevdirr, name +  '.2.fq')
 
