@@ -34,7 +34,8 @@ def copy_genome(refgenlist,outpath,name,logfilepath):
         #Declare new genome path and copy file
         if refgenoriginalpath.endswith('.gz'):
             refgenpath = os.path.join(genomes_dir_abs, refgenname + '.fna.gz')
-            if not os.path.exists(refgenpath):
+            refgenpathuncomp = refgenpath.replace(".gz", "")
+            if ( not os.path.exists(refgenpath) and not os.path.exists(refgenpathuncomp) ):
                 logfile=open(logfilepath,"a+")
                 current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
                 logfile.write("{0} |    Transferring {1} genome to working directory \r\n".format(current_time,refgenname))
