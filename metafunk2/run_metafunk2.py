@@ -25,6 +25,20 @@ refgenpath = args.refgenpath
 outpath = args.outpath
 threads = args.threads
 
+if args.skipsteps is None:
+    skipsteps = 0
+else:
+    skipsteps = args.skipsteps
+
+print(skipsteps)
+
+if args.includesteps is None:
+    includesteps = 1,2,3,4,5,6,7,8,9
+else:
+    includesteps = args.includesteps
+
+print(includesteps)
+
 logfilepath=os.path.join(outpath,name + '.log')
 logfile=open(logfilepath,"w+")
 current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
@@ -39,13 +53,14 @@ logfile.close()
 # Quality filtering step
 #####
 
-logfile=open(logfilepath,"a+")
-current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-logfile.write("{0} | This is metafunk2 starting quality filtering \r\n".format(current_time))
-logfile.close()
+if (1 in includesteps and 1 not in skipsteps):
+    logfile=open(logfilepath,"a+")
+    current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+    logfile.write("{0} | This is metafunk2 starting quality filtering \r\n".format(current_time))
+    logfile.close()
 
-from quality_filtering import quality_filtering
-quality_filtering(read1,read2,outpath,name,threads)
+    from quality_filtering import quality_filtering
+    quality_filtering(read1,read2,outpath,name,threads)
 
 #####
 # Duplicate removal step

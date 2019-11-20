@@ -26,6 +26,7 @@ def copy_genome(refgenomepath):
         os.makedirs(absgenomedir)
     #Copy genome file to genome_mapping/genomes directory
     copyfile(refgenomepath, absgenomedir)
+    refgen = os.path.basename(refgenomepath)
 
 #Manipulate reference genome
 def check_genome(refgenomepath):
@@ -42,7 +43,7 @@ def check_genome(refgenomepath):
         os.rename(read1in,read1out)
     if refgenpath.endswith('.fa'):
         os.rename(read1in,read1out)
-def index_genome(refgenomepath):
 
+#def index_genome(refgenomepath):
 
-def genome_mapping(read1,read2,refgenomepath):
+#def genome_mapping(read1,read2,refgenomepath):
