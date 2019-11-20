@@ -55,8 +55,9 @@ def copy_genome(refgenomepath,outpath,name,logfilepath):
         logfile.write("{0} |    Decompressing reference genome {1} \r\n".format(current_time,refgenomepath))
         logfile.close()
         DecompCmd = 'pigz -d '+refgenomepath+''
-        subprocess.check_call(DecompCmd, shell=True)
-        refgenomepath = refgenomepath.replace(".gz", "")
+        if os.path.exists(refgenomepath):
+            subprocess.check_call(DecompCmd, shell=True)
+            refgenomepath = refgenomepath.replace(".gz", "")
     if refgenomepath.endswith('.fasta'):
         refgenomepathnoext = refgenomepath.rsplit( ".", 1 )[ 0 ]
         newrefgenpath = os.path.join(refgenomepathnoext + '.fna')
