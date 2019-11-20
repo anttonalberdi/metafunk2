@@ -96,7 +96,7 @@ if ( 3 in includesteps and 3 not in skipsteps ):
     logfile.close()
 
     from genome_mapping import copy_genome
-    copy_genome(refgen,outpath,name,logfilepath,refgencount)
+    copy_genome(refgen,refgencount,outpath,name,logfilepath)
 
     #from genome_mapping import edit_genome
     #edit_genome(refgenpath,outpath,name,logfilepath)
