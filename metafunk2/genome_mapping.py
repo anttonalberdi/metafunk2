@@ -48,7 +48,9 @@ def copy_genome(refgenlist,outpath,name,logfilepath):
                 logfile.write("{0} |    Transferring {1} genome to working directory \r\n".format(current_time,refgenname))
                 logfile.close()
                 copyfile(refgenoriginalpath, refgenpath)
-
+        print(refgenname)
+        print(refgenoriginalpath)
+        print(refgenpath)
     #Manipulate reference genome
     if refgenpath.endswith('.gz'):
         if not os.path.exists(refgenpath):
