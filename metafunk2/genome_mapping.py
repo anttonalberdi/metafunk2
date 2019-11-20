@@ -118,6 +118,7 @@ def genome_mapping(refgenlist,outpath,name,logfilepath,threads):
         bampath_all = os.path.join(outpath,'genome_mapping', name + '.' + refgenname + '.bam')
         bampath_host = os.path.join(outpath,'genome_mapping', name + '.mappedto.' + refgenname + '.bam')
         bampath_mg = os.path.join(outpath,'genome_mapping', name + '.mg.bam')
+        singletonpath = os.path.join(outpath,'genome_mapping', name + '.singleton.fq')
         read1out = os.path.join(outpath,'genome_mapping', name +  '.1.fq')
         read2out = os.path.join(outpath,'genome_mapping', name +  '.2.fq')
 
