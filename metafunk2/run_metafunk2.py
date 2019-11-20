@@ -53,7 +53,7 @@ logfile.close()
 # Quality filtering step
 #####
 
-if (1 in includesteps and 1 not in skipsteps):
+if ( 1 in includesteps and 1 not in skipsteps ):
     logfile=open(logfilepath,"a+")
     current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
     logfile.write("{0} | This is metafunk2 starting quality filtering \r\n".format(current_time))
