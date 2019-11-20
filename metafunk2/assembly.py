@@ -30,6 +30,6 @@ def assembly(outpath,name,logfilepath,statsfilepath,threads,memory):
     subprocess.check_call(assemblyCmd, shell=True)
 
     #Move reads to parent folder
-    assembly = os.path.join(assembly_dir, 'contigs.fasta')
+    assembly = os.path.join(assembly_abs, 'contigs.fasta')
     assemblyfinal = os.path.join(outpath, name +  '.fna')
     shutil.copy(assembly, assemblyfinal)
