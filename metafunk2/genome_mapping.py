@@ -54,11 +54,11 @@ def edit_genome(refgenomepath,outpath,name,logfilepath):
         DecompCmd = 'pigz '+refgenomepath+''
         subprocess.check_call(DecompCmd, shell=True)
         refgenomepath = refgenomepath.replace(".gz", "")
-    if refgenpath.endswith('.fasta'):
+    if refgenomepath.endswith('.fasta'):
         refgenomepathnoext = refgenomepath.rsplit( ".", 1 )[ 0 ]
         newrefgenpath = os.path.join(refgenomepathnoext + '.fna')
         os.rename(refgenomepath,newrefgenpath)
-    if refgenpath.endswith('.fa'):
+    if refgenomepath.endswith('.fa'):
         refgenomepathnoext = refgenomepath.rsplit( ".", 1 )[ 0 ]
         newrefgenpath = os.path.join(refgenomepathnoext + '.fna')
         os.rename(refgenomepath,newrefgenpath)
