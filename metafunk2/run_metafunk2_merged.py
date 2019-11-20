@@ -49,7 +49,7 @@ else:
 logfilepath=os.path.join(projectpath,projectname + '.log')
 logfile=open(logfilepath,"w+")
 current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-logfile.write("{0} | This is Metafunk2_merged starting to run \r\n Settings:\r\n   Threads {1}\r\n  Memory {2}\r\nInput files:\r\n   Read1 {3}\r\n  Read2 {4}\r\nReference genomes:\r\n    Number of reference genomes: {5}".format(current_time,threads,memory,read1,read2,refgencount))
+logfile.write("{0} | This is Metafunk2_merged starting to run \r\n".format(current_time))
 logfile.close()
 
 #####

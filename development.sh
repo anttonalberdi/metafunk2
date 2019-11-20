@@ -9,8 +9,10 @@ python metafunk2/metafunk2/run_metafunk2.py -n blank -1 metafunk2_test/Blank0609
 #3
 python metafunk2/metafunk2/run_metafunk2.py -n testsamp -1 metafunk2_test/GH2_3b_1.fastq.gz -2 metafunk2_test/GH2_3b_2.fastq.gz -r 'gambusia=databases/GCA_003097735.1_ASM309773v1_genomic.fna.gz,human=databases/GCF_000001405.39_GRCh38.p13_genomic.fna.gz' -o /home/projects/ku-cbd/people/antalb/metafunk2_test -t 8 -m 250 --includesteps 4 5 6
 
-#4
-python metafunk2/metafunk2/run_metafunk2.py -n testsamp -1 metafunk2_test/GH2_3b_1.fastq.gz -2 metafunk2_test/GH2_3b_2.fastq.gz -r 'gambusia=databases/GCA_003097735.1_ASM309773v1_genomic.fna.gz' -o /home/projects/ku-cbd/people/antalb/metafunk2_test -t 8 -m 100 --includesteps 4
+#MERGED
+rm -rf metafunk2
+git clone https://github.com/anttonalberdi/metafunk2.git
+python metafunk2/metafunk2/run_metafunk2_merged.py -n tests -p /home/projects/ku-cbd/people/antalb/metafunk2_test -t 8 -m 8
 
 workdir="/home/projects/ku-cbd/people/antalb/metafunk2_test"
 xqsub -V -A ku-cbd -W group_list=ku-cbd -d `pwd` -e ${workdir}/metafunk2_test.err -o ${workdir}/metafunk2_test.out -l nodes=1:ppn=8,mem=250gb,walltime=0:01:00:00 -N metafunk2_test -de python metafunk2/metafunk2/run_metafunk2.py -n testsamp -1 metafunk2_test/GH2_3b_1.fastq.gz -2 metafunk2_test/GH2_3b_2.fastq.gz -r 'gambusia=databases/GCA_003097735.1_ASM309773v1_genomic.fna.gz,human=databases/GCF_000001405.39_GRCh38.p13_genomic.fna.gz' -o /home/projects/ku-cbd/people/antalb/metafunk2_test -t 8 -m 250 --includesteps 4 5 6
