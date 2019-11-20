@@ -56,7 +56,7 @@ logfile.close()
 # Initiate stats file
 #####
 
-statsfilepath=os.path.join(outpath,projectname + '.stats')
+statsfilepath=os.path.join(projectpath,projectname + '.stats')
 statsfile=open(statsfilepath,"w+")
 statsfile.write("Statistic\tValue \r\n".format(current_time))
 statsfile.close()
