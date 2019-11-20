@@ -71,7 +71,7 @@ statsfile.close()
 #####
 
 #####
-# Quality filtering step
+# 1) Quality filtering step
 #####
 
 if ( 1 in includesteps and 1 not in skipsteps ):
@@ -84,7 +84,7 @@ if ( 1 in includesteps and 1 not in skipsteps ):
     quality_filtering(read1,read2,outpath,name,threads,statsfilepath)
 
 #####
-# Duplicate removal step
+# 2) Duplicate removal step
 #####
 
 if ( 2 in includesteps and 2 not in skipsteps ):
@@ -94,10 +94,10 @@ if ( 2 in includesteps and 2 not in skipsteps ):
     logfile.close()
 
     from duplicate_removal import duplicate_removal
-    duplicate_removal(read1,read2,outpath,name,threads,statfilepath)
+    duplicate_removal(read1,read2,outpath,name,threads,statsfilepath)
 
 #####
-# Mapping against reference genomes
+# 3) Mapping against reference genomes
 #####
 
 if ( 3 in includesteps and 3 not in skipsteps ):
@@ -117,7 +117,7 @@ if ( 3 in includesteps and 3 not in skipsteps ):
 
 
 #####
-# Assemble metagenomic samples
+# 4) Assemble metagenomic samples
 #####
 
 if ( 4 in includesteps and 4 not in skipsteps ):
@@ -127,4 +127,4 @@ if ( 4 in includesteps and 4 not in skipsteps ):
     logfile.close()
 
     from assembly import assembly
-    assembly(outpath,name,logfilepath,statfilepath,threads,memory)
+    assembly(outpath,name,logfilepath,statsfilepath,threads,memory)
