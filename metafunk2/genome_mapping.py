@@ -23,15 +23,17 @@ def copy_genome(refgenomepath,outpath,name,logfilepath):
     absgenomedir = os.path.join(outpath, genomedir)
     if not os.path.exists(absgenomedir):
         os.makedirs(absgenomedir)
-    #Add to log
-    logfile=open(logfilepath,"a+")
-    current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-    logfile.write("     {0} | Transferring genome {1} to working directory \r\n".format(current_time,refgenomepath))
-    logfile.close()
+
     #Copy genome file to genome_mapping/genomes directory
     refgen = os.path.basename(refgenomepath)
     newgenomepath = os.path.join(absgenomedir, refgen)
-    copyfile(refgenomepath, newgenomepath)
+    if not os.path.exists(newgenomepath):
+        #Add to log
+        logfile=open(logfilepath,"a+")
+        current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+        logfile.write("     {0} | Transferring genome {1} to working directory \r\n".format(current_time,refgenomepath))
+        logfile.close()
+        copyfile(refgenomepath, newgenomepath)
 
     #Replace original genome path with new path
     refgenomepath = newgenomepath
