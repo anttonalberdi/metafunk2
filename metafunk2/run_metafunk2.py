@@ -56,7 +56,7 @@ else:
 logfilepath=os.path.join(outpath,name + '.log')
 logfile=open(logfilepath,"w+")
 current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-logfile.write("{0} | This is Metafunk2 starting to run \r\n    Threads {1}\r\nMemory {2}\r\n".format(current_time,threads))
+logfile.write("{0} | This is Metafunk2 starting to run \r\n    Threads {1}\r\nMemory {2}\r\n".format(current_time,threads,memory))
 logfile.close()
 
 #####
