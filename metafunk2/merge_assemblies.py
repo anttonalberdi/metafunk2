@@ -20,7 +20,16 @@ def merge_assemblies(projectname,projectpath,threads,memory):
 
     assembliespath = os.path.join(projectpath,'*.assembly', 'contigs.fasta')
     mergedassembliespath = os.path.join(merged_abs, 'assemblies.fna')
+    nrassembliespath = os.path.join(merged_abs, 'assemblies.nr.fna')
 
     #Concatenate assemblies
+    logfile=open(logfilepath,"a+")
+    current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+    logfile.write("{0} |    Concatenating assemblies \r\n".format(current_time))
+    logfile.close()
     concCmd = 'cat '+assembliespath+' > '+mergedassembliespath+''
     subprocess.check_call(concCmd, shell=True)
+
+    #Removing redundant contigs
+    cdhitCmd = 'cd-hit '+mergedassembliespath+' -o '+nrassembliespath+' -T '+threads+' -M 0 -c 0.99 -d 100 -aS 0.9'
+    subprocess.check_call(cdhitCmd, shell=True)
