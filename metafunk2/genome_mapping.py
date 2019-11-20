@@ -97,6 +97,4 @@ def index_genome(refgenlist,outpath,name,logfilepath):
             logfile.write("{0} |    {1} genome is already indexed \r\n".format(current_time,refgenname))
             logfile.close()
 
-
-
-#def genome_mapping(read1,read2,refgenomepath):
+def genome_mapping(outpath,name,logfilepath):
