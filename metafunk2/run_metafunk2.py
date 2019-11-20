@@ -53,15 +53,14 @@ logfile.close()
 # Quality filtering step
 #####
 
-if 1 in includesteps:
-    if 1 not in skipsteps:
-        logfile=open(logfilepath,"a+")
-        current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-        logfile.write("{0} | This is metafunk2 starting quality filtering \r\n".format(current_time))
-        logfile.close()
+if ( 1 in includesteps and 1 not in skipsteps ):
+    logfile=open(logfilepath,"a+")
+    current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+    logfile.write("{0} | This is metafunk2 starting quality filtering \r\n".format(current_time))
+    logfile.close()
 
-        from quality_filtering import quality_filtering
-        quality_filtering(read1,read2,outpath,name,threads)
+    from quality_filtering import quality_filtering
+    quality_filtering(read1,read2,outpath,name,threads)
 
 #####
 # Duplicate removal step
