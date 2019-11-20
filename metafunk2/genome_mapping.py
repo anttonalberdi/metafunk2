@@ -40,6 +40,11 @@ def copy_genome(refgenlist,outpath,name,logfilepath):
                 logfile.write("{0} |    Transferring {1} genome to working directory \r\n".format(current_time,refgenname))
                 logfile.close()
                 copyfile(refgenoriginalpath, refgenpath)
+            else:
+                logfile=open(logfilepath,"a+")
+                current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+                logfile.write("{0} |    {1} genome is already in the working directory \r\n".format(current_time,refgenname))
+                logfile.close()
         if ( refgenoriginalpath.endswith('.fasta') or refgenoriginalpath.endswith('.fa') or refgenoriginalpath.endswith('.fna') ):
             refgenpath = os.path.join(genomes_dir_abs, refgenname + '.fna')
             if not os.path.exists(refgenpath):
@@ -48,6 +53,11 @@ def copy_genome(refgenlist,outpath,name,logfilepath):
                 logfile.write("{0} |    Transferring {1} genome to working directory \r\n".format(current_time,refgenname))
                 logfile.close()
                 copyfile(refgenoriginalpath, refgenpath)
+            else:
+                logfile=open(logfilepath,"a+")
+                current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+                logfile.write("{0} |    {1} genome is already in the working directory \r\n".format(current_time,refgenname))
+                logfile.close()
         print(refgenname)
         print(refgenoriginalpath)
         print(refgenpath)
