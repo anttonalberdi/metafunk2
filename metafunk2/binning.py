@@ -38,14 +38,5 @@ def binning(outpath,name,logfilepath):
     current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
     logfile.write("{0} |    Running metabat \r\n".format(current_time))
     logfile.close()
-    metabatCmd = 'metabat2 -i '+assemblypath+' -a '+metabatdepthfile+' -o '+metabatdir+' -m 1500 -t '+threads+' --unbinned'
-	subprocess.check_call(metabatCmd, shell=True)
-
-
-        #maxbinCmd = 'prodigal -p meta -q -i '+contigpath+' -f gff -o '+gffpath+' -a '+faapath+' -d '+fnapath+''
-        #metabatCmd = 'prodigal -p meta -q -i '+contigpath+' -f gff -o '+gffpath+' -a '+faapath+' -d '+fnapath+''
-
-
-        #Run binning
-        #subprocess.check_call(maxbinCmd, shell=True)
-        #
+    metabatCmd = 'metabat2 -i '+assemblypath+' -a '+metabatdepthfile+' -o '+metabatdir+' -m 1500 -t '+threads+' --unbinned '
+    subprocess.check_call(metabatCmd, shell=True)
