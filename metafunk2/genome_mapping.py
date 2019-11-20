@@ -8,6 +8,7 @@ import sys
 import random
 import argparse
 import subprocess
+import time
 from shutil import copyfile
 
 #Copy reference genome to working directory
