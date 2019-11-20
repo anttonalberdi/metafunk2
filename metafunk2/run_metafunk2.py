@@ -14,7 +14,8 @@ parser.add_argument('-1', help="KEGG database path",metavar="READ1", dest="read1
 parser.add_argument('-2', help="KEGG database path",metavar="READ2", dest="read2", required=True)
 parser.add_argument('-r', help="Reference genome sequences",metavar="REFGEN", dest="refgen", required=True)
 parser.add_argument('-o', help="Output path", metavar="OUTPATH", dest="outpath", required=True)
-parser.add_argument('-t', help="Number of threads", metavar="THREADS", dest="threads", required=True)
+parser.add_argument('-t', help="Number of threads", metavar="THREADS", dest="threads", default=8, required=False)
+parser.add_argument('-m', help="RAM memory limit", metavar="MEMORY", dest="memory", default=250, required=False)
 parser.add_argument('--skipsteps', help="Skip steps", metavar="SKIPSTEPS", dest="skipsteps", nargs='+', type=int, required=False)
 parser.add_argument('--includesteps', help="Include steps", metavar="INCLUDESTEPS", dest="includesteps", nargs='+', type=int, required=False)
 args = parser.parse_args()
@@ -29,10 +30,6 @@ threads = args.threads
 refgen = args.refgen
 refgenlist = [l.split('=') for l in refgen.split(',') if l]
 refgencount = len(refgenlist)
-
-print(refgen)
-print(refgenlist)
-print(refgencount)
 
 #Prepare skipsteps
 if args.skipsteps is None:
@@ -97,7 +94,7 @@ if ( 2 in includesteps and 2 not in skipsteps ):
     logfile.close()
 
     from duplicate_removal import duplicate_removal
-    duplicate_removal(read1,read2,outpath,name,threads)
+    duplicate_removal(read1,read2,outpath,name,threads,statfilepath)
 
 #####
 # Mapping against reference genomes
@@ -117,3 +114,17 @@ if ( 3 in includesteps and 3 not in skipsteps ):
 
     from genome_mapping import genome_mapping
     genome_mapping(refgenlist,outpath,name,logfilepath,threads,statsfilepath)
+
+
+#####
+# Assemble metagenomic samples
+#####
+
+if ( 4 in includesteps and 4 not in skipsteps ):
+    logfile=open(logfilepath,"a+")
+    current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+    logfile.write("{0} | Metafunk2 has started the metagenomic assembly \r\n".format(current_time))
+    logfile.close()
+
+    from assembly import assembly
+    assembly(outpath,name,logfilepath,statfilepath,threads,memory)

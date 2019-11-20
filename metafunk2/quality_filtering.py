@@ -49,3 +49,17 @@ def quality_filtering(read1,read2,outpath,name,threads,statsfilepath):
     os.remove(settings)
     singleton = os.path.join(absdir, name + '.singleton' + '.truncated')
     os.remove(singleton)
+
+    #Get stats
+    reads = 0
+    bases = 0
+    with gzip.open(read1out, 'rb') as read:
+        for id in read:
+            seq = next(read)
+            reads += 1
+            bases += len(seq.strip())
+            next(read)
+            next(read)
+    statsfile=open(statsfilepath,"a+")
+    statsfile.write("Reads after quality filtering\t{0}\r\nBases after quality filtering\t{1}".format(reads,bases))
+    statsfile.close()
