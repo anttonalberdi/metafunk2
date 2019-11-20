@@ -105,8 +105,8 @@ if ( 3 in includesteps and 3 not in skipsteps ):
     from genome_mapping import index_genome
     index_genome(refgenlist,outpath,name,logfilepath)
 
-#from genome_mapping import index_genome
-#index_genome(refgenpath)
+    from genome_mapping import genome_mapping
+    genome_mapping(refgenlist,outpath,name,logfilepath,threads)
 
 #from genome_mapping import genome_mapping
 #index_genome(refgenpath)
