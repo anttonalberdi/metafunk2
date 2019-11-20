@@ -142,3 +142,17 @@ if ( 5 in includesteps and 5 not in skipsteps ):
 
     from assembly_mapping import assembly_mapping
     assembly_mapping(outpath,name,logfilepath,threads)
+
+
+#####
+# 6) Binning
+#####
+
+if ( 6 in includesteps and 6 not in skipsteps ):
+    logfile=open(logfilepath,"a+")
+    current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+    logfile.write("{0} | Metafunk2 has started binning \r\n".format(current_time))
+    logfile.close()
+
+    from binning import binning
+    binning(outpath,name,logfilepath)
