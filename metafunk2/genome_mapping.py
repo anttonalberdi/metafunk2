@@ -28,11 +28,12 @@ def copy_genome(refgenomepath,outpath,name,logfilepath):
     refgen = os.path.basename(refgenomepath)
     newgenomepath = os.path.join(absgenomedir, refgen)
     newgenomepathnoext = newgenomepath.rsplit( ".", 1 )[ 0 ]
-    newgenomepathnoext2 = newgenomepath.rsplit( ".", 1 )[ 0 ]
+    newgenomepathnoext2 = newgenomepath.rsplit( ".", 2 )[ 0 ]
     newgenomepath2 = os.path.join(newgenomepathnoext + '.fna')
     newgenomepath3 = os.path.join(newgenomepathnoext2 + '.fna')
     print(newgenomepath)
     print(newgenomepath2)
+    print(newgenomepath3)
     if ( not os.path.exists(newgenomepath) and not os.path.exists(newgenomepath2) and not os.path.exists(newgenomepath3) ):
         #Add to log
         logfile=open(logfilepath,"a+")
