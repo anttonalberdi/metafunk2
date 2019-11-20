@@ -25,6 +25,7 @@ read1 = args.read1
 read2 = args.read2
 outpath = args.outpath
 threads = args.threads
+memory = args.memory
 
 #Prepare reference genomes
 refgen = args.refgen
