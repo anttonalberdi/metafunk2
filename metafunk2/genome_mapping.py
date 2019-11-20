@@ -9,6 +9,7 @@ import random
 import argparse
 import subprocess
 import time
+from pathlib import Path
 from shutil import copyfile
 
 #Copy reference genome to working directory
@@ -24,28 +25,28 @@ def copy_genome(refgenomepath,outpath,name,logfilepath):
     if not os.path.exists(absgenomedir):
         os.makedirs(absgenomedir)
 
-    #Copy genome file to genome_mapping/genomes directory
+    #Copy genome file to genomes directory if it is not already there
     refgen = os.path.basename(refgenomepath)
     newgenomepath = os.path.join(absgenomedir, refgen)
     if not os.path.exists(newgenomepath):
         #Add to log
         logfile=open(logfilepath,"a+")
         current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-        logfile.write("     {0} | Transferring genome {1} to working directory \r\n".format(current_time,refgenomepath))
+        logfile.write("{0} |    Transferring genome {1} to working directory \r\n".format(current_time,refgenomepath))
         logfile.close()
         copyfile(refgenomepath, newgenomepath)
     else:
         #Add to log
         logfile=open(logfilepath,"a+")
         current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-        logfile.write("     {0} | Genome {1} already exists in working directory \r\n".format(current_time,refgenomepath))
+        logfile.write("{0} |    Genome {1} already exists in working directory \r\n".format(current_time,newgenomepath))
         logfile.close()
 
     #Replace original genome path with new path
     refgenomepath = newgenomepath
 
 #Manipulate reference genome
-def check_genome(refgenomepath):
+def check_genome(refgenomepath,outpath,name,logfilepath):
     if refgenpath.endswith('.gz'):
         logfile=open(logfilepath,"a+")
         current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
@@ -55,10 +56,11 @@ def check_genome(refgenomepath):
         subprocess.check_call(DecompCmd, shell=True)
         refgenomepathnew = refgenomepath.replace(".gz", "")
     if refgenpath.endswith('.fasta'):
-        original = os.path.join(absdir, name + '.pair1' + '.truncated')
-        os.rename(read1in,read1out)
+        newrefgenpath = refgenomepath.with_suffix('.fna')
+        os.rename(refgenomepath,newrefgenpath)
     if refgenpath.endswith('.fa'):
-        os.rename(read1in,read1out)
+        newrefgenpath = refgenomepath.with_suffix('.fna')
+        os.rename(refgenomepath,newrefgenpath)
 
 #def index_genome(refgenomepath):
 
