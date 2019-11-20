@@ -118,7 +118,6 @@ def genome_mapping(refgenlist,outpath,name,logfilepath,threads):
         bampath_all = os.path.join(outpath, name + '.genome_mapping', name + '.' + refgenname + '.bam')
         bampath_host = os.path.join(outpath,name + '.genome_mapping', name + '.mappedto.' + refgenname + '.bam')
         bampath_mg = os.path.join(outpath,name + '.genome_mapping', name + '.mg.bam')
-        singletonpath = os.path.join(outpath,name + '.genome_mapping', name + '.singleton.fq')
         read1out = os.path.join(outpath,name + '.genome_mapping', name +  '.1.fq')
         read2out = os.path.join(outpath,name + '.genome_mapping', name +  '.2.fq')
 
@@ -126,21 +125,21 @@ def genome_mapping(refgenlist,outpath,name,logfilepath,threads):
         mapCmd = 'bwa mem -t '+threads+' -R "@RG\tID:ProjectName\tCN:AuthorName\tDS:Mappingt\tPL:Illumina1.9\tSM:Sample" '+refgenpath+' '+read1in+' '+read2in+' | samtools view -T '+refgenpath+' -b - > '+bampath_all+''
         hostmapCmd = 'samtools view -T '+refgenpath+' -b -F12 '+bampath_all+' > '+bampath_host+''
         mgmapCmd = 'samtools view -T '+refgenpath+' -b -f12 '+bampath_all+' > '+bampath_mg+''
-        mgfqCmd = 'samtools fastq -s '+singletonpath+' -1 '+read1out+' -2 '+read2out+' '+bampath_mg+''
+        mgfqCmd = 'samtools fastq -1 '+read1out+' -2 '+read2out+' '+bampath_mg+''
 
         #Mapping to genome
         logfile=open(logfilepath,"a+")
         current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
         logfile.write("{0} |    Mapping reads to {1} genome \r\n".format(current_time,refgenname))
         logfile.close()
-        subprocess.check_call(mapCmd, shell=True)
+        #subprocess.check_call(mapCmd, shell=True)
 
         #Extracting mapped (genomic) reads
         logfile=open(logfilepath,"a+")
         current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
         logfile.write("{0} |    Extracting reads mapped to {1} genome (genomic reads) \r\n".format(current_time,refgenname))
         logfile.close()
-        subprocess.check_call(hostmapCmd, shell=True)
+        #subprocess.check_call(hostmapCmd, shell=True)
 
         #Extracting unmapped (metagenomic) reads
         #Extracting mapped (genomic) reads
@@ -149,6 +148,6 @@ def genome_mapping(refgenlist,outpath,name,logfilepath,threads):
         logfile.write("{0} |    Extracting reads not mapped to {1} genome (metagenomic reads) \r\n".format(current_time,refgenname))
         logfile.close()
         #Extract unmapped
-        subprocess.check_call(mgmapCmd, shell=True)
+        #subprocess.check_call(mgmapCmd, shell=True)
         #Convert unmapped to fastq
         subprocess.check_call(mgfqCmd, shell=True)
