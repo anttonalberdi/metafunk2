@@ -78,7 +78,7 @@ def copy_genome(refgenlist,outpath,name,logfilepath):
 def index_genome(refgenlist,outpath,name,logfilepath):
     refgencount = len(refgenlist)
     for i in range(refgencount):
-        #Declare genome name
+        #Declare genome name and path
         refgenname = refgenlist[i][0]
         refgenpath = os.path.join(outpath,'genomes', refgenname + '.fna')
         refgenfai = os.path.join(outpath,'genomes', refgenname + '.fai')
@@ -97,4 +97,48 @@ def index_genome(refgenlist,outpath,name,logfilepath):
             logfile.write("{0} |    {1} genome is already indexed \r\n".format(current_time,refgenname))
             logfile.close()
 
-def genome_mapping(outpath,name,logfilepath):
+def genome_mapping(refgenlist,outpath,name,logfilepath,threads):
+    #Create quality_filtering subdirectory
+    prevdir = "duplicate_removal"
+    absprevdirr = os.path.join(outpath, name + '.' + prevdir)
+
+    #Declare input files
+    read1in = os.path.join(absprevdirr, name +  '.1.fq')
+    read2in = os.path.join(absprevdirr, name +  '.2.fq')
+
+    #Iterate across reference genomes
+    refgencount = len(refgenlist)
+    for i in range(refgencount):
+        #Declare genome name and path
+        refgenname = refgenlist[i][0]
+        refgenpath = os.path.join(outpath,'genomes', refgenname + '.fna')
+        bampath_all = os.path.join(outpath,'genome_mapping', name + '.' + refgenname + '.bam')
+        bampath_host = os.path.join(outpath,'genome_mapping', name + '.mappedto.' + refgenname + '.bam')
+        bampath_mg = os.path.join(outpath,'genome_mapping', name + '.mg.bam')
+
+        #Declare mapping commands
+        mapCmd = 'bwa mem -t '+threads+' -R "@RG\tID:ProjectName\tCN:AuthorName\tDS:Mappingt\tPL:Illumina1.9\tSM:Sample" '+refgenpath+' '+read1in+' '+read2in+' > '+read2in+' | | samtools view -T '+refgenpath+' -b - > '+bampath_all+''
+        hostCmd = 'samtools view -T '+refgenpath+' -b -F12 '+bampath_all+' > '+bampath_host+''
+        mgCmd = 'samtools view -T '+refgenpath+' -b -f12 '+bampath_all+' > '+bampath_mg+''
+
+        #Mapping to genome
+        logfile=open(logfilepath,"a+")
+        current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+        logfile.write("{0} |    Mapping reads to {1} genome \r\n".format(current_time,refgenname))
+        logfile.close()
+        subprocess.check_call(mapCmd, shell=True)
+
+        #Extracting mapped (genomic) reads
+        logfile=open(logfilepath,"a+")
+        current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+        logfile.write("{0} |    Extracting reads mapped to {1} genome (genomic reads) \r\n".format(current_time,refgenname))
+        logfile.close()
+        subprocess.check_call(bwaindexCmd, shell=True)
+
+        #Extracting unmapped (metagenomic) reads
+        #Extracting mapped (genomic) reads
+        logfile=open(logfilepath,"a+")
+        current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+        logfile.write("{0} |    Extracting reads not mapped to {1} genome (metagenomic reads) \r\n".format(current_time,refgenname))
+        logfile.close()
+        subprocess.check_call(bwaindexCmd, shell=True)
