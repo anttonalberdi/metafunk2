@@ -28,14 +28,14 @@ threads = args.threads
 if args.skipsteps is None:
     skipsteps = 0,
 else:
-    skipsteps = args.skipsteps
+    skipsteps = tuple(args.skipsteps)
     if isinstance(skipsteps,int):
         skipsteps = (skipsteps,)
 
 if args.includesteps is None:
     includesteps = 1,2,3,4,5,6,7,8,9
 else:
-    includesteps = args.includesteps
+    includesteps = tuple(args.includesteps)
     if isinstance(includesteps,int):
         includesteps = (includesteps,)
 
