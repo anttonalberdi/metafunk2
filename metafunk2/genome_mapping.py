@@ -27,7 +27,9 @@ def copy_genome(refgenomepath,outpath,name,logfilepath):
     #Copy genome file to genomes directory if it is not already there
     refgen = os.path.basename(refgenomepath)
     newgenomepath = os.path.join(absgenomedir, refgen)
-    if not os.path.exists(newgenomepath):
+    newgenomepathnoext = newgenomepath.rsplit( ".", 1 )[ 0 ]
+    newgenomepath2 = os.path.join(newgenomepathnoext + '.fna')
+    if ( not os.path.exists(newgenomepath) or not os.path.exists(newgenomepath2) ):
         #Add to log
         logfile=open(logfilepath,"a+")
         current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
@@ -48,7 +50,7 @@ def copy_genome(refgenomepath,outpath,name,logfilepath):
     if refgenomepath.endswith('.gz'):
         logfile=open(logfilepath,"a+")
         current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-        logfile.write("     {0} | Decompressing reference genome {1} \r\n".format(current_time,refgenomepath))
+        logfile.write("{0} |    Decompressing reference genome {1} \r\n".format(current_time,refgenomepath))
         logfile.close()
         DecompCmd = 'pigz -d '+refgenomepath+''
         subprocess.check_call(DecompCmd, shell=True)
