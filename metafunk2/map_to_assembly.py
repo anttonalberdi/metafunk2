@@ -39,7 +39,7 @@ def map_to_assembly(outpath,name,logfilepath,threads):
         logfile.close()
 
     #Declare mapping commands
-    mapCmd = 'bwa mem -t '+threads+' -R "@RG\tID:ProjectName\tCN:AuthorName\tDS:Mappingt\tPL:Illumina1.9\tSM:Sample" '+assemblypath+' '+read1in+' '+read2in+' | samtools sort -T '+assemblypath+' -b - > '+assemblybampath+''
+    mapCmd = 'bwa mem -t '+threads+' -R "@RG\tID:ProjectName\tCN:AuthorName\tDS:Mappingt\tPL:Illumina1.9\tSM:Sample" '+assemblypath+' '+read1in+' '+read2in+' | samtools view -T '+assemblypath+' -b - | samtools sort -T '+assemblypath+' - > '+assemblybampath+''
 
     #Mapping to genome
     logfile=open(logfilepath,"a+")
