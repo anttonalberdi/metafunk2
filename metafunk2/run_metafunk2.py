@@ -11,7 +11,7 @@ parser = argparse.ArgumentParser(description='Runs metafunk2 pipeline.')
 parser.add_argument('-n', help="Sample name",metavar="NAME", dest="name", required=True)
 parser.add_argument('-1', help="KEGG database path",metavar="READ1", dest="read1", required=True)
 parser.add_argument('-2', help="KEGG database path",metavar="READ2", dest="read2", required=True)
-parser.add_argument('-r', help="Path to reference genome sequence",metavar="REFGENPATH", dest="refgenpath", required=True)
+parser.add_argument('-r', help="Reference genome sequences",metavar="REFGEN", dest="refgen", required=True)
 parser.add_argument('-o', help="Output path", metavar="OUTPATH", dest="outpath", required=True)
 parser.add_argument('-t', help="Number of threads", metavar="THREADS", dest="threads", required=True)
 parser.add_argument('--skipsteps', help="Skip steps", metavar="SKIPSTEPS", dest="skipsteps", nargs='+', type=int, required=False)
@@ -21,10 +21,15 @@ args = parser.parse_args()
 name = args.name
 read1 = args.read1
 read2 = args.read2
-refgenpath = args.refgenpath
 outpath = args.outpath
 threads = args.threads
 
+#Prepare reference genomes
+refgen = args.refgen
+refgenlist = [l.split('=') for l in refgen.split(',') if l]
+refgencount = len(refgenlist)
+
+#Prepare skipsteps
 if args.skipsteps is None:
     skipsteps = 0,
 else:
@@ -32,6 +37,7 @@ else:
     if isinstance(skipsteps,int):
         skipsteps = (skipsteps,)
 
+#Prepare includesteps
 if args.includesteps is None:
     includesteps = 1,2,3,4,5,6,7,8,9
 else:
@@ -86,7 +92,7 @@ if ( 3 in includesteps and 3 not in skipsteps ):
     logfile.close()
 
     from genome_mapping import copy_genome
-    copy_genome(refgenpath,outpath,name,logfilepath)
+    copy_genome(refgen,outpath,name,logfilepath,refgencount)
 
     #from genome_mapping import edit_genome
     #edit_genome(refgenpath,outpath,name,logfilepath)

@@ -12,44 +12,47 @@ import time
 from shutil import copyfile
 
 #Copy reference genome to working directory
-def copy_genome(refgenomepath,outpath,name,logfilepath):
+def copy_genome(refgen,refgencount,outpath,name,logfilepath):
     #Create genome_mapping directory if it does not exist
-    newdir = "genome_mapping"
-    absnewdir = os.path.join(outpath, name + '.' + newdir)
+    genome_mapping_dir = "genome_mapping"
+    genome_mapping_dir_abs = os.path.join(outpath, name + '.' + genome_mapping_dir)
     #Create genomes directory if it does not exist
-    if not os.path.exists(absnewdir):
-        os.makedirs(absnewdir)
-    genomedir = "genomes"
-    absgenomedir = os.path.join(outpath, genomedir)
-    if not os.path.exists(absgenomedir):
-        os.makedirs(absgenomedir)
+    if not os.path.exists(genome_mapping_dir_abs):
+        os.makedirs(genome_mapping_dir_abs)
+    genomes_dir = "genomes"
+    genomes_dir_abs = os.path.join(outpath, genomes_dir)
+    if not os.path.exists(genomes_dir_abs):
+        os.makedirs(genomes_dir_abs)
 
-    #Copy genome file to genomes directory if it is not already there
-    refgen = os.path.basename(refgenomepath)
-    newgenomepath = os.path.join(absgenomedir, refgen)
-    newgenomepathnoext = newgenomepath.rsplit( ".", 1 )[ 0 ]
-    newgenomepathnoext2 = newgenomepath.rsplit( ".", 2 )[ 0 ]
-    newgenomepath2 = os.path.join(newgenomepathnoext + '.fna')
-    newgenomepath3 = os.path.join(newgenomepathnoext2 + '.fna')
-    if ( not os.path.exists(newgenomepath) and not os.path.exists(newgenomepath2) and not os.path.exists(newgenomepath3) ):
-        #Add to log
-        logfile=open(logfilepath,"a+")
-        current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-        logfile.write("{0} |    Transferring genome {1} to working directory \r\n".format(current_time,refgenomepath))
-        logfile.close()
-        copyfile(refgenomepath, newgenomepath)
-    else:
-        #Add to log
-        logfile=open(logfilepath,"a+")
-        current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-        logfile.write("{0} |    Genome {1} already exists in working directory \r\n".format(current_time,newgenomepath))
-        logfile.close()
-
+    #Copy genome file(s) to genomes directory if it is not already there
+    for i in range(1, refgencount):
+        #Declare genome name
+        refgenname = refgenlist[i-1][0]
+        #Declare original genome path
+        refgenoriginalpath = refgenlist[i-1][1]
+        #Declare new genome path and copy file
+        if refgenoriginalpath.endswith('.gz'):
+            refgenpath = os.path.join(genomes_dir_abs, refgenname + '.fna.gz')
+            if not os.path.exists(refgenpath):
+                logfile=open(logfilepath,"a+")
+                current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+                logfile.write("{0} |    Transferring {1} genome to working directory \r\n".format(current_time,refgenname))
+                logfile.close()
+                copyfile(refgenoriginalpath, refgenpath)
+        if ( refgenoriginalpath.endswith('.fasta') or refgenoriginalpath.endswith('.fa') or refgenoriginalpath.endswith('.fna') ):
+            refgenpath = os.path.join(genomes_dir_abs, refgenname + '.fna')
+            if not os.path.exists(refgenpath):
+                logfile=open(logfilepath,"a+")
+                current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+                logfile.write("{0} |    Transferring {1} genome to working directory \r\n".format(current_time,refgenname))
+                logfile.close()
+                copyfile(refgenoriginalpath, refgenpath)
+                
     #Replace original genome path with new path
     refgenomepath = newgenomepath
 
     #Manipulate reference genome
-    if refgenomepath.endswith('.gz'):    
+    if refgenomepath.endswith('.gz'):
         if os.path.exists(refgenomepath):
             logfile=open(logfilepath,"a+")
             current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
