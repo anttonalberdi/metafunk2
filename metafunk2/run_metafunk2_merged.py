@@ -22,11 +22,6 @@ projectpath = args.projectpath
 threads = args.threads
 memory = args.memory
 
-#Prepare reference genomes
-refgen = args.refgen
-refgenlist = [l.split('=') for l in refgen.split(',') if l]
-refgencount = len(refgenlist)
-
 #Prepare memory
 if args.memory is None:
     memory = 250
