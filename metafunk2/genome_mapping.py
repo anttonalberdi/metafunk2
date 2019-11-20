@@ -49,29 +49,16 @@ def copy_genome(refgenlist,outpath,name,logfilepath):
                 logfile.close()
                 copyfile(refgenoriginalpath, refgenpath)
 
-    #Replace original genome path with new path
-    refgenomepath = newgenomepath
-
     #Manipulate reference genome
-    if refgenomepath.endswith('.gz'):
-        if os.path.exists(refgenomepath):
+    if refgenpath.endswith('.gz'):
+        if not os.path.exists(refgenpath):
             logfile=open(logfilepath,"a+")
             current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-            logfile.write("{0} |    Decompressing reference genome {1} \r\n".format(current_time,refgenomepath))
+            logfile.write("{0} |    Decompressing reference genome {1} \r\n".format(current_time,refgenname))
             logfile.close()
-            DecompCmd = 'pigz -d '+refgenomepath+''
+            DecompCmd = 'pigz -d '+refgenpath+''
             subprocess.check_call(DecompCmd, shell=True)
-            refgenomepath = refgenomepath.replace(".gz", "")
-    if refgenomepath.endswith('.fasta'):
-        refgenomepathnoext = refgenomepath.rsplit( ".", 1 )[ 0 ]
-        newrefgenpath = os.path.join(refgenomepathnoext + '.fna')
-        if os.path.exists(refgenomepath):
-            os.rename(refgenomepath,newrefgenpath)
-    if refgenomepath.endswith('.fa'):
-        refgenomepathnoext = refgenomepath.rsplit( ".", 1 )[ 0 ]
-        newrefgenpath = os.path.join(refgenomepathnoext + '.fna')
-        if os.path.exists(refgenomepath):
-            os.rename(refgenomepath,newrefgenpath)
+            refgenpath = refgenpath.replace(".gz", "")
 
 #def index_genome(refgenomepath):
 
