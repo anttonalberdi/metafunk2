@@ -64,13 +64,14 @@ def copy_genome(refgenlist,outpath,name,logfilepath):
 
         #Manipulate reference genome
         if refgenpath.endswith('.gz'):
-            logfile=open(logfilepath,"a+")
-            current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-            logfile.write("{0} |    Decompressing {1} genome \r\n".format(current_time,refgenname))
-            logfile.close()
-            DecompCmd = 'pigz -d '+refgenpath+''
-            subprocess.check_call(DecompCmd, shell=True)
-            refgenpath = refgenpath.replace(".gz", "")
+            refgenpathuncomp = refgenpath.replace(".gz", "")
+            if not os.path.exists(refgenpathuncomp):
+                logfile=open(logfilepath,"a+")
+                current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+                logfile.write("{0} |    Decompressing {1} genome \r\n".format(current_time,refgenname))
+                logfile.close()
+                DecompCmd = 'pigz -d '+refgenpath+''
+                subprocess.check_call(DecompCmd, shell=True)
 
 #def index_genome(refgenomepath):
 
