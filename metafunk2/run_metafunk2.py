@@ -26,7 +26,7 @@ outpath = args.outpath
 threads = args.threads
 
 if args.skipsteps is None:
-    skipsteps = 0
+    skipsteps = 0,0
 else:
     skipsteps = args.skipsteps
 
