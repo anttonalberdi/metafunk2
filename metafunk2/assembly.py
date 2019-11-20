@@ -32,4 +32,4 @@ def assembly(outpath,name,logfilepath,statsfilepath,threads,memory):
     #Move reads to parent folder
     assembly = os.path.join(assembly_dir, 'contigs.fasta')
     assemblyfinal = os.path.join(outpath, name +  '.fna')
-    shutil.move(read1out, assemblyfinal)
+    shutil.copy(assembly, assemblyfinal)
