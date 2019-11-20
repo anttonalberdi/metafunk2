@@ -94,7 +94,7 @@ if ( 3 in includesteps and 3 not in skipsteps ):
     copy_genome(refgenpath,outpath,name,logfilepath)
 
     from genome_mapping import edit_genome
-    edit_genome(refgenomepath,outpath,name,logfilepath)
+    edit_genome(refgenpath,outpath,name,logfilepath)
 
 #from genome_mapping import index_genome
 #index_genome(refgenpath)
