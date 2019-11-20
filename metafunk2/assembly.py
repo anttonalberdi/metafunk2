@@ -10,6 +10,7 @@ import argparse
 import subprocess
 import time
 import gzip
+from shutil import movefile
 
 def assembly(outpath,name,logfilepath,statsfilepath,threads,memory):
     prevdir = "genome_mapping"
@@ -21,9 +22,14 @@ def assembly(outpath,name,logfilepath,statsfilepath,threads,memory):
     if not os.path.exists(assembly_abs):
         os.makedirs(assembly_abs)
     #Declare input files
-    read1in = os.path.join(absprevdirr, name +  '.1.fq')
-    read2in = os.path.join(absprevdirr, name +  '.2.fq')
+    read1in = os.path.join(outpath, name +  '.1.fq')
+    read2in = os.path.join(outpath, name +  '.2.fq')
 
     #Run assembly
     assemblyCmd = 'metaspades.py -1 '+read1in+' -2 '+read2in+' -t '+threads+' -m '+memory+' -k 21,29,39,59,79,99,119 --only-assembler -o '+assembly_abs+''
     subprocess.check_call(assemblyCmd, shell=True)
+
+    #Move reads to parent folder
+    assembly = os.path.join(assembly_dir, 'contigs.fasta')
+    assemblyfinal = os.path.join(outpath, name +  '.fna')
+    shutil.move(read1out, assemblyfinal)

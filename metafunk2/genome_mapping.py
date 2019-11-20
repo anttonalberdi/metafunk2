@@ -11,6 +11,7 @@ import subprocess
 import time
 import gzip
 from shutil import copyfile
+from shutil import movefile
 
 #Copy reference genome to working directory
 def copy_genome(refgenlist,outpath,name,logfilepath):
@@ -163,3 +164,9 @@ def genome_mapping(refgenlist,outpath,name,logfilepath,threads,statsfilepath):
         statsfile=open(statsfilepath,"a+")
         statsfile.write("Reads after mapping to {0}\t{1}\r\nBases after mapping to {0}\t{2}".format(refgenname,reads,bases))
         statsfile.close()
+
+        #Move reads to parent folder
+        read1final = os.path.join(outpath, name +  '.1.fq')
+        read2final = os.path.join(outpath, name +  '.2.fq')
+        shutil.move(read1out, read1final)
+        shutil.move(read1out, read2final)

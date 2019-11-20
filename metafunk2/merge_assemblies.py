@@ -12,7 +12,7 @@ import time
 import gzip
 
 def merge_assemblies(projectname,projectpath,threads,memory,logfilepath):
-    #Create merged directory if it does not exist
+    #Create merged and merged/assembly directories if do not exist
     merged_dir = "merged"
     merged_abs = os.path.join(projectpath, merged_dir)
     if not os.path.exists(merged_abs):
