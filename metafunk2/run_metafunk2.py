@@ -26,18 +26,18 @@ outpath = args.outpath
 threads = args.threads
 
 if args.skipsteps is None:
-    skipsteps = 0,0
+    skipsteps = 0,
 else:
     skipsteps = args.skipsteps
-
-print(skipsteps)
+    if isinstance(skipsteps,int):
+        skipsteps = (skipsteps,)
 
 if args.includesteps is None:
     includesteps = 1,2,3,4,5,6,7,8,9
 else:
     includesteps = args.includesteps
-
-print(includesteps)
+    if isinstance(includesteps,int):
+        includesteps = (includesteps,)
 
 logfilepath=os.path.join(outpath,name + '.log')
 logfile=open(logfilepath,"w+")
