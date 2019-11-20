@@ -12,7 +12,7 @@ import time
 from shutil import copyfile
 
 #Copy reference genome to working directory
-def copy_genome(refgen,refgencount,outpath,name,logfilepath):
+def copy_genome(refgenlist,outpath,name,logfilepath):
     #Create genome_mapping directory if it does not exist
     genome_mapping_dir = "genome_mapping"
     genome_mapping_dir_abs = os.path.join(outpath, name + '.' + genome_mapping_dir)
@@ -25,6 +25,7 @@ def copy_genome(refgen,refgencount,outpath,name,logfilepath):
         os.makedirs(genomes_dir_abs)
 
     #Copy genome file(s) to genomes directory if it is not already there
+    refgencount = len(refgenlist)
     for i in range(1, refgencount):
         #Declare genome name
         refgenname = refgenlist[i-1][0]
@@ -47,7 +48,7 @@ def copy_genome(refgen,refgencount,outpath,name,logfilepath):
                 logfile.write("{0} |    Transferring {1} genome to working directory \r\n".format(current_time,refgenname))
                 logfile.close()
                 copyfile(refgenoriginalpath, refgenpath)
-                
+
     #Replace original genome path with new path
     refgenomepath = newgenomepath
 
