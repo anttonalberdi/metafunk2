@@ -41,7 +41,7 @@ def copy_genome(refgenlist,outpath,name,logfilepath):
                 current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
                 logfile.write("{0} |    Transferring {1} genome to working directory \r\n".format(current_time,refgenname))
                 logfile.close()
-                copyfile(refgenoriginalpath, refgenpath)
+                shutil.copy(refgenoriginalpath, refgenpath)
             else:
                 logfile=open(logfilepath,"a+")
                 current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
@@ -54,7 +54,7 @@ def copy_genome(refgenlist,outpath,name,logfilepath):
                 current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
                 logfile.write("{0} |    Transferring {1} genome to working directory \r\n".format(current_time,refgenname))
                 logfile.close()
-                copyfile(refgenoriginalpath, refgenpath)
+                shutil.copy(refgenoriginalpath, refgenpath)
             else:
                 logfile=open(logfilepath,"a+")
                 current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
