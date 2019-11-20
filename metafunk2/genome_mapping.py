@@ -34,6 +34,12 @@ def copy_genome(refgenomepath,outpath,name,logfilepath):
         logfile.write("     {0} | Transferring genome {1} to working directory \r\n".format(current_time,refgenomepath))
         logfile.close()
         copyfile(refgenomepath, newgenomepath)
+    else:
+        #Add to log
+        logfile=open(logfilepath,"a+")
+        current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+        logfile.write("     {0} | Genome {1} already exists in working directory \r\n".format(current_time,refgenomepath))
+        logfile.close()
 
     #Replace original genome path with new path
     refgenomepath = newgenomepath
