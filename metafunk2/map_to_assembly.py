@@ -11,7 +11,7 @@ import subprocess
 import time
 import gzip
 
-def map_to_assembly(outpath,name,logfilepath):
+def map_to_assembly(outpath,name,logfilepath,threads):
     newdir = "binning"
     absnewdir = os.path.join(outpath, name + '.' + newdir)
     if not os.path.exists(absnewdir):
@@ -46,4 +46,3 @@ def map_to_assembly(outpath,name,logfilepath):
     logfile.write("{0} |    Mapping reads to assemblt \r\n".format(current_time,refgenname))
     logfile.close()
     subprocess.check_call(mapCmd, shell=True)
-    

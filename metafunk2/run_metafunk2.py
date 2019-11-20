@@ -142,4 +142,4 @@ if ( 5 in includesteps and 5 not in skipsteps ):
     logfile.close()
 
     from map_to_assembly import map_to_assembly
-    map_to_assembly(outpath,name,logfilepath)
+    map_to_assembly(outpath,name,logfilepath,threads)
