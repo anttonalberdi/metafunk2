@@ -31,7 +31,6 @@ memory = args.memory
 refgen = args.refgen
 refgenlist = [l.split('=') for l in refgen.split(',') if l]
 refgencount = len(refgenlist)
-print(refgenlist)
 
 #Prepare skipsteps
 if args.skipsteps is None:

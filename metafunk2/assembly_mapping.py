@@ -12,13 +12,13 @@ import time
 import gzip
 
 def assembly_mapping(outpath,name,logfilepath,threads):
-    newdir = "binning"
+    newdir = "assembly_mapping"
     absnewdir = os.path.join(outpath, name + '.' + newdir)
     if not os.path.exists(absnewdir):
         os.makedirs(absnewdir)
 
     assemblypath = os.path.join(outpath, name + '.assembly','contigs.fasta')
-    assemblybampath = os.path.join(outpath,name + '.assembly_mapping', name + '.mapped.bam')
+    assemblybampath = os.path.join(absnewdir, name + '.mapped.bam')
     read1in = os.path.join(outpath, name + '.genome_mapping',name + '.1.fq')
     read2in = os.path.join(outpath, name + '.genome_mapping',name + '.2.fq')
     #Index assembly
