@@ -19,10 +19,8 @@ def merge_assemblies(projectname,projectpath,threads,memory):
         os.makedirs(merged_abs)
 
     assembliespath = os.path.join(projectpath,'*.assembly', 'contigs.fasta')
-    mergedassembliespath = os.path.join(projectpath,merged, 'assemblies.fna')
+    mergedassembliespath = os.path.join(merged_abs, 'assemblies.fna')
 
     #Concatenate assemblies
     concCmd = 'cat '+assembliespath+' > '+mergedassembliespath+''
     subprocess.check_call(concCmd, shell=True)
-
-    
