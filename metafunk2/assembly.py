@@ -10,7 +10,7 @@ import argparse
 import subprocess
 import time
 
-def assembly(outpath,name,logfilepath,statfilepath,threads):
+def assembly(outpath,name,logfilepath,statsfilepath,threads,memory):
     prevdir = "genome_mapping"
     absprevdirr = os.path.join(outpath, name + '.' + prevdir)
     #Create assembly directory if it does not exist
