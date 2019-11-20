@@ -74,6 +74,29 @@ def copy_genome(refgenlist,outpath,name,logfilepath):
                 DecompCmd = 'pigz -d '+refgenpath+''
                 subprocess.check_call(DecompCmd, shell=True)
 
-#def index_genome(refgenomepath):
+#Index reference genomes if not already indexed
+def index_genome(refgenlist,outpath,name,logfilepath):
+    refgencount = len(refgenlist)
+    for i in range(refgencount):
+        #Declare genome name
+        refgenname = refgenlist[i][0]
+        refgenpath = os.path.join(outpath,'genomes', refgenname + '.fna')
+        refgenfai = os.path.join(outpath,'genomes', refgenname + '.fai')
+        if not os.path.exists(refgenfai):
+            logfile=open(logfilepath,"a+")
+            current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+            logfile.write("{0} |    Indexing {1} genome \r\n".format(current_time,refgenname))
+            logfile.close()
+            samtoolsindexCmd = 'samtools faidx '+refgenpath+''
+            bwaindexCmd = 'bwa index '+refgenpath+''
+            subprocess.check_call(samtoolsindexCmd, shell=True)
+            subprocess.check_call(bwaindexCmd, shell=True)
+        else:
+            logfile=open(logfilepath,"a+")
+            current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+            logfile.write("{0} |    {1} genome is already indexed \r\n".format(current_time,refgenname))
+            logfile.close()
+
+
 
 #def genome_mapping(read1,read2,refgenomepath):
