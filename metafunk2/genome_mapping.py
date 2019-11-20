@@ -81,7 +81,7 @@ def index_genome(refgenlist,outpath,name,logfilepath):
         #Declare genome name and path
         refgenname = refgenlist[i][0]
         refgenpath = os.path.join(outpath,'genomes', refgenname + '.fna')
-        refgenfai = os.path.join(outpath,'genomes', refgenname + '.fai')
+        refgenfai = os.path.join(outpath,'genomes', refgenname + '.fna.fai')
         if not os.path.exists(refgenfai):
             logfile=open(logfilepath,"a+")
             current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
@@ -109,17 +109,23 @@ def genome_mapping(refgenlist,outpath,name,logfilepath,threads):
     #Iterate across reference genomes
     refgencount = len(refgenlist)
     for i in range(refgencount):
+        if i>0:
+            read1in = read1out
+            read2in = read2out
         #Declare genome name and path
         refgenname = refgenlist[i][0]
         refgenpath = os.path.join(outpath,'genomes', refgenname + '.fna')
         bampath_all = os.path.join(outpath,'genome_mapping', name + '.' + refgenname + '.bam')
         bampath_host = os.path.join(outpath,'genome_mapping', name + '.mappedto.' + refgenname + '.bam')
         bampath_mg = os.path.join(outpath,'genome_mapping', name + '.mg.bam')
+        read1out = os.path.join(outpath,'genome_mapping', name +  '.1.fq')
+        read2out = os.path.join(outpath,'genome_mapping', name +  '.2.fq')
 
         #Declare mapping commands
         mapCmd = 'bwa mem -t '+threads+' -R "@RG\tID:ProjectName\tCN:AuthorName\tDS:Mappingt\tPL:Illumina1.9\tSM:Sample" '+refgenpath+' '+read1in+' '+read2in+' > '+read2in+' | | samtools view -T '+refgenpath+' -b - > '+bampath_all+''
-        hostCmd = 'samtools view -T '+refgenpath+' -b -F12 '+bampath_all+' > '+bampath_host+''
-        mgCmd = 'samtools view -T '+refgenpath+' -b -f12 '+bampath_all+' > '+bampath_mg+''
+        hostmapCmd = 'samtools view -T '+refgenpath+' -b -F12 '+bampath_all+' > '+bampath_host+''
+        mgmapCmd = 'samtools view -T '+refgenpath+' -b -f12 '+bampath_all+' > '+bampath_mg+''
+        mgfqCmd = 'samtools fastq -s '+singletonpath+' -1 '+read1out+' -2 '+read2out+' '+bampath_mg+''
 
         #Mapping to genome
         logfile=open(logfilepath,"a+")
@@ -133,7 +139,7 @@ def genome_mapping(refgenlist,outpath,name,logfilepath,threads):
         current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
         logfile.write("{0} |    Extracting reads mapped to {1} genome (genomic reads) \r\n".format(current_time,refgenname))
         logfile.close()
-        subprocess.check_call(bwaindexCmd, shell=True)
+        subprocess.check_call(hostmapCmd, shell=True)
 
         #Extracting unmapped (metagenomic) reads
         #Extracting mapped (genomic) reads
@@ -141,4 +147,7 @@ def genome_mapping(refgenlist,outpath,name,logfilepath,threads):
         current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
         logfile.write("{0} |    Extracting reads not mapped to {1} genome (metagenomic reads) \r\n".format(current_time,refgenname))
         logfile.close()
-        subprocess.check_call(bwaindexCmd, shell=True)
+        #Extract unmapped
+        subprocess.check_call(mgmapCmd, shell=True)
+        #Convert unmapped to fastq
+        subprocess.check_call(mgfqCmd, shell=True)
