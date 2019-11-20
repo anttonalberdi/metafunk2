@@ -60,12 +60,12 @@ def copy_genome(refgenomepath,outpath,name,logfilepath):
     if refgenomepath.endswith('.fasta'):
         refgenomepathnoext = refgenomepath.rsplit( ".", 1 )[ 0 ]
         newrefgenpath = os.path.join(refgenomepathnoext + '.fna')
-        if os.path.exists(refgenomepath)
+        if os.path.exists(refgenomepath):
             os.rename(refgenomepath,newrefgenpath)
     if refgenomepath.endswith('.fa'):
         refgenomepathnoext = refgenomepath.rsplit( ".", 1 )[ 0 ]
         newrefgenpath = os.path.join(refgenomepathnoext + '.fna')
-        if os.path.exists(refgenomepath)
+        if os.path.exists(refgenomepath):
             os.rename(refgenomepath,newrefgenpath)
 
 #def index_genome(refgenomepath):
