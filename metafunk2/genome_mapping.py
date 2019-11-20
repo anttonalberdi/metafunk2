@@ -26,11 +26,11 @@ def copy_genome(refgenlist,outpath,name,logfilepath):
 
     #Copy genome file(s) to genomes directory if it is not already there
     refgencount = len(refgenlist)
-    for i in range(1, refgencount):
+    for i in range(refgencount):
         #Declare genome name
-        refgenname = refgenlist[i-1][0]
+        refgenname = refgenlist[i][0]
         #Declare original genome path
-        refgenoriginalpath = refgenlist[i-1][1]
+        refgenoriginalpath = refgenlist[i][1]
         #Declare new genome path and copy file
         if refgenoriginalpath.endswith('.gz'):
             refgenpath = os.path.join(genomes_dir_abs, refgenname + '.fna.gz')
