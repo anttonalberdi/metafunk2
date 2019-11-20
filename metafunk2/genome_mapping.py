@@ -29,7 +29,7 @@ def copy_genome(refgenomepath,outpath,name,logfilepath):
     newgenomepath = os.path.join(absgenomedir, refgen)
     newgenomepathnoext = newgenomepath.rsplit( ".", 1 )[ 0 ]
     newgenomepath2 = os.path.join(newgenomepathnoext + '.fna')
-    if ( not os.path.exists(newgenomepath) or not os.path.exists(newgenomepath2) ):
+    if ( not os.path.exists(newgenomepath) and not os.path.exists(newgenomepath2) ):
         #Add to log
         logfile=open(logfilepath,"a+")
         current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
