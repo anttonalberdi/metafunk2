@@ -31,5 +31,5 @@ def merge_assemblies(projectname,projectpath,threads,memory,logfilepath):
     subprocess.check_call(concCmd, shell=True)
 
     #Removing redundant contigs
-    cdhitCmd = 'cd-hit '+mergedassembliespath+' -o '+nrassembliespath+' -T '+threads+' -M 0 -c 0.99 -d 100 -aS 0.9'
+    cdhitCmd = 'cd-hit -i '+mergedassembliespath+' -o '+nrassembliespath+' -T '+threads+' -M 0 -c 0.99 -d 100 -aS 0.9'
     subprocess.check_call(cdhitCmd, shell=True)
