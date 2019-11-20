@@ -97,7 +97,7 @@ def index_genome(refgenlist,outpath,name,logfilepath):
             logfile.write("{0} |    {1} genome is already indexed \r\n".format(current_time,refgenname))
             logfile.close()
 
-def genome_mapping(refgenlist,outpath,name,logfilepath,threads):
+def genome_mapping(refgenlist,outpath,name,logfilepath,threads,statsfilepath):
     #Create quality_filtering subdirectory
     prevdir = "duplicate_removal"
     absprevdirr = os.path.join(outpath, name + '.' + prevdir)
@@ -132,22 +132,36 @@ def genome_mapping(refgenlist,outpath,name,logfilepath,threads):
         current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
         logfile.write("{0} |    Mapping reads to {1} genome \r\n".format(current_time,refgenname))
         logfile.close()
-        #subprocess.check_call(mapCmd, shell=True)
+        subprocess.check_call(mapCmd, shell=True)
 
         #Extracting mapped (genomic) reads
         logfile=open(logfilepath,"a+")
         current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
         logfile.write("{0} |    Extracting reads mapped to {1} genome (genomic reads) \r\n".format(current_time,refgenname))
         logfile.close()
-        #subprocess.check_call(hostmapCmd, shell=True)
+        subprocess.check_call(hostmapCmd, shell=True)
 
         #Extracting unmapped (metagenomic) reads
         #Extracting mapped (genomic) reads
         logfile=open(logfilepath,"a+")
         current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-        logfile.write("{0} |    Extracting reads not mapped to {1} genome (metagenomic reads) \r\n".format(current_time,refgenname))
+        logfile.write("{0} |    Extracting reads not mapped to {1} genome (metagenomic reads) and transforming them to fastq \r\n".format(current_time,refgenname))
         logfile.close()
         #Extract unmapped
-        #subprocess.check_call(mgmapCmd, shell=True)
+        subprocess.check_call(mgmapCmd, shell=True)
         #Convert unmapped to fastq
         subprocess.check_call(mgfqCmd, shell=True)
+
+        #Get stats
+        reads = 0
+        bases = 0
+        with gzip.open(read1out, 'rb') as read:
+            for id in read:
+                seq = next(read)
+                reads += 1
+                bases += len(seq.strip())
+                next(read)
+                next(read)
+        statsfile=open(statsfilepath,"a+")
+        statsfile.write("Reads after mapping to {0}\t{1}\r\nBases after mapping to {0}\t{2}".format(refgenname,reads,bases))
+        statsfile.close()

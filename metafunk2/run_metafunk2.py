@@ -116,4 +116,4 @@ if ( 3 in includesteps and 3 not in skipsteps ):
     index_genome(refgenlist,outpath,name,logfilepath)
 
     from genome_mapping import genome_mapping
-    genome_mapping(refgenlist,outpath,name,logfilepath,threads)
+    genome_mapping(refgenlist,outpath,name,logfilepath,threads,statsfilepath)
