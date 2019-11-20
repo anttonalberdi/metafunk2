@@ -11,7 +11,7 @@ import subprocess
 from shutil import copyfile
 
 #Copy reference genome to working directory
-def copy_genome(refgenomepath,outpath):
+def copy_genome(refgenomepath,outpath,name):
     #Create genome_mapping directory if it does not exist
     newdir = "genome_mapping"
     absnewdir = os.path.join(outpath, name + '.' + newdir)
