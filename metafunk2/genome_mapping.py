@@ -115,15 +115,15 @@ def genome_mapping(refgenlist,outpath,name,logfilepath,threads):
         #Declare genome name and path
         refgenname = refgenlist[i][0]
         refgenpath = os.path.join(outpath,'genomes', refgenname + '.fna')
-        bampath_all = os.path.join(outpath,'genome_mapping', name + '.' + refgenname + '.bam')
-        bampath_host = os.path.join(outpath,'genome_mapping', name + '.mappedto.' + refgenname + '.bam')
-        bampath_mg = os.path.join(outpath,'genome_mapping', name + '.mg.bam')
-        singletonpath = os.path.join(outpath,'genome_mapping', name + '.singleton.fq')
-        read1out = os.path.join(outpath,'genome_mapping', name +  '.1.fq')
-        read2out = os.path.join(outpath,'genome_mapping', name +  '.2.fq')
+        bampath_all = os.path.join(outpath, name + '.genome_mapping', name + '.' + refgenname + '.bam')
+        bampath_host = os.path.join(outpath,name + '.genome_mapping', name + '.mappedto.' + refgenname + '.bam')
+        bampath_mg = os.path.join(outpath,name + '.genome_mapping', name + '.mg.bam')
+        singletonpath = os.path.join(outpath,name + '.genome_mapping', name + '.singleton.fq')
+        read1out = os.path.join(outpath,name + '.genome_mapping', name +  '.1.fq')
+        read2out = os.path.join(outpath,name + '.genome_mapping', name +  '.2.fq')
 
         #Declare mapping commands
-        mapCmd = 'bwa mem -t '+threads+' '+refgenpath+' '+read1in+' '+read2in+' | samtools view -T '+refgenpath+' -b - > '+bampath_all+''
+        mapCmd = 'bwa mem -t '+threads+' -R "@RG\tID:ProjectName\tCN:AuthorName\tDS:Mappingt\tPL:Illumina1.9\tSM:Sample" '+refgenpath+' '+read1in+' '+read2in+' | samtools view -T '+refgenpath+' -b - > '+bampath_all+''
         hostmapCmd = 'samtools view -T '+refgenpath+' -b -F12 '+bampath_all+' > '+bampath_host+''
         mgmapCmd = 'samtools view -T '+refgenpath+' -b -f12 '+bampath_all+' > '+bampath_mg+''
         mgfqCmd = 'samtools fastq -s '+singletonpath+' -1 '+read1out+' -2 '+read2out+' '+bampath_mg+''
