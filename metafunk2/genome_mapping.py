@@ -167,5 +167,5 @@ def genome_mapping(refgenlist,outpath,name,logfilepath,threads,statsfilepath):
         #Move reads to parent folder
         read1final = os.path.join(outpath, name +  '.1.fq')
         read2final = os.path.join(outpath, name +  '.2.fq')
-        shutil.move(read1out, read1final)
-        shutil.move(read2out, read2final)
+        shutil.copy(read1out, read1final)
+        shutil.copy(read2out, read2final)

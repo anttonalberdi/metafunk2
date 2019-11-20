@@ -16,7 +16,7 @@ parser.add_argument('-r', help="Reference genome sequences",metavar="REFGEN", de
 parser.add_argument('-o', help="Output path", metavar="OUTPATH", dest="outpath", required=True)
 parser.add_argument('-t', help="Number of threads", metavar="THREADS", dest="threads", default=8, required=False)
 parser.add_argument('-m', help="RAM memory limit", metavar="MEMORY", dest="memory", default=250, required=False)
-parser.add_argument('-c', help="Clean intermediate files", metavar="CLEAN", dest="clean", action='store_true')
+#parser.add_argument('-c', help="Clean intermediate files", metavar="CLEAN", dest="clean", action='store_true')
 parser.add_argument('--skipsteps', help="Skip steps", metavar="SKIPSTEPS", dest="skipsteps", nargs='+', type=int, required=False)
 parser.add_argument('--includesteps', help="Include steps", metavar="INCLUDESTEPS", dest="includesteps", nargs='+', type=int, required=False)
 args = parser.parse_args()
@@ -27,9 +27,7 @@ read2 = args.read2
 outpath = args.outpath
 threads = args.threads
 memory = args.memory
-clean = args.clean
-
-print(clean)
+#clean = args.clean
 
 #Prepare reference genomes
 refgen = args.refgen
