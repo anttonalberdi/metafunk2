@@ -17,12 +17,16 @@ def merge_assemblies(projectname,projectpath,threads,memory,logfilepath):
     merged_abs = os.path.join(projectpath, merged_dir)
     if not os.path.exists(merged_abs):
         os.makedirs(merged_abs)
+    assembly_dir = "assembly"
+    assembly_abs = os.path.join(projectpath, assembly_dir)
+    if not os.path.exists(assembly_abs):
+        os.makedirs(assembly_abs)
 
     assembliespath = os.path.join(projectpath,'*.assembly', 'contigs.fasta')
-    mergedassembliespath = os.path.join(merged_abs, 'assemblies.fna')
-    mergedassembliesbase = os.path.join(merged_abs, 'assemblies')
-    nrassembliespath = os.path.join(merged_abs, 'assemblies.nr.fna')
-    afgassembliespath = os.path.join(merged_abs, 'assemblies.afg')
+    mergedassembliespath = os.path.join(assembly_abs, 'assemblies.fna')
+    mergedassembliesbase = os.path.join(assembly_abs, 'assemblies')
+    nrassembliespath = os.path.join(assembly_abs, 'assemblies.nr.fna')
+    afgassembliespath = os.path.join(assembly_abs, 'assemblies.afg')
 
     #Concatenate assemblies
     logfile=open(logfilepath,"a+")
