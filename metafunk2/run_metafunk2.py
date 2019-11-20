@@ -41,6 +41,8 @@ else:
 
 print(includesteps)
 print(type(includesteps))
+print(skipsteps)
+print(type(skipsteps))
 
 logfilepath=os.path.join(outpath,name + '.log')
 logfile=open(logfilepath,"w+")
