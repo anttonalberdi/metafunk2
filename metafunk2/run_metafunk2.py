@@ -56,7 +56,7 @@ logfile.close()
 if ( 1 in includesteps and 1 not in skipsteps ):
     logfile=open(logfilepath,"a+")
     current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-    logfile.write("{0} | This is metafunk2 starting quality filtering \r\n".format(current_time))
+    logfile.write("{0} | Metafunk2 has started quality filtering the reads \r\n".format(current_time))
     logfile.close()
 
     from quality_filtering import quality_filtering
@@ -69,7 +69,7 @@ if ( 1 in includesteps and 1 not in skipsteps ):
 if ( 2 in includesteps and 2 not in skipsteps ):
     logfile=open(logfilepath,"a+")
     current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-    logfile.write("{0} | This is metafunk2 starting duplicate removal \r\n".format(current_time))
+    logfile.write("{0} | Metafunk2 has started to remove duplicated reads (clonality) \r\n".format(current_time))
     logfile.close()
 
     from duplicate_removal import duplicate_removal
@@ -82,7 +82,7 @@ if ( 2 in includesteps and 2 not in skipsteps ):
 if ( 3 in includesteps and 3 not in skipsteps ):
     logfile=open(logfilepath,"a+")
     current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-    logfile.write("{0} | This is metafunk2 starting map reads agains reference genomes \r\n".format(current_time))
+    logfile.write("{0} | Metafunk2 has started to map reads against reference genomes \r\n".format(current_time))
     logfile.close()
 
     from genome_mapping import copy_genome
