@@ -10,7 +10,7 @@ import argparse
 import subprocess
 import time
 import gzip
-from shutil import movefile
+import shutil
 
 def assembly(outpath,name,logfilepath,statsfilepath,threads,memory):
     prevdir = "genome_mapping"

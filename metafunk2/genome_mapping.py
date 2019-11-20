@@ -10,8 +10,7 @@ import argparse
 import subprocess
 import time
 import gzip
-from shutil import copyfile
-from shutil import movefile
+import shutil 
 
 #Copy reference genome to working directory
 def copy_genome(refgenlist,outpath,name,logfilepath):

@@ -4,7 +4,7 @@
 
 rm -rf metafunk2
 git clone https://github.com/anttonalberdi/metafunk2.git
-python metafunk2/metafunk2/run_metafunk2.py -n blank -1 metafunk2_test/Blank06092017_1.fastq.gz -2 metafunk2_test/Blank06092017_2.fastq.gz -r 'gambusia=databases/GCA_003097735.1_ASM309773v1_genomic.fna.gz,human=databases/GCF_000001405.39_GRCh38.p13_genomic.fna.gz' -o /home/projects/ku-cbd/people/antalb/metafunk2_test -t 8 -m 8 --includesteps 6
+python metafunk2/metafunk2/run_metafunk2.py -n blank -1 metafunk2_test/Blank06092017_1.fastq.gz -2 metafunk2_test/Blank06092017_2.fastq.gz -r 'gambusia=databases/GCA_003097735.1_ASM309773v1_genomic.fna.gz,human=databases/GCF_000001405.39_GRCh38.p13_genomic.fna.gz' -o /home/projects/ku-cbd/people/antalb/metafunk2_test -t 8 -m 8 --includesteps 1 2 3 4
 
 #3
 python metafunk2/metafunk2/run_metafunk2.py -n testsamp -1 metafunk2_test/GH2_3b_1.fastq.gz -2 metafunk2_test/GH2_3b_2.fastq.gz -r 'gambusia=databases/GCA_003097735.1_ASM309773v1_genomic.fna.gz,human=databases/GCF_000001405.39_GRCh38.p13_genomic.fna.gz' -o /home/projects/ku-cbd/people/antalb/metafunk2_test -t 8 -m 250 --includesteps 4 5 6
@@ -12,7 +12,7 @@ python metafunk2/metafunk2/run_metafunk2.py -n testsamp -1 metafunk2_test/GH2_3b
 #MERGED
 rm -rf metafunk2
 git clone https://github.com/anttonalberdi/metafunk2.git
-python metafunk2/metafunk2/run_metafunk2_merged.py -n tests -p /home/projects/ku-cbd/people/antalb/metafunk2_test -t 8 -m 8
+#python metafunk2/metafunk2/run_metafunk2_merged.py -n tests -p /home/projects/ku-cbd/people/antalb/metafunk2_test -t 8 -m 8
 
 workdir="/home/projects/ku-cbd/people/antalb/metafunk2_test"
 xqsub -V -A ku-cbd -W group_list=ku-cbd -d `pwd` -e ${workdir}/merged.err -o ${workdir}/merged.out -l nodes=1:ppn=8,mem=50gb,walltime=0:01:00:00 -N merged -de python metafunk2/metafunk2/run_metafunk2_merged.py -n tests -p /home/projects/ku-cbd/people/antalb/metafunk2_test -t 8 -m 8
