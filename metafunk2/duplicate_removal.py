@@ -10,7 +10,7 @@ import argparse
 import subprocess
 import gzip
 
-def duplicate_removal(read1,read2,outpath,name,threads):
+def duplicate_removal(read1,read2,outpath,name,threads,statsfilepath):
     #Create quality_filtering subdirectory
     prevdir = "quality_filtering"
     absprevdirr = os.path.join(outpath, name + '.' + prevdir)
