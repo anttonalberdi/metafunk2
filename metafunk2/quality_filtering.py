@@ -8,6 +8,7 @@ import sys
 import random
 import argparse
 import subprocess
+import gzip
 
 def quality_filtering(read1,read2,outpath,name,threads,statsfilepath):
     #Create quality_filtering subdirectory

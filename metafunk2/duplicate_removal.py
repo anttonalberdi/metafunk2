@@ -8,6 +8,7 @@ import sys
 import random
 import argparse
 import subprocess
+import gzip
 
 def duplicate_removal(read1,read2,outpath,name,threads):
     #Create quality_filtering subdirectory

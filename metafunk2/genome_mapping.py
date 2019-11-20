@@ -9,6 +9,7 @@ import random
 import argparse
 import subprocess
 import time
+import gzip
 from shutil import copyfile
 
 #Copy reference genome to working directory

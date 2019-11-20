@@ -9,6 +9,7 @@ import random
 import argparse
 import subprocess
 import time
+import gzip
 
 def assembly(outpath,name,logfilepath,statsfilepath,threads,memory):
     prevdir = "genome_mapping"
