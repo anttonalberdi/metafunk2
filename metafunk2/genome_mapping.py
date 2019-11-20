@@ -9,7 +9,6 @@ import random
 import argparse
 import subprocess
 import time
-from pathlib import Path
 from shutil import copyfile
 
 #Copy reference genome to working directory
@@ -56,10 +55,12 @@ def check_genome(refgenomepath,outpath,name,logfilepath):
         subprocess.check_call(DecompCmd, shell=True)
         refgenomepathnew = refgenomepath.replace(".gz", "")
     if refgenpath.endswith('.fasta'):
-        newrefgenpath = refgenomepath.with_suffix('.fna')
+        refgenomepathnoext = refgenomepath.rsplit( ".", 1 )[ 0 ]
+        newrefgenpath = os.path.join(refgenomepathnoext + '.fna')
         os.rename(refgenomepath,newrefgenpath)
     if refgenpath.endswith('.fa'):
-        newrefgenpath = refgenomepath.with_suffix('.fna')
+        refgenomepathnoext = refgenomepath.rsplit( ".", 1 )[ 0 ]
+        newrefgenpath = os.path.join(refgenomepathnoext + '.fna')
         os.rename(refgenomepath,newrefgenpath)
 
 #def index_genome(refgenomepath):
