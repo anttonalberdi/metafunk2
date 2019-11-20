@@ -39,6 +39,9 @@ else:
     if isinstance(includesteps,int):
         includesteps = (includesteps,)
 
+print(includesteps)
+print(type(includesteps))
+
 logfilepath=os.path.join(outpath,name + '.log')
 logfile=open(logfilepath,"w+")
 current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
