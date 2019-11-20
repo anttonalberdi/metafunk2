@@ -23,8 +23,10 @@ def copy_genome(refgenomepath,outpath,name):
     if not os.path.exists(absgenomedir):
         os.makedirs(absgenomedir)
     #Copy genome file to genome_mapping/genomes directory
-    copyfile(refgenomepath, absgenomedir)
     refgen = os.path.basename(refgenomepath)
+    newgenomepath = os.path.join(absgenomedir, refgen)
+    copyfile(refgenomepath, newgenomepath)
+
 
 #Manipulate reference genome
 def check_genome(refgenomepath):
