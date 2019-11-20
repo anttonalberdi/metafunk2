@@ -44,6 +44,6 @@ def map_to_assembly(outpath,name,logfilepath,threads):
     #Mapping to genome
     logfile=open(logfilepath,"a+")
     current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-    logfile.write("{0} |    Mapping reads to assemblt \r\n".format(current_time,refgenname))
+    logfile.write("{0} |    Mapping reads to assembly \r\n".format(current_time))
     logfile.close()
     subprocess.check_call(mapCmd, shell=True)
