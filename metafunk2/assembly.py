@@ -21,7 +21,7 @@ def assembly(outpath,name,logfilepath,statsfilepath,threads,memory):
         os.makedirs(assembly_abs)
     #Declare input files
     read1in = os.path.join(absprevdirr, name +  '.1.fq')
-    read2in = os.path.join(absprevdirr, name +  '.1.fq')
+    read2in = os.path.join(absprevdirr, name +  '.2.fq')
 
     #Run assembly
     assemblyCmd = 'metaspades.py -1 '+read1in+' -2 '+read2in+' -t '+threads+' -m '+memory+' -k 21,29,39,59,79,99,119 --only-assembler -o '+assembly_abs+''
