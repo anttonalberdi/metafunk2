@@ -54,7 +54,7 @@ def quality_filtering(read1,read2,outpath,name,threads,statsfilepath):
     #Get stats
     reads = 0
     bases = 0
-    with gzip.open(read1out, 'rb') as read:
+    with open(read1out, 'rb') as read:
         for id in read:
             seq = next(read)
             reads += 1
