@@ -44,8 +44,7 @@ def copy_genome(refgenomepath,outpath,name,logfilepath):
     #Replace original genome path with new path
     refgenomepath = newgenomepath
 
-#Manipulate reference genome
-def edit_genome(refgenomepath,outpath,name,logfilepath):
+    #Manipulate reference genome
     if refgenomepath.endswith('.gz'):
         logfile=open(logfilepath,"a+")
         current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
