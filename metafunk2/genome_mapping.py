@@ -10,7 +10,7 @@ import argparse
 import subprocess
 import time
 import gzip
-import shutil 
+import shutil
 
 #Copy reference genome to working directory
 def copy_genome(refgenlist,outpath,name,logfilepath):
@@ -168,4 +168,4 @@ def genome_mapping(refgenlist,outpath,name,logfilepath,threads,statsfilepath):
         read1final = os.path.join(outpath, name +  '.1.fq')
         read2final = os.path.join(outpath, name +  '.2.fq')
         shutil.move(read1out, read1final)
-        shutil.move(read1out, read2final)
+        shutil.move(read2out, read2final)
