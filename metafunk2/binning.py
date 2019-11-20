@@ -11,7 +11,7 @@ import subprocess
 import time
 import gzip
 
-def binning(outpath,name,logfilepath):
+def binning(outpath,name,logfilepath,threads):
     newdir = "binning"
     absnewdir = os.path.join(outpath, name + '.' + newdir)
     if not os.path.exists(absnewdir):

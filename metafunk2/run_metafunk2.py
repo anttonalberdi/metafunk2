@@ -155,4 +155,4 @@ if ( 6 in includesteps and 6 not in skipsteps ):
     logfile.close()
 
     from binning import binning
-    binning(outpath,name,logfilepath)
+    binning(outpath,name,logfilepath,threads)
