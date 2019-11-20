@@ -5,6 +5,7 @@ import sys
 import os
 import argparse
 import time
+import gzip
 
 #Argument parsing
 parser = argparse.ArgumentParser(description='Runs metafunk2 pipeline.')
@@ -56,8 +57,17 @@ else:
 logfilepath=os.path.join(outpath,name + '.log')
 logfile=open(logfilepath,"w+")
 current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-logfile.write("{0} | This is metafunk2 starting to run \r\n".format(current_time))
+logfile.write("{0} | This is Metafunk2 starting to run \r\n".format(current_time))
 logfile.close()
+
+#####
+# Initiate stats file
+#####
+
+statsfilepath=os.path.join(outpath,name + '.stats')
+statsfile=open(statsfilepath,"w+")
+statsfile.write("Statistic\tValue \r\n".format(current_time))
+statsfile.close()
 
 #####
 # Checking dependencies
@@ -74,7 +84,7 @@ if ( 1 in includesteps and 1 not in skipsteps ):
     logfile.close()
 
     from quality_filtering import quality_filtering
-    quality_filtering(read1,read2,outpath,name,threads)
+    quality_filtering(read1,read2,outpath,name,threads,statsfilepath)
 
 #####
 # Duplicate removal step
@@ -107,6 +117,3 @@ if ( 3 in includesteps and 3 not in skipsteps ):
 
     from genome_mapping import genome_mapping
     genome_mapping(refgenlist,outpath,name,logfilepath,threads)
-
-#from genome_mapping import genome_mapping
-#index_genome(refgenpath)

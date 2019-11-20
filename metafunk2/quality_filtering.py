@@ -9,12 +9,26 @@ import random
 import argparse
 import subprocess
 
-def quality_filtering(read1,read2,outpath,name,threads):
+def quality_filtering(read1,read2,outpath,name,threads,statsfilepath):
     #Create quality_filtering subdirectory
     subdir = "quality_filtering"
     absdir = os.path.join(outpath, name + '.' + subdir)
     if not os.path.exists(absdir):
         os.makedirs(absdir)
+
+    #Get initial stats
+    reads = 0
+    bases = 0
+    with gzip.open(read1, 'rb') as read:
+        for id in read:
+            seq = next(read)
+            reads += 1
+            bases += len(seq.strip())
+            next(read)
+            next(read)
+    statsfile=open(statsfilepath,"a+")
+    statsfile.write("Initial reads\t{0}\r\nInitial bases\t{1}".format(reads,bases))
+    statsfile.close()
 
     #Run Adapterremoval
     ARCmd = 'AdapterRemoval --file1 '+read1+' --file2 '+read2+' --basename '+outpath+'/'+name+'.quality_filtering/'+name+' --minquality 30 --trimqualities --trimns --maxns 5 --threads '+threads+''
