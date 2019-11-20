@@ -141,5 +141,5 @@ if ( 5 in includesteps and 5 not in skipsteps ):
     logfile.write("{0} | Metafunk2 has started mapping back reads to the metagenomic assembly \r\n".format(current_time))
     logfile.close()
 
-    from map_to_assembly import map_to_assembly
-    map_to_assembly(outpath,name,logfilepath,threads)
+    from assembly_mapping import assembly_mapping
+    assembly_mapping(outpath,name,logfilepath,threads)
