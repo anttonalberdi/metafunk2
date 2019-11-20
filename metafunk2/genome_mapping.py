@@ -59,9 +59,6 @@ def copy_genome(refgenlist,outpath,name,logfilepath):
                 current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
                 logfile.write("{0} |    {1} genome is already in the working directory \r\n".format(current_time,refgenname))
                 logfile.close()
-        print(refgenname)
-        print(refgenoriginalpath)
-        print(refgenpath)
 
         #Manipulate reference genome
         if refgenpath.endswith('.gz'):
@@ -102,16 +99,16 @@ def genome_mapping(refgenlist,outpath,name,logfilepath,threads,statsfilepath):
     prevdir = "duplicate_removal"
     absprevdirr = os.path.join(outpath, name + '.' + prevdir)
 
-    #Declare input files
-    read1in = os.path.join(absprevdirr, name +  '.1.fq')
-    read2in = os.path.join(absprevdirr, name +  '.2.fq')
-
     #Iterate across reference genomes
     refgencount = len(refgenlist)
     for i in range(refgencount):
-        if i>0:
-            read1in = read1out
-            read2in = read2out
+        #Declare input files
+        if i==0:
+            read1in = os.path.join(absprevdirr, name +  '.1.fq')
+            read2in = os.path.join(absprevdirr, name +  '.2.fq')
+        else:
+            read1in = os.path.join(outpath,name + '.genome_mapping', name +  '.1.fq')
+            read2in = os.path.join(outpath,name + '.genome_mapping', name +  '.2.fq')
         #Declare genome name and path
         refgenname = refgenlist[i][0]
         refgenpath = os.path.join(outpath,'genomes', refgenname + '.fna')
