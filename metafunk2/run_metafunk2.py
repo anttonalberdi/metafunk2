@@ -14,8 +14,8 @@ parser.add_argument('-2', help="KEGG database path",metavar="READ2", dest="read2
 parser.add_argument('-r', help="Path to reference genome sequence",metavar="REFGENPATH", dest="refgenpath", required=True)
 parser.add_argument('-o', help="Output path", metavar="OUTPATH", dest="outpath", required=True)
 parser.add_argument('-t', help="Number of threads", metavar="THREADS", dest="threads", required=True)
-parser.add_argument('--skipsteps', help="Skip steps", metavar="SKIPSTEPS", dest="skipsteps", required=False)
-parser.add_argument('--includesteps', help="Include steps", metavar="INCLUDESTEPS", dest="includesteps", required=False)
+parser.add_argument('--skipsteps', help="Skip steps", metavar="SKIPSTEPS", dest="skipsteps", nargs='+', type=int, required=False)
+parser.add_argument('--includesteps', help="Include steps", metavar="INCLUDESTEPS", dest="includesteps", nargs='+', type=int, required=False)
 args = parser.parse_args()
 
 name = args.name
