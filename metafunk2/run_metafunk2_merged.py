@@ -76,4 +76,4 @@ if ( 1 in includesteps and 1 not in skipsteps ):
     logfile.close()
 
     from merge_assemblies import merge_assemblies
-    merge_assemblies(projectname,projectpath,threads,memory)
+    merge_assemblies(projectname,projectpath,threads,memory,logfilepath)
