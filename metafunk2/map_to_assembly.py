@@ -19,7 +19,8 @@ def map_to_assembly(outpath,name,logfilepath,threads):
 
     assemblypath = os.path.join(outpath, name + '.assembly','contigs.fasta')
     assemblybampath = os.path.join(outpath,name + '.genome_mapping', name + '.mapped.bam')
-
+    read1in = os.path.join(outpath, name + '.genome_mapping',name + '.1.fna')
+    read2in = os.path.join(outpath, name + '.genome_mapping',name + '.2.fna')
     #Index assembly
     assemblyfai = os.path.join(assemblypath + '.fai')
     if not os.path.exists(assemblyfai):
