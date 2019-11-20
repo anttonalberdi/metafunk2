@@ -130,3 +130,16 @@ if ( 4 in includesteps and 4 not in skipsteps ):
 
     from assembly import assembly
     assembly(outpath,name,logfilepath,statsfilepath,threads,memory)
+
+#####
+# 5) Map reads to assembly
+#####
+
+if ( 5 in includesteps and 5 not in skipsteps ):
+    logfile=open(logfilepath,"a+")
+    current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+    logfile.write("{0} | Metafunk2 has started mapping back reads to the metagenomic assembly \r\n".format(current_time))
+    logfile.close()
+
+    from map_to_assembly import map_to_assembly
+    map_to_assembly(outpath,name,logfilepath)
