@@ -29,6 +29,10 @@ refgen = args.refgen
 refgenlist = [l.split('=') for l in refgen.split(',') if l]
 refgencount = len(refgenlist)
 
+print(refgen)
+print(refgenlist)
+print(refgencount)
+
 #Prepare skipsteps
 if args.skipsteps is None:
     skipsteps = 0,
