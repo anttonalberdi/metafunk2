@@ -32,6 +32,10 @@ refgen = args.refgen
 refgenlist = [l.split('=') for l in refgen.split(',') if l]
 refgencount = len(refgenlist)
 
+#Prepare memory
+if args.memory is None:
+    memory = 250
+
 #Prepare skipsteps
 if args.skipsteps is None:
     skipsteps = 0,
@@ -55,7 +59,7 @@ else:
 logfilepath=os.path.join(outpath,name + '.log')
 logfile=open(logfilepath,"w+")
 current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-logfile.write("{0} | This is Metafunk2 starting to run \r\n    Threads {1}\r\nMemory {2}\r\n".format(current_time,threads,memory))
+logfile.write("{0} | This is Metafunk2 starting to run \r\n Settings:\r\n   Threads {1}\r\n  Memory {2}\r\nInput files:\r\n   Read1 {3}\r\n  Read2 {4}\r\nReference genomes:\r\n    Number of reference genomes: {5}".format(current_time,threads,memory,read1,read2,refgencount))
 logfile.close()
 
 #####
@@ -143,6 +147,9 @@ if ( 5 in includesteps and 5 not in skipsteps ):
     from assembly_mapping import assembly_mapping
     assembly_mapping(outpath,name,logfilepath,threads)
 
+#Split merged Binning
+    #https://github.com/jtamames/SqueezeMeta/blob/master/scripts/01.merge_assemblies.pl
+    #https://github.com/sanger-pathogens/circlator/wiki/Minimus2-circularization-pipeline
 
 #####
 # 6) Binning
