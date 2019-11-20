@@ -21,6 +21,7 @@ def merge_assemblies(projectname,projectpath,threads,memory,logfilepath):
     assembliespath = os.path.join(projectpath,'*.assembly', 'contigs.fasta')
     mergedassembliespath = os.path.join(merged_abs, 'assemblies.fna')
     nrassembliespath = os.path.join(merged_abs, 'assemblies.nr.fna')
+    afgassembliespath = os.path.join(merged_abs, 'assemblies.afg')
 
     #Concatenate assemblies
     logfile=open(logfilepath,"a+")
@@ -31,5 +32,10 @@ def merge_assemblies(projectname,projectpath,threads,memory,logfilepath):
     subprocess.check_call(concCmd, shell=True)
 
     #Removing redundant contigs
-    cdhitCmd = 'cd-hit -i '+mergedassembliespath+' -o '+nrassembliespath+' -T '+threads+' -M 0 -c 0.99 -d 100 -aS 0.9'
-    subprocess.check_call(cdhitCmd, shell=True)
+    #cdhitCmd = 'cd-hit -i '+mergedassembliespath+' -o '+nrassembliespath+' -T '+threads+' -M 0 -c 0.99 -d 100 -aS 0.9'
+    #subprocess.check_call(cdhitCmd, shell=True)
+
+    #Modify merged assembly file2
+
+    toamosCmd = 'toAmos -s '+mergedassembliespath+' -o '+afgassembliespath+''
+    subprocess.check_call(toamosCmd, shell=True)

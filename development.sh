@@ -14,6 +14,9 @@ rm -rf metafunk2
 git clone https://github.com/anttonalberdi/metafunk2.git
 python metafunk2/metafunk2/run_metafunk2_merged.py -n tests -p /home/projects/ku-cbd/people/antalb/metafunk2_test -t 8 -m 8
 
+li metafunk2_test/merged
+
+
 workdir="/home/projects/ku-cbd/people/antalb/metafunk2_test"
 xqsub -V -A ku-cbd -W group_list=ku-cbd -d `pwd` -e ${workdir}/metafunk2_test.err -o ${workdir}/metafunk2_test.out -l nodes=1:ppn=8,mem=250gb,walltime=0:01:00:00 -N metafunk2_test -de python metafunk2/metafunk2/run_metafunk2.py -n testsamp -1 metafunk2_test/GH2_3b_1.fastq.gz -2 metafunk2_test/GH2_3b_2.fastq.gz -r 'gambusia=databases/GCA_003097735.1_ASM309773v1_genomic.fna.gz,human=databases/GCF_000001405.39_GRCh38.p13_genomic.fna.gz' -o /home/projects/ku-cbd/people/antalb/metafunk2_test -t 8 -m 250 --includesteps 4 5 6
 
@@ -51,3 +54,29 @@ module load cd-hit/4.8.1
 module load MUMmer/3.23
 module load kentUtils/350
 module load amos/20121115
+
+#####################
+### Real sample test
+#####################
+
+cp fish_metagenomics/metafunk_june19/RawData/GH1_7b_*.fastq.gz metafunk2_test2
+cp fish_metagenomics/metafunk_june19/RawData/GH3_6b_*.fastq.gz metafunk2_test2
+cp fish_metagenomics/metafunk_june19/RawData/AI0_11b_*.fastq.gz metafunk2_test2
+
+module unload gcc/5.1.0
+module load AdapterRemoval/2.1.3
+module load pigz/2.3.4
+module load seqkit/0.7.1
+module load jre/1.8.0
+module load bbmap/36.49
+module load samtools/1.8
+module load bwa/0.7.15
+module load anaconda3/4.0.0
+module load spades/3.13.1
+module load perl/5.24.0
+module load metabat/2.12.1
+module load maxbin/2.2.7
+workdir="/home/projects/ku-cbd/people/antalb/metafunk2_test2"
+xqsub -V -A ku-cbd -W group_list=ku-cbd -d `pwd` -e ${workdir}/GH1_7b.err -o ${workdir}/GH1_7b.out -l nodes=1:ppn=8,mem=50gb,walltime=1:00:00:00 -N GH1_7b -de python metafunk2/metafunk2/run_metafunk2.py -n GH1_7b -1 metafunk2_test2/GH1_7b_1.fastq.gz -2 metafunk2_test2/GH1_7b_2.fastq.gz -r 'gambusia=databases/GCA_003097735.1_ASM309773v1_genomic.fna.gz,human=databases/GCF_000001405.39_GRCh38.p13_genomic.fna.gz' -o /home/projects/ku-cbd/people/antalb/metafunk2_test2 -t 8 -m 50 --includesteps 1 2 3 4
+xqsub -V -A ku-cbd -W group_list=ku-cbd -d `pwd` -e ${workdir}/GH3_6b.err -o ${workdir}/GH3_6b.out -l nodes=1:ppn=8,mem=50gb,walltime=1:00:00:00 -N GH3_6b -de python metafunk2/metafunk2/run_metafunk2.py -n GH1_7b -1 metafunk2_test2/GH3_6b_1.fastq.gz -2 metafunk2_test2/GH3_6b_2.fastq.gz -r 'gambusia=databases/GCA_003097735.1_ASM309773v1_genomic.fna.gz,human=databases/GCF_000001405.39_GRCh38.p13_genomic.fna.gz' -o /home/projects/ku-cbd/people/antalb/metafunk2_test2 -t 8 -m 50 --includesteps 1 2 3 4
+xqsub -V -A ku-cbd -W group_list=ku-cbd -d `pwd` -e ${workdir}/AI0_11b.err -o ${workdir}/AI0_11b.out -l nodes=1:ppn=8,mem=50gb,walltime=1:00:00:00 -N AI0_11b -de python metafunk2/metafunk2/run_metafunk2.py -n AI0_11b -1 metafunk2_test2/AI0_11b_1.fastq.gz -2 metafunk2_test2/AI0_11b_2.fastq.gz -r 'gambusia=databases/GCA_003097735.1_ASM309773v1_genomic.fna.gz,human=databases/GCF_000001405.39_GRCh38.p13_genomic.fna.gz' -o /home/projects/ku-cbd/people/antalb/metafunk2_test2 -t 8 -m 50 --includesteps 1 2 3 4
