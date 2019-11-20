@@ -45,15 +45,15 @@ def copy_genome(refgenomepath,outpath,name,logfilepath):
     refgenomepath = newgenomepath
 
 #Manipulate reference genome
-def check_genome(refgenomepath,outpath,name,logfilepath):
-    if refgenpath.endswith('.gz'):
+def edit_genome(refgenomepath,outpath,name,logfilepath):
+    if refgenomepath.endswith('.gz'):
         logfile=open(logfilepath,"a+")
         current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
         logfile.write("     {0} | Decompressing reference genome {1} \r\n".format(current_time,refgenomepath))
         logfile.close()
-        DecompCmd = 'pigz '+refgenpath+''
+        DecompCmd = 'pigz '+refgenomepath+''
         subprocess.check_call(DecompCmd, shell=True)
-        refgenomepathnew = refgenomepath.replace(".gz", "")
+        refgenomepath = refgenomepath.replace(".gz", "")
     if refgenpath.endswith('.fasta'):
         refgenomepathnoext = refgenomepath.rsplit( ".", 1 )[ 0 ]
         newrefgenpath = os.path.join(refgenomepathnoext + '.fna')
