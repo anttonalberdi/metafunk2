@@ -72,31 +72,44 @@ def copy_genome(refgenlist,outpath,name,logfilepath):
                 DecompCmd = 'pigz -d '+refgenpath+''
                 subprocess.check_call(DecompCmd, shell=True)
 
-#Index reference genomes if not already indexed
+#Index reference genomes if not already indexed or being indexed by another job
 def index_genome(refgenlist,outpath,name,logfilepath):
     refgencount = len(refgenlist)
     for i in range(refgencount):
         #Declare genome name and path
         refgenname = refgenlist[i][0]
         refgenpath = os.path.join(outpath,'genomes', refgenname + '.fna')
+        refgenflag = os.path.join(outpath,'genomes', refgenname + '.indexing')
         refgenfai = os.path.join(outpath,'genomes', refgenname + '.fna.fai')
-        if not os.path.exists(refgenfai):
+        if ( not os.path.exists(refgenfai) and not os.path.exists(refgenflag) ):
+            #Create indexing flag file to let other jobs know this genome is being indexed
+            indexingflagfile=open(refgenflag,"w+")
+            indexingflagfile.write("Genome {0} is being indexed".format(refgenname))
+            indexingflagfile.close()
+            #Print to log file
             logfile=open(logfilepath,"a+")
             current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
             logfile.write("{0} |    Indexing {1} genome \r\n".format(current_time,refgenname))
             logfile.close()
+            #Index genomes
             samtoolsindexCmd = 'samtools faidx '+refgenpath+''
             bwaindexCmd = 'bwa index '+refgenpath+''
             subprocess.check_call(samtoolsindexCmd, shell=True)
             subprocess.check_call(bwaindexCmd, shell=True)
+            #Remove indexing flag when indexing is done
+            os.remove(refgenflag)
         else:
             logfile=open(logfilepath,"a+")
             current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
             logfile.write("{0} |    {1} genome is already indexed \r\n".format(current_time,refgenname))
             logfile.close()
 
+###
+# add waiting https://blog.miguelgrinberg.com/post/how-to-make-python-wait
+###
+
 def genome_mapping(refgenlist,outpath,name,logfilepath,threads,statsfilepath):
-    #Create quality_filtering subdirectory
+    #Declare source directory
     prevdir = "duplicate_removal"
     absprevdirr = os.path.join(outpath, name + '.' + prevdir)
 
@@ -113,11 +126,25 @@ def genome_mapping(refgenlist,outpath,name,logfilepath,threads,statsfilepath):
         #Declare genome name and path
         refgenname = refgenlist[i][0]
         refgenpath = os.path.join(outpath,'genomes', refgenname + '.fna')
+        #refgenflag = os.path.join(outpath,'genomes', refgenname + '.indexing')
         bampath_all = os.path.join(outpath, name + '.genome_mapping', name + '.' + refgenname + '.bam')
         bampath_host = os.path.join(outpath,name + '.genome_mapping', name + '.mappedto.' + refgenname + '.bam')
         bampath_mg = os.path.join(outpath,name + '.genome_mapping', name + '.mg.bam')
         read1out = os.path.join(outpath,name + '.genome_mapping', name +  '.1.fq')
         read2out = os.path.join(outpath,name + '.genome_mapping', name +  '.2.fq')
+
+        #Wait until indexing flag disappears (meaning another job is indexing the genome)
+        #The script will check the presence of the indexing file every 5 minutes and proceed when  disappears
+        secs = 0
+        while os.path.exists(refgenflag):
+            secs = secs + 300
+            mins = secs / 60
+            #Print to log
+            logfile=open(logfilepath,"a+")
+            current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+            logfile.write("{0} |    Waiting {1} minutes until genome {2} is indexed \r\n".format(current_time,mins,refgenname))
+            logfile.close()
+            time.sleep(secs)
 
         #Declare mapping commands
         mapCmd = 'bwa mem -t '+threads+' -R "@RG\tID:ProjectName\tCN:AuthorName\tDS:Mappingt\tPL:Illumina1.9\tSM:Sample" '+refgenpath+' '+read1in+' '+read2in+' | samtools view -T '+refgenpath+' -b - > '+bampath_all+''
