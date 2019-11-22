@@ -10,7 +10,7 @@ import argparse
 import subprocess
 import gzip
 
-def duplicate_removal(read1,read2,outpath,name,threads,statsfilepath):
+def duplicate_removal(read1,read2,outpath,name,threads,statsfilepath,keep):
     #Create quality_filtering subdirectory
     prevdir = "quality_filtering"
     absprevdirr = os.path.join(outpath, name + '.' + prevdir)
@@ -54,3 +54,7 @@ def duplicate_removal(read1,read2,outpath,name,threads,statsfilepath):
     statsfile=open(statsfilepath,"a+")
     statsfile.write("Reads after duplicate removal\t{0}\r\nBases after duplicate removal\t{1}".format(reads,bases))
     statsfile.close()
+
+    #If keep is not selected, remove previous directory
+    if not keep:
+        os.rmdir(prevdir)

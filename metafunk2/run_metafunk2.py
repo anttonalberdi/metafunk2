@@ -15,11 +15,11 @@ optional = parser.add_argument_group('optional arguments')
 required.add_argument('-n', help="Sample name",nargs='+', metavar="SAMPLE_NAME", dest="name", required=True)
 required.add_argument('-1', help="KEGG database path",nargs='+', metavar="READ1", dest="read1", required=True)
 required.add_argument('-2', help="KEGG database path",nargs='+', metavar="READ2", dest="read2", required=True)
-required.add_argument('-r', help="Reference genome sequences",nargs='+', metavar="REFERENCE_GENOME(S)", dest="refgen", required=True)
+required.add_argument('-r', help="Reference genome (RF) sequence name(s) and path(s). RF1name=RF1path,RF2name=RF2path, etc.",nargs='+', metavar="REFERENCE_GENOME(S)", dest="refgen", required=True)
 required.add_argument('-o', help="Output path", nargs='+', metavar="OUTPUT_PATH", dest="outpath", required=True)
 optional.add_argument('-t', help="Number of threads", nargs='?', metavar="THREADS", dest="threads", default=8)
 optional.add_argument('-m', help="RAM memory limit", nargs='?', metavar="MEMORY", dest="memory", default=250)
-#parser.add_argument('-c', help="Clean intermediate files", metavar="CLEAN", dest="clean", action='store_true')
+optional.add_argument('-k', help="Keep intermediate files", metavar="KEEPFILES", dest="keep", action='store_true',default=True)
 optional.add_argument('--skipsteps', help="Skip steps", nargs='?', metavar="SKIPSTEPS", dest="skipsteps", type=int)
 optional.add_argument('--includesteps', help="Include steps", nargs='?', metavar="INCLUDESTEPS", dest="includesteps", type=int)
 args = parser.parse_args()
@@ -30,7 +30,7 @@ read2 = args.read2
 outpath = args.outpath
 threads = args.threads
 memory = args.memory
-#clean = args.clean
+keep = args.keep
 
 #Prepare reference genomes
 refgen = args.refgen
