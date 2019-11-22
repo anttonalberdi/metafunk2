@@ -9,8 +9,8 @@ import gzip
 
 #Argument parsing
 parser = argparse.ArgumentParser(description='Runs metafunk2 pipeline.')
-optional = parser._action_groups.pop() # Edited this line
 required = parser.add_argument_group('required arguments')
+optional = parser.add_argument_group('optional arguments')
 required.add_argument('-n', help="Sample name", dest="name", required=True)
 required.add_argument('-1', help="KEGG database path", dest="read1", required=True)
 required.add_argument('-2', help="KEGG database path", dest="read2", required=True)
@@ -21,7 +21,6 @@ optional.add_argument('-m', help="RAM memory limit", dest="memory", default=250)
 optional.add_argument('-k', help="Keep intermediate files", dest="keep", action='store_true',default=True)
 optional.add_argument('--skipsteps', help="Skip steps", dest="skipsteps", type=int)
 optional.add_argument('--includesteps', help="Include steps", dest="includesteps", type=int)
-parser._action_groups.append(optional)
 args = parser.parse_args()
 
 name = args.name
