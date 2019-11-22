@@ -126,7 +126,7 @@ def genome_mapping(refgenlist,outpath,name,logfilepath,threads,statsfilepath):
         #Declare genome name and path
         refgenname = refgenlist[i][0]
         refgenpath = os.path.join(outpath,'genomes', refgenname + '.fna')
-        #refgenflag = os.path.join(outpath,'genomes', refgenname + '.indexing')
+        refgenflag = os.path.join(outpath,'genomes', refgenname + '.indexing')
         bampath_all = os.path.join(outpath, name + '.genome_mapping', name + '.' + refgenname + '.bam')
         bampath_host = os.path.join(outpath,name + '.genome_mapping', name + '.mappedto.' + refgenname + '.bam')
         bampath_mg = os.path.join(outpath,name + '.genome_mapping', name + '.mg.bam')
