@@ -9,16 +9,16 @@ import gzip
 
 #Argument parsing
 parser = argparse.ArgumentParser(description='Runs metafunk2 pipeline.')
-parser.add_argument('-n', help="Sample name",metavar="NAME", dest="name", required=True)
-parser.add_argument('-1', help="KEGG database path",metavar="READ1", dest="read1", required=True)
-parser.add_argument('-2', help="KEGG database path",metavar="READ2", dest="read2", required=True)
-parser.add_argument('-r', help="Reference genome sequences",metavar="REFGEN", dest="refgen", required=True)
-parser.add_argument('-o', help="Output path", metavar="OUTPATH", dest="outpath", required=True)
-parser.add_argument('-t', help="Number of threads", metavar="THREADS", dest="threads", default=8, required=False)
-parser.add_argument('-m', help="RAM memory limit", metavar="MEMORY", dest="memory", default=250, required=False)
+parser.add_argument('-n', help="Sample name",nargs='+', metavar="SAMPLE_NAME", dest="name", required=True)
+parser.add_argument('-1', help="KEGG database path",nargs='+', metavar="READ1", dest="read1", required=True)
+parser.add_argument('-2', help="KEGG database path",nargs='+', metavar="READ2", dest="read2", required=True)
+parser.add_argument('-r', help="Reference genome sequences",nargs='+', metavar="REFERENCE_GENOME(S)", dest="refgen", required=True)
+parser.add_argument('-o', help="Output path", nargs='+', metavar="OUTPUT_PATH", dest="outpath", required=True)
+parser.add_argument('-t', help="Number of threads", nargs='?', metavar="THREADS", dest="threads", default=8, required=False)
+parser.add_argument('-m', help="RAM memory limit", nargs='?', metavar="MEMORY", dest="memory", default=250, required=False)
 #parser.add_argument('-c', help="Clean intermediate files", metavar="CLEAN", dest="clean", action='store_true')
-parser.add_argument('--skipsteps', help="Skip steps", metavar="SKIPSTEPS", dest="skipsteps", nargs='+', type=int, required=False)
-parser.add_argument('--includesteps', help="Include steps", metavar="INCLUDESTEPS", dest="includesteps", nargs='+', type=int, required=False)
+parser.add_argument('--skipsteps', help="Skip steps", nargs='?', metavar="SKIPSTEPS", dest="skipsteps", nargs='+', type=int, required=False)
+parser.add_argument('--includesteps', help="Include steps", nargs='?', metavar="INCLUDESTEPS", dest="includesteps", nargs='+', type=int, required=False)
 args = parser.parse_args()
 
 name = args.name
