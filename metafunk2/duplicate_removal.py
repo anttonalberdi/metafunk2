@@ -57,4 +57,4 @@ def duplicate_removal(read1,read2,outpath,name,threads,statsfilepath,keep):
 
     #If keep is not selected, remove previous directory
     if not keep:
-        os.rmdir(prevdir)
+        os.rmdir(absprevdirr)

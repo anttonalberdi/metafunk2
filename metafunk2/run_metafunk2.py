@@ -32,8 +32,6 @@ threads = args.threads
 memory = args.memory
 keep = args.keep
 
-print(keep)
-
 #Prepare reference genomes
 refgenlist = [l.split('=') for l in refgen.split(',') if l]
 refgencount = len(refgenlist)
