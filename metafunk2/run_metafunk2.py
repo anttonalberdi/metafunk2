@@ -16,11 +16,11 @@ required.add_argument('-1', help="KEGG database path", dest="read1", required=Tr
 required.add_argument('-2', help="KEGG database path", dest="read2", required=True)
 required.add_argument('-r', help="Reference genome (RF) sequence name(s) and path(s). RF1name=RF1path,RF2name=RF2path, etc.", dest="refgen", required=True)
 required.add_argument('-o', help="Output path", dest="outpath", required=True)
-optional.add_argument('-t', help="Number of threads", dest="threads", default=8)
-optional.add_argument('-m', help="RAM memory limit", dest="memory", default=250)
-optional.add_argument('-k', help="Keep intermediate files", dest="keep", action='store_true',default=True)
+optional.add_argument('-t', help="Number of threads", dest="threads", type=int, default=8)
+optional.add_argument('-m', help="RAM memory limit", dest="memory", type=int, default=250)
 optional.add_argument('-s', help="Skip steps", dest="skipsteps", type=str)
 optional.add_argument('-i', help="Include steps", dest="includesteps", type=str)
+optional.add_argument('-k', help="Keep intermediate files", dest="keep", action='store_true',default=True)
 args = parser.parse_args()
 
 name = args.name
