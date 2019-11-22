@@ -32,6 +32,8 @@ threads = args.threads
 memory = args.memory
 keep = args.keep
 
+print("Process ID:", os.getpid()) 
+
 #Prepare reference genomes
 refgenlist = [l.split('=') for l in refgen.split(',') if l]
 refgencount = len(refgenlist)
@@ -211,7 +213,7 @@ if ( 6 in includesteps and 6 not in skipsteps ):
 #####
 
 logfilepath=os.path.join(outpath,name + '.log')
-logfile=open(logfilepath,"w+")
+logfile=open(logfilepath,"a+")
 current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
 logfile.write("{0} | Metafunk2 has finished succesfully!".format(current_time))
 logfile.close()
