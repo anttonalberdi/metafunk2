@@ -100,10 +100,10 @@ if is_tool('seqkit'):
 else:
     logfile.write("     seqkit = FALSE \r\n")
 
-if is_tool('bbmap'):
-    logfile.write("     repair.sh = TRUE \r\n")
+if is_tool('repair.sh'):
+    logfile.write("     bbmap = TRUE \r\n")
 else:
-    logfile.write("     repair.sh = FALSE \r\n")
+    logfile.write("     bbmap = FALSE \r\n")
 
 if is_tool('samtools'):
     logfile.write("     samtools = TRUE \r\n")
