@@ -22,7 +22,7 @@ parser.add_argument('-m', help="RAM memory limit", nargs='?', metavar="MEMORY", 
 #parser.add_argument('-c', help="Clean intermediate files", metavar="CLEAN", dest="clean", action='store_true')
 parser.add_argument('--skipsteps', help="Skip steps", nargs='?', metavar="SKIPSTEPS", dest="skipsteps", type=int)
 parser.add_argument('--includesteps', help="Include steps", nargs='?', metavar="INCLUDESTEPS", dest="includesteps", type=int)
-args = parser.parse_args()
+return parser.parse_args()
 
 name = args.name
 read1 = args.read1
