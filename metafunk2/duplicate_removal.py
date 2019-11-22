@@ -58,4 +58,5 @@ def duplicate_removal(read1,read2,outpath,name,threads,statsfilepath,keep):
 
     #If keep is not selected, remove previous directory
     if not keep:
-        shutil.rmtree(absprevdirr)
+        if os.path.exists(absprevdirr)
+            shutil.rmtree(absprevdirr)

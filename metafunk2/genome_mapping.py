@@ -207,4 +207,5 @@ def genome_mapping(refgenlist,outpath,name,logfilepath,threads,statsfilepath,kee
 
         #If keep is not selected, remove previous directory
         if not keep:
-            shutil.rmtree(absprevdirr)
+            if os.path.exists(absprevdirr)
+                shutil.rmtree(absprevdirr)
