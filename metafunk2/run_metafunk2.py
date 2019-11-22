@@ -33,11 +33,6 @@ threads = args.threads
 memory = args.memory
 keep = args.keep
 
-print("Before killing")
-print("Process ID:", )
-os.kill(os.getpid(), signal.SIGSTOP)
-print("After killing")
-
 #Prepare reference genomes
 refgenlist = [l.split('=') for l in refgen.split(',') if l]
 refgencount = len(refgenlist)
