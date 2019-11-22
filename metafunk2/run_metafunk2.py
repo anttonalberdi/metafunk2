@@ -135,6 +135,14 @@ if ( 1 in includesteps and 1 not in skipsteps ):
 # 2) Duplicate removal step
 #####
 
+#Need to test
+##Pardre:
+##https://academic.oup.com/bioinformatics/article/32/10/1562/1743431
+#Fulcrum
+##https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-016-1192-5
+##FastUnique
+##https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0052249
+
 if ( 2 in includesteps and 2 not in skipsteps ):
     logfile=open(logfilepath,"a+")
     current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
