@@ -22,7 +22,7 @@ optional.add_argument('-k', help="Keep intermediate files", dest="keep", action=
 optional.add_argument('--skipsteps', help="Skip steps", nargs='?', metavar="SKIPSTEPS", dest="skipsteps", type=int)
 optional.add_argument('--includesteps', help="Include steps", nargs='?', metavar="INCLUDESTEPS", dest="includesteps", type=int)
 parser._action_groups.append(optional)
-args = parser.parse_args()
+return parser.parse_args()
 
 name = args.name
 read1 = args.read1
