@@ -63,7 +63,7 @@ else:
 logfilepath=os.path.join(outpath,name + '.log')
 logfile=open(logfilepath,"w+")
 current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-logfile.write("{0} | This is Metafunk2 starting to run \r\n Settings:\r\n   Threads {1}\r\n Memory {2}\r\nInput files:\r\n  Read1 {3}\r\n  Read2 {4}\r\nReference genomes:\r\n    Number of reference genomes: {5}\r\n".format(current_time,threads,memory,read1,read2,refgencount))
+logfile.write("{0} | This is Metafunk2 starting to run \r\n Settings:\r\n   Threads: {1}\r\n    Memory: {2}\r\nInput files:\r\n  Read1: {3}\r\n  Read2: {4}\r\nReference genomes:\r\n    Number of reference genomes: {5}\r\n\r\n".format(current_time,threads,memory,read1,read2,refgencount))
 logfile.close()
 
 #####
@@ -81,7 +81,7 @@ statsfile.close()
 
 logfile=open(logfilepath,"a+")
 current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-logfile.write("{0} |    Checking software dependencies: \r\n".format(current_time))
+logfile.write("{0} | Checking software dependencies: \r\n".format(current_time))
 
 from check_software import is_tool
 
@@ -94,6 +94,26 @@ if is_tool('pigz'):
     logfile.write("     pigz = TRUE \r\n")
 else:
     logfile.write("     pigz = FALSE \r\n")
+
+if is_tool('seqkit'):
+    logfile.write("     seqkit = TRUE \r\n")
+else:
+    logfile.write("     seqkit = FALSE \r\n")
+
+if is_tool('bbmap'):
+    logfile.write("     repair.sh = TRUE \r\n")
+else:
+    logfile.write("     repair.sh = FALSE \r\n")
+
+if is_tool('samtools'):
+    logfile.write("     samtools = TRUE \r\n")
+else:
+    logfile.write("     samtools = FALSE \r\n")
+
+if is_tool('bwa'):
+    logfile.write("     bwa = TRUE \r\n")
+else:
+    logfile.write("     bwa = FALSE \r\n")
 
 logfile.close()
 
