@@ -17,8 +17,8 @@ parser.add_argument('-o', help="Output path", nargs='+', metavar="OUTPUT_PATH", 
 parser.add_argument('-t', help="Number of threads", nargs='?', metavar="THREADS", dest="threads", default=8, required=False)
 parser.add_argument('-m', help="RAM memory limit", nargs='?', metavar="MEMORY", dest="memory", default=250, required=False)
 #parser.add_argument('-c', help="Clean intermediate files", metavar="CLEAN", dest="clean", action='store_true')
-parser.add_argument('--skipsteps', help="Skip steps", nargs='?', metavar="SKIPSTEPS", dest="skipsteps", nargs='+', type=int, required=False)
-parser.add_argument('--includesteps', help="Include steps", nargs='?', metavar="INCLUDESTEPS", dest="includesteps", nargs='+', type=int, required=False)
+parser.add_argument('--skipsteps', help="Skip steps", nargs='?', metavar="SKIPSTEPS", dest="skipsteps", type=int, required=False)
+parser.add_argument('--includesteps', help="Include steps", nargs='?', metavar="INCLUDESTEPS", dest="includesteps", type=int, required=False)
 args = parser.parse_args()
 
 name = args.name
