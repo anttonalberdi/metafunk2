@@ -103,7 +103,7 @@ if ( 2 in includesteps and 2 not in skipsteps ):
     logfile.close()
 
     from duplicate_removal import duplicate_removal
-    duplicate_removal(read1,read2,outpath,name,threads,statsfilepath)
+    duplicate_removal(read1,read2,outpath,name,threads,statsfilepath,keep)
 
 #####
 # 3) Mapping against reference genomes
