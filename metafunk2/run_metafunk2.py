@@ -40,6 +40,8 @@ refgencount = len(refgenlist)
 if args.memory is None:
     memory = 250
 
+print(args.skipsteps)
+print(type(args.skipsteps))
 #Prepare skipsteps
 if args.skipsteps is None:
     skipsteps = 0,
