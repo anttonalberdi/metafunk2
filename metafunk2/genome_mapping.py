@@ -108,7 +108,7 @@ def index_genome(refgenlist,outpath,name,logfilepath):
 # add waiting https://blog.miguelgrinberg.com/post/how-to-make-python-wait
 ###
 
-def genome_mapping(refgenlist,outpath,name,logfilepath,threads,statsfilepath):
+def genome_mapping(refgenlist,outpath,name,logfilepath,threads,statsfilepath,keep):
     #Declare source directory
     prevdir = "duplicate_removal"
     absprevdirr = os.path.join(outpath, name + '.' + prevdir)
@@ -204,3 +204,7 @@ def genome_mapping(refgenlist,outpath,name,logfilepath,threads,statsfilepath):
             current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
             logfile.write("{0} |    There was an error during the genome mapping. Check error file. \r\n".format(current_time,refgenname))
             logfile.close()
+
+        #If keep is not selected, remove previous directory
+        if not keep:
+            os.rmdir(prevdir)

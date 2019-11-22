@@ -162,7 +162,7 @@ if ( 3 in includesteps and 3 not in skipsteps ):
     index_genome(refgenlist,outpath,name,logfilepath)
 
     from genome_mapping import genome_mapping
-    genome_mapping(refgenlist,outpath,name,logfilepath,threads,statsfilepath)
+    genome_mapping(refgenlist,outpath,name,logfilepath,threads,statsfilepath,keep)
 
 
 #####
@@ -176,7 +176,7 @@ if ( 4 in includesteps and 4 not in skipsteps ):
     logfile.close()
 
     from assembly import assembly
-    assembly(outpath,name,logfilepath,statsfilepath,threads,memory)
+    assembly(outpath,name,logfilepath,statsfilepath,threads,memory,keep)
 
 #####
 # 5) Map reads to assembly

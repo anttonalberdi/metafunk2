@@ -12,7 +12,7 @@ import time
 import gzip
 import shutil
 
-def assembly(outpath,name,logfilepath,statsfilepath,threads,memory):
+def assembly(outpath,name,logfilepath,statsfilepath,threads,memory,keep):
     prevdir = "genome_mapping"
     absprevdirr = os.path.join(outpath, name + '.' + prevdir)
     #Create assembly directory if it does not exist
@@ -40,3 +40,7 @@ def assembly(outpath,name,logfilepath,statsfilepath,threads,memory):
         current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
         logfile.write("{0} |    There was an error during the assembly. Check error file. \r\n".format(current_time,refgenname))
         logfile.close()
+
+    #If keep is not selected, remove previous directory
+    if not keep:
+        os.rmdir(prevdir)
