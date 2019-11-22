@@ -42,7 +42,7 @@ if args.memory is None:
 
 print(args.includesteps)
 print(type(args.includesteps))
-print(tuple(map(args.includesteps.split(','),int)))
+print(tuple([int(x) for x inargs.includesteps.split(',')]))
 
 #Prepare skipsteps
 if args.skipsteps is None:
