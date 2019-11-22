@@ -79,6 +79,20 @@ statsfile.close()
 # Checking dependencies
 #####
 
+logfile=open(logfilepath,"a+")
+current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+logfile.write("{0} |    Checking software dependencies: \r\n".format(current_time))
+
+from check_software import is_tool
+
+
+if is_tool('AdapterRemoval'):
+    logfile.write("     AdapterRemoval = TRUE: \r\n")
+else:
+    logfile.write("     AdapterRemoval = FALSE: \r\n")
+
+logfile.close()
+
 #####
 # 1) Quality filtering step
 #####
