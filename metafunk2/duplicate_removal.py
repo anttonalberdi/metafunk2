@@ -9,6 +9,7 @@ import random
 import argparse
 import subprocess
 import gzip
+import shutil
 
 def duplicate_removal(read1,read2,outpath,name,threads,statsfilepath,keep):
     #Create quality_filtering subdirectory
@@ -57,4 +58,4 @@ def duplicate_removal(read1,read2,outpath,name,threads,statsfilepath,keep):
 
     #If keep is not selected, remove previous directory
     if not keep:
-        os.rmdir(absprevdirr)
+        shutil.rmtree(absprevdirr)
