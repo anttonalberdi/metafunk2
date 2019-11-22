@@ -3,6 +3,7 @@
 import subprocess
 import sys
 import os
+import signal
 import argparse
 import time
 import gzip
@@ -32,8 +33,10 @@ threads = args.threads
 memory = args.memory
 keep = args.keep
 
-print("Process ID:", os.getpid())
-print("Fork ID:", os.fork() ) 
+print("Before killing")
+print("Process ID:", )
+os.kill(os.getpid(), signal.SIGSTOP)
+print("After killing")
 
 #Prepare reference genomes
 refgenlist = [l.split('=') for l in refgen.split(',') if l]
