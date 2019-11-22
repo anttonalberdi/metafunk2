@@ -19,7 +19,7 @@ required.add_argument('-r', help="Reference genome (RF) sequence name(s) and pat
 required.add_argument('-o', help="Output path", nargs='+', metavar="OUTPUT_PATH", dest="outpath", required=True)
 optional.add_argument('-t', help="Number of threads", nargs='?', metavar="THREADS", dest="threads", default=8)
 optional.add_argument('-m', help="RAM memory limit", nargs='?', metavar="MEMORY", dest="memory", default=250)
-optional.add_argument('-k', help="Keep intermediate files", metavar="KEEPFILES", dest="keep", action='store_true',default=True)
+optional.add_argument('-k', help="Keep intermediate files", dest="keep", action='store_true',default=True)
 optional.add_argument('--skipsteps', help="Skip steps", nargs='?', metavar="SKIPSTEPS", dest="skipsteps", type=int)
 optional.add_argument('--includesteps', help="Include steps", nargs='?', metavar="INCLUDESTEPS", dest="includesteps", type=int)
 args = parser.parse_args()
