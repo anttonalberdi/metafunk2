@@ -64,7 +64,7 @@ else:
 logfilepath=os.path.join(outpath,name + '.log')
 logfile=open(logfilepath,"w+")
 current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-logfile.write("{0} | This is Metafunk2 starting to run \r\n Settings:\r\n   Threads: {1}\r\n    Memory: {2}\r\nInput files:\r\n  Read1: {3}\r\n  Read2: {4}\r\nReference genomes:\r\n    Number of reference genomes: {5}\r\n\r\n".format(current_time,threads,memory,read1,read2,refgencount))
+logfile.write("\r\n\r\n====== Metafunk2 v2.0.0 ======\r\n\r\nSettings:\r\n   Threads: {1}\r\n    Memory: {2}\r\nInput files:\r\n  Read1: {3}\r\n  Read2: {4}\r\nReference genomes:\r\n    Number of reference genomes: {5}\r\n\r\n".format(current_time,threads,memory,read1,read2,refgencount))
 logfile.close()
 
 #####
@@ -82,7 +82,7 @@ statsfile.close()
 
 logfile=open(logfilepath,"a+")
 current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-logfile.write("{0} | Checking software dependencies: \r\n".format(current_time))
+logfile.write("Checking software dependencies: \r\n")
 
 from check_software import is_tool
 
@@ -125,7 +125,7 @@ logfile.close()
 if ( 1 in includesteps and 1 not in skipsteps ):
     logfile=open(logfilepath,"a+")
     current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-    logfile.write("{0} | Metafunk2 has started quality filtering the reads \r\n".format(current_time))
+    logfile.write("\r\n\r\n{0} | Metafunk2 has started quality filtering the reads \r\n".format(current_time))
     logfile.close()
 
     from quality_filtering import quality_filtering
@@ -214,5 +214,5 @@ if ( 6 in includesteps and 6 not in skipsteps ):
 logfilepath=os.path.join(outpath,name + '.log')
 logfile=open(logfilepath,"a+")
 current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-logfile.write("{0} | Metafunk2 has finished succesfully!".format(current_time))
+logfile.write("{0} | Metafunk2 has finished succesfully!\r\n\r\n".format(current_time))
 logfile.close()
