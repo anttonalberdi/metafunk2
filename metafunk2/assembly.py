@@ -45,3 +45,7 @@ def assembly(outpath,name,logfilepath,statsfilepath,threads,memory,keep):
     if not keep:
         if os.path.exists(absprevdirr):
             shutil.rmtree(absprevdirr)
+
+    if not keep:
+        if os.path.exists(assembly_abs):
+            shutil.rmtree(assembly_abs)
