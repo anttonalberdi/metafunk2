@@ -32,7 +32,8 @@ threads = args.threads
 memory = args.memory
 keep = args.keep
 
-print("Process ID:", os.getpid()) 
+print("Process ID:", os.getpid())
+print("Fork ID:", os.fork() ) 
 
 #Prepare reference genomes
 refgenlist = [l.split('=') for l in refgen.split(',') if l]
