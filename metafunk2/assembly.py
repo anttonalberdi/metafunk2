@@ -43,5 +43,5 @@ def assembly(outpath,name,logfilepath,statsfilepath,threads,memory,keep):
 
     #If keep is not selected, remove previous directory
     if not keep:
-        if os.path.exists(absprevdirr)
+        if os.path.exists(absprevdirr):
             shutil.rmtree(absprevdirr)
