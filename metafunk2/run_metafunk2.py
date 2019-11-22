@@ -19,8 +19,8 @@ required.add_argument('-o', help="Output path", dest="outpath", required=True)
 optional.add_argument('-t', help="Number of threads", dest="threads", default=8)
 optional.add_argument('-m', help="RAM memory limit", dest="memory", default=250)
 optional.add_argument('-k', help="Keep intermediate files", dest="keep", action='store_true',default=True)
-optional.add_argument('-s', help="Skip steps", dest="skipsteps", type=str)
-optional.add_argument('-i', help="Include steps", dest="includesteps", type=str)
+optional.add_argument('-s', help="Skip steps", dest="skipsteps")
+optional.add_argument('-i', help="Include steps", dest="includesteps")
 args = parser.parse_args()
 
 name = args.name
