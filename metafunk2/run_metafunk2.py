@@ -9,7 +9,7 @@ import gzip
 
 #Argument parsing
 parser = argparse.ArgumentParser(description='Runs metafunk2 pipeline.')
-parser._action_groups.pop()
+optional = parser._action_groups.pop() # Edited this line
 required = parser.add_argument_group('required arguments')
 required.add_argument('-n', help="Sample name",nargs='+', metavar="SAMPLE_NAME", dest="name", required=True)
 required.add_argument('-1', help="KEGG database path",nargs='+', metavar="READ1", dest="read1", required=True)
