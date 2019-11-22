@@ -11,7 +11,6 @@ import gzip
 parser = argparse.ArgumentParser(description='Runs metafunk2 pipeline.')
 parser._action_groups.pop()
 required = parser.add_argument_group('required arguments')
-optional = parser.add_argument_group('optional arguments')
 required.add_argument('-n', help="Sample name",nargs='+', metavar="SAMPLE_NAME", dest="name", required=True)
 required.add_argument('-1', help="KEGG database path",nargs='+', metavar="READ1", dest="read1", required=True)
 required.add_argument('-2', help="KEGG database path",nargs='+', metavar="READ2", dest="read2", required=True)
@@ -22,39 +21,39 @@ optional.add_argument('-m', help="RAM memory limit", nargs='?', metavar="MEMORY"
 optional.add_argument('-k', help="Keep intermediate files", dest="keep", action='store_true',default=True)
 optional.add_argument('--skipsteps', help="Skip steps", nargs='?', metavar="SKIPSTEPS", dest="skipsteps", type=int)
 optional.add_argument('--includesteps', help="Include steps", nargs='?', metavar="INCLUDESTEPS", dest="includesteps", type=int)
-requiredargs = required.parse_args()
-optionalargs = optional.parse_args()
+parser._action_groups.append(optional)
+args = parser.parse_args()
 
-name = requiredargs.name
-read1 = requiredargs.read1
-read2 = requiredargs.read2
-refgen = requiredargs.refgen
-outpath = requiredargs.outpath
-threads = optional.threads
-memory = optional.memory
-keep = optional.keep
+name = args.name
+read1 = args.read1
+read2 = args.read2
+refgen = args.refgen
+outpath = args.outpath
+threads = args.threads
+memory = args.memory
+keep = args.keep
 
 #Prepare reference genomes
 refgenlist = [l.split('=') for l in refgen.split(',') if l]
 refgencount = len(refgenlist)
 
 #Prepare memory
-if optional.memory is None:
+if args.memory is None:
     memory = 250
 
 #Prepare skipsteps
-if optional.skipsteps is None:
+if args.skipsteps is None:
     skipsteps = 0,
 else:
-    skipsteps = tuple(optional.skipsteps)
+    skipsteps = tuple(args.skipsteps)
     if isinstance(skipsteps,int):
         skipsteps = (skipsteps,)
 
 #Prepare includesteps
-if optional.includesteps is None:
+if args.includesteps is None:
     includesteps = 1,2,3,4,5,6,7,8,9
 else:
-    includesteps = tuple(optional.includesteps)
+    includesteps = tuple(args.includesteps)
     if isinstance(includesteps,int):
         includesteps = (includesteps,)
 
