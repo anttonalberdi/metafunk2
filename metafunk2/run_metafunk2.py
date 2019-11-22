@@ -138,10 +138,12 @@ if ( 1 in includesteps and 1 not in skipsteps ):
 #Need to test
 ##Pardre:
 ##https://academic.oup.com/bioinformatics/article/32/10/1562/1743431
-#Fulcrum
+#Fulcrum (parallel)
 ##https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-016-1192-5
-##FastUnique
+##FastUniq (most used)
 ##https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0052249
+##G-CNV
+##https://www.frontiersin.org/articles/10.3389/fbioe.2015.00028/full
 
 if ( 2 in includesteps and 2 not in skipsteps ):
     logfile=open(logfilepath,"a+")
