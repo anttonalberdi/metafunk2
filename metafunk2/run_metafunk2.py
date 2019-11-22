@@ -40,10 +40,6 @@ refgencount = len(refgenlist)
 if args.memory is None:
     memory = 250
 
-print(args.includesteps)
-print(type(args.includesteps))
-print(tuple([int(x) for x in args.includesteps.split(',')]))
-
 #Prepare skipsteps
 if args.skipsteps is None:
     skipsteps = 0,
