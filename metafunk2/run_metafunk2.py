@@ -47,7 +47,7 @@ print(type(args.includesteps))
 if args.skipsteps is None:
     skipsteps = 0,
 else:
-    skipsteps = tuple(args.skipsteps)
+    skipsteps = tuple(args.skipsteps.split(','))
     if isinstance(skipsteps,int):
         skipsteps = (skipsteps,)
 
@@ -55,7 +55,7 @@ else:
 if args.includesteps is None:
     includesteps = 1,2,3,4,5,6,7,8,9
 else:
-    includesteps = tuple(args.includesteps)
+    includesteps = tuple(args.includesteps.split(','))
     if isinstance(includesteps,int):
         includesteps = (includesteps,)
 
