@@ -205,3 +205,13 @@ if ( 6 in includesteps and 6 not in skipsteps ):
 
     from binning import binning
     binning(outpath,name,logfilepath,threads)
+
+#####
+# Close log file
+#####
+
+logfilepath=os.path.join(outpath,name + '.log')
+logfile=open(logfilepath,"w+")
+current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+logfile.write("{0} | Metafunk2 has finished succesfully!".format(current_time))
+logfile.close()
