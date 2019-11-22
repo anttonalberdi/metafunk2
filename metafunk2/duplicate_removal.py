@@ -60,3 +60,11 @@ def duplicate_removal(read1,read2,outpath,name,threads,statsfilepath,keep):
     if not keep:
         if os.path.exists(absprevdirr):
             shutil.rmtree(absprevdirr)
+
+    #Doublecheck everything is ok
+    if ( not os.path.exists(read1out) or not os.path.exists(read2out) ):
+        logfile=open(logfilepath,"a+")
+        current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+        logfile.write("{0} | ERROR! Metafunk2 has stopped due to an error. Check error file \r\n".format(current_time))
+        logfile.close()
+        os.kill(os.getpid(), signal.SIGSTOP)
