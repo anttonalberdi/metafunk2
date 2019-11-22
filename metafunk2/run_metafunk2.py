@@ -22,38 +22,39 @@ optional.add_argument('-m', help="RAM memory limit", nargs='?', metavar="MEMORY"
 optional.add_argument('-k', help="Keep intermediate files", dest="keep", action='store_true',default=True)
 optional.add_argument('--skipsteps', help="Skip steps", nargs='?', metavar="SKIPSTEPS", dest="skipsteps", type=int)
 optional.add_argument('--includesteps', help="Include steps", nargs='?', metavar="INCLUDESTEPS", dest="includesteps", type=int)
-args = parser.parse_args()
+requiredargs = required.parse_args()
+optionalargs = optional.parse_args()
 
-name = args.name
-read1 = args.read1
-read2 = args.read2
-outpath = args.outpath
-threads = args.threads
-memory = args.memory
-keep = args.keep
+name = requiredargs.name
+read1 = requiredargs.read1
+read2 = requiredargs.read2
+refgen = requiredargs.refgen
+outpath = requiredargs.outpath
+threads = optional.threads
+memory = optional.memory
+keep = optional.keep
 
 #Prepare reference genomes
-refgen = args.refgen
 refgenlist = [l.split('=') for l in refgen.split(',') if l]
 refgencount = len(refgenlist)
 
 #Prepare memory
-if args.memory is None:
+if optional.memory is None:
     memory = 250
 
 #Prepare skipsteps
-if args.skipsteps is None:
+if optional.skipsteps is None:
     skipsteps = 0,
 else:
-    skipsteps = tuple(args.skipsteps)
+    skipsteps = tuple(optional.skipsteps)
     if isinstance(skipsteps,int):
         skipsteps = (skipsteps,)
 
 #Prepare includesteps
-if args.includesteps is None:
+if optional.includesteps is None:
     includesteps = 1,2,3,4,5,6,7,8,9
 else:
-    includesteps = tuple(args.includesteps)
+    includesteps = tuple(optional.includesteps)
     if isinstance(includesteps,int):
         includesteps = (includesteps,)
 
