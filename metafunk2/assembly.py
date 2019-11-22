@@ -29,7 +29,14 @@ def assembly(outpath,name,logfilepath,statsfilepath,threads,memory):
     assemblyCmd = 'metaspades.py -1 '+read1in+' -2 '+read2in+' -t '+threads+' -m '+memory+' -k 21,29,39,59,79,99,119 --only-assembler -o '+assembly_abs+''
     subprocess.check_call(assemblyCmd, shell=True)
 
-    #Move reads to parent folder
+    #Move reads to working directory
     assembly = os.path.join(assembly_abs, 'contigs.fasta')
     assemblyfinal = os.path.join(outpath, name +  '.fna')
     shutil.copy(assembly, assemblyfinal)
+
+    #Print error to log file if final files are not created
+    if not os.path.exists(assemblyfinal):
+        logfile=open(logfilepath,"a+")
+        current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+        logfile.write("{0} |    There was an error during the assembly. Check error file. \r\n".format(current_time,refgenname))
+        logfile.close()

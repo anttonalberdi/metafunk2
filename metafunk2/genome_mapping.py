@@ -196,3 +196,11 @@ def genome_mapping(refgenlist,outpath,name,logfilepath,threads,statsfilepath):
         read2final = os.path.join(outpath, name +  '.2.fq')
         shutil.copy(read1out, read1final)
         shutil.copy(read2out, read2final)
+
+        #Print error to log file if final files are not created
+        if ( not os.path.exists(read1final) or not os.path.exists(read2final) ):
+            #Print to log file
+            logfile=open(logfilepath,"a+")
+            current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+            logfile.write("{0} |    There was an error during the genome mapping. Check error file. \r\n".format(current_time,refgenname))
+            logfile.close()
