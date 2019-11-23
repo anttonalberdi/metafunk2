@@ -187,9 +187,14 @@ def genome_mapping(refgenlist,outpath,name,logfilepath,threads,statsfilepath,kee
                 bases += len(seq.strip())
                 next(read)
                 next(read)
+        #Print stats to statsfile
         statsfile=open(statsfilepath,"a+")
-        statsfile.write("Reads after mapping to {0}\t{1}\r\nBases after mapping to {0}\t{2}".format(refgenname,reads,bases))
+        statsfile.write("Reads after mapping to {0}\t{1} ({2} bases)\r\n".format(refgenname,reads,bases))
         statsfile.close()
+        #Print stats to logfile
+        logfile=open(logfilepath,"a+")
+        logfile.write("                 {1} reads ({2} bases) were kept after mapping to {0} genome\r\n".format(refgenname,reads,bases))
+        logfile.close()
 
         #Move reads to parent folder
         read1final = os.path.join(outpath, name +  '.1.fq')

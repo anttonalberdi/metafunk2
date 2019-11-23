@@ -28,7 +28,7 @@ def quality_filtering(read1,read2,outpath,name,threads,statsfilepath):
             next(read)
             next(read)
     statsfile=open(statsfilepath,"a+")
-    statsfile.write("Initial reads\t{0}\r\nInitial bases\t{1}".format(reads,bases))
+    statsfile.write("Input reads\t{0} ({1} bases)\r\n".format(reads,bases))
     statsfile.close()
 
     #Run Adapterremoval
@@ -61,9 +61,16 @@ def quality_filtering(read1,read2,outpath,name,threads,statsfilepath):
             bases += len(seq.strip())
             next(read)
             next(read)
+
+    #Print stats to stats file
     statsfile=open(statsfilepath,"a+")
-    statsfile.write("Reads after quality filtering\t{0}\r\nBases after quality filtering\t{1}".format(reads,bases))
+    statsfile.write("Quality filtered reads\t{0} ({1} bases)\r\n".format(reads,bases))
     statsfile.close()
+
+    #Print stats to logfile
+    logfile=open(logfilepath,"a+")
+    logfile.write("                 {0} reads ({1} bases) were kept after quality filtering\r\n".format(reads,bases))
+    logfile.close()
 
     #Doublecheck everything is ok
     if ( not os.path.exists(read1out) or not os.path.exists(read2out) ):

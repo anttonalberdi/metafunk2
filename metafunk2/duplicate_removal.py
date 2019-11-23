@@ -52,9 +52,16 @@ def duplicate_removal(read1,read2,outpath,name,threads,statsfilepath,keep):
             bases += len(seq.strip())
             next(read)
             next(read)
+
+    #Print stats to stats file
     statsfile=open(statsfilepath,"a+")
-    statsfile.write("Reads after duplicate removal\t{0}\r\nBases after duplicate removal\t{1}".format(reads,bases))
+    statsfile.write("Dereplicated reads\t{0} ({1} bases)\r\n".format(reads,bases))
     statsfile.close()
+
+    #Print stats to logfile
+    logfile=open(logfilepath,"a+")
+    logfile.write("                 {0} reads ({1} bases) were kept after duplicate removal\r\n".format(reads,bases))
+    logfile.close()
 
     #If keep is not selected, remove previous directory
     if not keep:
