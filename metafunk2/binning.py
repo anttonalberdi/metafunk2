@@ -29,6 +29,7 @@ def binning(outpath,name,logfilepath,threads):
     if not os.path.exists(metabatdir):
         os.makedirs(metabatdir)
     metabatdepthfile = os.path.join(metabatdir, name + '.depth.txt')
+    metabatbinbase = os.path.join(metabatdir, name + '.bin')
 
     #Generate depth file
     logfile=open(logfilepath,"a+")
@@ -43,11 +44,11 @@ def binning(outpath,name,logfilepath,threads):
     current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
     logfile.write("{0} |    Running metabat binning\r\n".format(current_time))
     logfile.close()
-    metabatCmd = 'metabat2 -i '+assemblypath+' -a '+metabatdepthfile+' -o '+metabatdir+' -m 1500 -t '+threads+' --unbinned '
+    metabatCmd = 'metabat2 -i '+assemblypath+' -a '+metabatdepthfile+' -o '+metabatbinbase+' -m 1500 -t '+threads+' --unbinned '
     subprocess.check_call(metabatCmd, shell=True)
 
     #########################
-    ######## Maxbin ######### ERROR! requires FragGeneScan
+    ######## Maxbin ######### ERROR! requires FragGeneScan. Waiting for Computerome admin to install it
     #########################
 
     maxbindir = os.path.join(absnewdir, 'maxbin')
@@ -69,7 +70,7 @@ def binning(outpath,name,logfilepath,threads):
     logfile.write("{0} |    Running maxbin \r\n".format(current_time))
     logfile.close()
     maxbinCmd = 'run_MaxBin.pl -contig '+assemblypath+' -abund '+maxbindepthfile+' -out '+maxbindir+' -thread '+threads+''
-    subprocess.check_call(maxbinCmd, shell=True)
+    #subprocess.check_call(maxbinCmd, shell=True)
 
     #######################
     ######## MyCC ######### 2019/11/23 - yelding an error: ValueError: invalid literal for int() with base 10: 'Traceback (most recent call last):\n  File "/services/tools/mycc/20170301/GetThr.py", line 22, in <module>\n    print sorted(dlist,reverse=True)[thr]\nIndexError: list index out of range'
