@@ -29,7 +29,7 @@ def reassembly_indexing(projectname,projectpath,threads,memory,logfilepath):
 
     #Index reassembly
     reassemblyfai = os.path.join(reassemblypath + '.fai')
-    if not os.path.exists(assemblyfai):
+    if not os.path.exists(reassemblyfai):
         logfile=open(logfilepath,"a+")
         current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
         logfile.write("{0} |    Indexing metagenomic reassembly (merged assemblies) \r\n".format(current_time))
