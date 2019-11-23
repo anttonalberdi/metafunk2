@@ -10,7 +10,7 @@ import argparse
 import subprocess
 import time
 import gzip
-
+from check_software import is_tool
 
 def reassembly_indexing(projectname,projectpath,threads,memory,logfilepath):
 
