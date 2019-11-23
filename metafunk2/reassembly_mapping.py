@@ -13,9 +13,19 @@ import gzip
 
 
 def reassembly_indexing(projectname,projectpath,threads,memory,logfilepath):
+
+    if is_tool('bwa'):
+        print("     samtools = TRUE \r\n")
+    else:
+        print("     samtools = FALSE \r\n")
     #Load software
     loadCmd = 'module load pigz/2.3.4 samtools/1.9 bwa/0.7.15'
     subprocess.check_call(loadCmd, shell=True)
+
+    if is_tool('bwa'):
+        print("     samtools = TRUE \r\n")
+    else:
+        print("     samtools = FALSE \r\n")
 
     newdir = "reassembly_mapping"
     reassemblypath = os.path.join(projectpath, 'merged', 'reassembly.fna')
