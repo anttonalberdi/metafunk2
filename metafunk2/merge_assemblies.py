@@ -56,7 +56,7 @@ def merge_assemblies(projectname,projectpath,threads,memory,logfilepath):
     mergedassemblies_reassembly  = os.path.join(merged_abs, 'reassembly.fna')
 
     #Load software
-    loadSoftware = 'module load perl/5.20.2 ncbi-blast/2.6.0+ cd-hit/4.8.1 MUMmer/3.23 kentUtils/350 amos/20121115'
+    loadSoftware = 'module load perl/5.20.2 ncbi-blast/2.6.0+ cd-hit/4.8.1 MUMmer/3.23 kentUtils/350 amos/20121115 &&'
 
     #Modify merged assembly to afg format
     toamosCmd = ''+loadSoftware+' toAmos -s '+mergedassembliespath+' -o '+afgassembliespath+''
