@@ -32,7 +32,7 @@ def quality_filtering(read1,read2,outpath,name,threads,statsfilepath,logfilepath
     statsfile.close()
 
     #Run Adapterremoval
-    ARCmd = 'module load AdapterRemoval/2.1.3 && AdapterRemoval --file1 '+read1+' --file2 '+read2+' --basename '+outpath+'/'+name+'.quality_filtering/'+name+' --minquality 30 --trimqualities --trimns --maxns 5 --threads '+threads+''
+    ARCmd = 'module load gcc/5.4.0 AdapterRemoval/2.1.3 && AdapterRemoval --file1 '+read1+' --file2 '+read2+' --basename '+outpath+'/'+name+'.quality_filtering/'+name+' --minquality 30 --trimqualities --trimns --maxns 5 --threads '+threads+''
     subprocess.check_call(ARCmd, shell=True)
 
     #Modify output names
