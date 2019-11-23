@@ -12,12 +12,40 @@ import time
 import gzip
 
 
-def reassembly_indexing(refgenlist,outpath,name,logfilepath):
-    bla bla
+def reassembly_indexing(projectname,projectpath,threads,memory,logfilepath):
+    #Load software
+    loadCmd = 'module load pigz/2.3.4 samtools/1.9 bwa/0.7.15'
+    subprocess.check_call(loadCmd, shell=True)
 
+    newdir = "reassembly_mapping"
+    reassemblypath = os.path.join(outpath, 'merged', 'reassembly.fna')
+    if not os.path.exists(reassemblypath):
+        logfile=open(logfilepath,"a+")
+        current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+        logfile.write("{0} |    Merged assembly (reassembly) file does not exist\r\n".format(current_time))
+        logfile.close()
+        #Kill process if file does not exist
+        os.kill(os.getpid(), signal.SIGSTOP)
+
+    #Index reassembly
+    reassemblyfai = os.path.join(reassemblypath + '.fai')
+    if not os.path.exists(assemblyfai):
+        logfile=open(logfilepath,"a+")
+        current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+        logfile.write("{0} |    Indexing metagenomic reassembly (merged assemblies) \r\n".format(current_time))
+        logfile.close()
+        samtoolsindexCmd = 'samtools faidx '+reassemblypath+''
+        bwaindexCmd = 'bwa index '+reassemblypath+''
+        subprocess.check_call(samtoolsindexCmd, shell=True)
+        subprocess.check_call(bwaindexCmd, shell=True)
+    else:
+        logfile=open(logfilepath,"a+")
+        current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+        logfile.write("{0} |    Metagenomic reassembly (merged assemblies) is already indexed\r\n".format(current_time))
+        logfile.close()
 
 def reassembly_mapping(projectname,projectpath,threads,memory,logfilepath):
-    newdir = "assembly_mapping"
+    newdir = "reassembly_mapping"
     absnewdir = os.path.join(projectpath, 'merged', newdir)
     if not os.path.exists(absnewdir):
         os.makedirs(absnewdir)

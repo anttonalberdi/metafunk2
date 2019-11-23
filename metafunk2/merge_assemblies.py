@@ -17,7 +17,7 @@ def merge_assemblies(projectname,projectpath,threads,memory,logfilepath):
     merged_abs = os.path.join(projectpath, merged_dir)
     if not os.path.exists(merged_abs):
         os.makedirs(merged_abs)
-    assembly_dir = "assembly"
+    assembly_dir = "reassembly"
     assembly_abs = os.path.join(merged_abs, assembly_dir)
     if not os.path.exists(assembly_abs):
         os.makedirs(assembly_abs)
