@@ -51,7 +51,7 @@ def assembly(outpath,name,logfilepath,statsfilepath,threads,memory,keep):
 
     #Print stats to logfile
     logfile=open(logfilepath,"a+")
-    logfile.write("                     The assemblt produced {0} rcontigs\r\n".format(contigs))
+    logfile.write("                     The assembly produced {0} contigs\r\n".format(contigs))
     logfile.close()
 
     #If keep is not selected, remove previous directory
