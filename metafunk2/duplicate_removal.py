@@ -60,7 +60,7 @@ def duplicate_removal(read1,read2,outpath,name,threads,statsfilepath,logfilepath
 
     #Print stats to logfile
     logfile=open(logfilepath,"a+")
-    logfile.write("                 {0} reads ({1} bases) were kept after duplicate removal\r\n".format(reads,bases))
+    logfile.write("                     {0} reads ({1} bases) were kept after duplicate removal\r\n".format(reads,bases))
     logfile.close()
 
     #If keep is not selected, remove previous directory
