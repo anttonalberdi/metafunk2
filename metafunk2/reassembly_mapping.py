@@ -12,11 +12,11 @@ import time
 import gzip
 
 
-def index_reassembly(refgenlist,outpath,name,logfilepath):
+def reassembly_indexing(refgenlist,outpath,name,logfilepath):
     bla bla
 
 
-def map_reassembly(projectname,projectpath,threads,memory,logfilepath):
+def reassembly_mapping(projectname,projectpath,threads,memory,logfilepath):
     newdir = "assembly_mapping"
     absnewdir = os.path.join(projectpath, 'merged', newdir)
     if not os.path.exists(absnewdir):
