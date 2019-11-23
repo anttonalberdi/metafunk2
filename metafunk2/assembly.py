@@ -41,6 +41,23 @@ def assembly(outpath,name,logfilepath,statsfilepath,threads,memory,keep):
         logfile.write("{0} |    There was an error during the assembly. Check error file. \r\n".format(current_time,refgenname))
         logfile.close()
 
+    #Get stats
+    seqs = 0
+    with open(assemblyfinal, 'rb') as read:
+        for line in read:
+            if line.startswith(">"):
+                seqs += 1
+
+    #Print stats to stats file
+    statsfile=open(statsfilepath,"a+")
+    statsfile.write("Assembly contigs\t{0} \r\n".format(seqs))
+    statsfile.close()
+
+    #Print stats to logfile
+    logfile=open(logfilepath,"a+")
+    logfile.write("                     The assemblt produced {0} rcontigs\r\n".format(seqs))
+    logfile.close()
+
     #If keep is not selected, remove previous directory
     if not keep:
         if os.path.exists(absprevdirr):
