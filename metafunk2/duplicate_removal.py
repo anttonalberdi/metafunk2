@@ -35,7 +35,7 @@ def duplicate_removal(read1,read2,outpath,name,threads,statsfilepath,logfilepath
     subprocess.check_call(Rmdup2Cmd, shell=True)
 
     #Repa
-    RepCmd = 'module load bbmap/36.49 && repair.sh in='+read1tempout+' in2='+read2tempout+' out='+read1out+' out2='+read2out+' overwrite=t'
+    RepCmd = 'module load jre/1.8.0 bbmap/36.49 && repair.sh in='+read1tempout+' in2='+read2tempout+' out='+read1out+' out2='+read2out+' overwrite=t'
     subprocess.check_call(RepCmd, shell=True)
 
     #Remove temporal files
