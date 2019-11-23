@@ -72,7 +72,7 @@ statsfile.close()
 if ( 1 in includesteps and 1 not in skipsteps ):
     logfile=open(logfilepath,"a+")
     current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-    logfile.write("{0} | Metafunk2_merged has started to merge individual assemblies \r\n".format(current_time))
+    logfile.write("{0} | Metafunk2_merged is merging assemblies \r\n".format(current_time))
     logfile.close()
 
     from merge_assemblies import merge_assemblies
@@ -88,5 +88,5 @@ if ( 2 in includesteps and 2 not in skipsteps ):
     logfile.write("{0} | Metafunk2_merged has started to map reads of different samples to the merged assembly \r\n".format(current_time))
     logfile.close()
 
-    from merged_assembly_mapping import merged_assembly_mapping
-    merged_assembly_mapping(projectname,projectpath,threads,memory,logfilepath)
+    from merged_assembly_mapping import map_reassembly
+    map_reassembly(projectname,projectpath,threads,memory,logfilepath)

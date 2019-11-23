@@ -36,15 +36,14 @@ def merge_assemblies(projectname,projectpath,threads,memory,logfilepath):
     concCmd = 'cat '+assembliespath+' > '+mergedassembliespath+''
     subprocess.check_call(concCmd, shell=True)
 
-    #Removing redundant contigs
-    #cdhitCmd = 'cd-hit -i '+mergedassembliespath+' -o '+nrassembliespath+' -T '+threads+' -M 0 -c 0.99 -d 100 -aS 0.9'
-    #subprocess.check_call(cdhitCmd, shell=True)
-
-    #Modify merged assembly to afg format
-    toamosCmd = 'toAmos -s '+mergedassembliespath+' -o '+afgassembliespath+''
-    subprocess.check_call(toamosCmd, shell=True)
-
     #Decomposed minimus2 pipeline (#https://github.com/nathanhaigh/amos/blob/master/src/Pipeline/minimus2.acf)
+    #Consider using the alternative minimus2-blat - might be faster
+
+    logfile=open(logfilepath,"a+")
+    current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+    logfile.write("{0} |    Running minimus2 pipeline to merge assemblies \r\n".format(current_time))
+    logfile.close()
+
     mergedassemblies_bnk = os.path.join(mergedassembliesbase + '.bnk')
     mergedassemblies_afg = os.path.join(mergedassembliesbase + '.afg')
     mergedassemblies_refseq = os.path.join(mergedassembliesbase + '.ref.seq')
@@ -55,6 +54,10 @@ def merge_assemblies(projectname,projectpath,threads,memory,logfilepath):
     mergedassemblies_OVL = os.path.join(mergedassembliesbase + '.OVL')
     mergedassemblies_contig = os.path.join(mergedassembliesbase + '.contig')
     mergedassemblies_reassembly  = os.path.join(merged_abs, 'reassembly.fna')
+
+    #Modify merged assembly to afg format
+    toamosCmd = 'toAmos -s '+mergedassembliespath+' -o '+afgassembliespath+''
+    subprocess.check_call(toamosCmd, shell=True)
 
     #Remove path if does not exist
     rmbankCmd = 'rm -fr '+mergedassemblies_bnk+''

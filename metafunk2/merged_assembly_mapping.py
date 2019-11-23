@@ -11,7 +11,12 @@ import subprocess
 import time
 import gzip
 
-def merged_assembly_mapping(projectname,projectpath,threads,memory,logfilepath):
+
+def index_reassembly(refgenlist,outpath,name,logfilepath):
+    bla bla
+
+
+def map_reassembly(projectname,projectpath,threads,memory,logfilepath):
     newdir = "assembly_mapping"
     absnewdir = os.path.join(projectpath, 'merged', newdir)
     if not os.path.exists(absnewdir):
@@ -38,6 +43,7 @@ def merged_assembly_mapping(projectname,projectpath,threads,memory,logfilepath):
         logfile.close()
 
     #Map reads from each sample to the assembly
+    #Detect samples
 
     #Declare mapping commands
     mapCmd = 'bwa mem -t '+threads+' -R "@RG\tID:ProjectName\tCN:AuthorName\tDS:Mappingt\tPL:Illumina1.9\tSM:Sample" '+assemblypath+' '+read1in+' '+read2in+' | samtools view -T '+assemblypath+' -b - | samtools sort -T '+assemblypath+' - > '+assemblybampath+''
