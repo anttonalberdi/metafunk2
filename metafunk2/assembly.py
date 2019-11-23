@@ -13,9 +13,6 @@ import gzip
 import shutil
 
 def assembly(outpath,name,logfilepath,statsfilepath,threads,memory,keep):
-    #Load software
-    loadCmd = 'module load anaconda3/2.1.0 spades/3.13.1 perl/5.20.2'
-    subprocess.check_call(loadCmd, shell=True)
 
     prevdir = "genome_mapping"
     absprevdirr = os.path.join(outpath, name + '.' + prevdir)
@@ -30,7 +27,7 @@ def assembly(outpath,name,logfilepath,statsfilepath,threads,memory,keep):
     read2in = os.path.join(outpath, name +  '.2.fq')
 
     #Run assembly
-    assemblyCmd = 'metaspades.py -1 '+read1in+' -2 '+read2in+' -t '+threads+' -m '+memory+' -k 21,29,39,59,79,99,119 --only-assembler -o '+assembly_abs+''
+    assemblyCmd = 'module load anaconda3/2.1.0 spades/3.13.1 perl/5.20.2 && metaspades.py -1 '+read1in+' -2 '+read2in+' -t '+threads+' -m '+memory+' -k 21,29,39,59,79,99,119 --only-assembler -o '+assembly_abs+''
     subprocess.check_call(assemblyCmd, shell=True)
 
     #Move reads to working directory
@@ -74,7 +71,3 @@ def assembly(outpath,name,logfilepath,statsfilepath,threads,memory,keep):
         logfile.write("{0} | ERROR! Metafunk2 has stopped due to an error. Check error file \r\n".format(current_time))
         logfile.close()
         os.kill(os.getpid(), signal.SIGSTOP)
-
-    #Unload software
-    unloadCmd = 'module unload anaconda3/2.1.0 spades/3.13.1 perl/5.20.2'
-    subprocess.check_call(unloadCmd, shell=True)

@@ -12,10 +12,6 @@ import gzip
 import shutil
 
 def duplicate_removal(read1,read2,outpath,name,threads,statsfilepath,logfilepath,keep):
-    #Load software
-    loadCmd = 'module load pigz/2.3.4 seqkit/0.7.1 jre/1.8.0 bbmap/36.49'
-    subprocess.check_call(loadCmd, shell=True)
-
     #Create quality_filtering subdirectory
     prevdir = "quality_filtering"
     absprevdirr = os.path.join(outpath, name + '.' + prevdir)
@@ -33,13 +29,13 @@ def duplicate_removal(read1,read2,outpath,name,threads,statsfilepath,logfilepath
     read2out = os.path.join(absnewdir, name +  '.2.fq')
 
     #Run seqkit rmdup
-    Rmdup1Cmd = 'cat '+read1in+' | seqkit rmdup -s -d bla -o '+read1tempout+''
+    Rmdup1Cmd = 'module load pigz/2.3.4 seqkit/0.7.1 && cat '+read1in+' | seqkit rmdup -s -d bla -o '+read1tempout+''
     subprocess.check_call(Rmdup1Cmd, shell=True)
-    Rmdup2Cmd = 'cat '+read2in+' | seqkit rmdup -s -o '+read2tempout+''
+    Rmdup2Cmd = 'module load pigz/2.3.4 seqkit/0.7.1 && cat '+read2in+' | seqkit rmdup -s -o '+read2tempout+''
     subprocess.check_call(Rmdup2Cmd, shell=True)
 
     #Repa
-    RepCmd = 'repair.sh in='+read1tempout+' in2='+read2tempout+' out='+read1out+' out2='+read2out+' overwrite=t'
+    RepCmd = 'module load bbmap/36.49 && repair.sh in='+read1tempout+' in2='+read2tempout+' out='+read1out+' out2='+read2out+' overwrite=t'
     subprocess.check_call(RepCmd, shell=True)
 
     #Remove temporal files
@@ -79,7 +75,3 @@ def duplicate_removal(read1,read2,outpath,name,threads,statsfilepath,logfilepath
         logfile.write("{0} | ERROR! Metafunk2 has stopped due to an error. Check error file \r\n".format(current_time))
         logfile.close()
         os.kill(os.getpid(), signal.SIGSTOP)
-
-    #Unoad software
-    unloadCmd = 'module unload pigz/2.3.4 seqkit/0.7.1 jre/1.8.0 bbmap/36.49'
-    subprocess.check_call(unloadCmd, shell=True)

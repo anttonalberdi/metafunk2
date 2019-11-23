@@ -14,9 +14,6 @@ import shutil
 
 #Copy reference genome to working directory
 def copy_genome(refgenlist,outpath,name,logfilepath):
-    #Load software
-    loadCmd = 'module load pigz/2.3.4 samtools/1.9 bwa/0.7.15'
-    subprocess.check_call(loadCmd, shell=True)
 
     #Create genome_mapping directory if it does not exist
     genome_mapping_dir = "genome_mapping"
@@ -73,7 +70,7 @@ def copy_genome(refgenlist,outpath,name,logfilepath):
                 current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
                 logfile.write("{0} |    Decompressing {1} genome \r\n".format(current_time,refgenname))
                 logfile.close()
-                DecompCmd = 'pigz -d '+refgenpath+''
+                DecompCmd = 'module load pigz/2.3.4 && pigz -d '+refgenpath+''
                 subprocess.check_call(DecompCmd, shell=True)
 
 #Index reference genomes if not already indexed or being indexed by another job
@@ -96,8 +93,8 @@ def index_genome(refgenlist,outpath,name,logfilepath):
             logfile.write("{0} |    Indexing {1} genome \r\n".format(current_time,refgenname))
             logfile.close()
             #Index genomes
-            samtoolsindexCmd = 'samtools faidx '+refgenpath+''
-            bwaindexCmd = 'bwa index '+refgenpath+''
+            samtoolsindexCmd = 'module load samtools/1.9 && samtools faidx '+refgenpath+''
+            bwaindexCmd = 'module load bwa/0.7.15 && bwa index '+refgenpath+''
             subprocess.check_call(samtoolsindexCmd, shell=True)
             subprocess.check_call(bwaindexCmd, shell=True)
             #Remove indexing flag when indexing is done
@@ -151,10 +148,10 @@ def genome_mapping(refgenlist,outpath,name,logfilepath,threads,statsfilepath,kee
             time.sleep(secs)
 
         #Declare mapping commands
-        mapCmd = 'bwa mem -t '+threads+' -R "@RG\tID:ProjectName\tCN:AuthorName\tDS:Mappingt\tPL:Illumina1.9\tSM:Sample" '+refgenpath+' '+read1in+' '+read2in+' | samtools view -T '+refgenpath+' -b - > '+bampath_all+''
-        hostmapCmd = 'samtools view -T '+refgenpath+' -b -F12 '+bampath_all+' > '+bampath_host+''
-        mgmapCmd = 'samtools view -T '+refgenpath+' -b -f12 '+bampath_all+' > '+bampath_mg+''
-        mgfqCmd = 'samtools fastq -1 '+read1out+' -2 '+read2out+' '+bampath_mg+''
+        mapCmd = 'module load bwa/0.7.15 && bwa mem -t '+threads+' -R "@RG\tID:ProjectName\tCN:AuthorName\tDS:Mappingt\tPL:Illumina1.9\tSM:Sample" '+refgenpath+' '+read1in+' '+read2in+' | samtools view -T '+refgenpath+' -b - > '+bampath_all+''
+        hostmapCmd = 'module load samtools/1.9 && samtools view -T '+refgenpath+' -b -F12 '+bampath_all+' > '+bampath_host+''
+        mgmapCmd = 'module load samtools/1.9 && samtools view -T '+refgenpath+' -b -f12 '+bampath_all+' > '+bampath_mg+''
+        mgfqCmd = 'module load samtools/1.9 && samtools fastq -1 '+read1out+' -2 '+read2out+' '+bampath_mg+''
 
         #Mapping to genome
         logfile=open(logfilepath,"a+")
@@ -225,7 +222,3 @@ def genome_mapping(refgenlist,outpath,name,logfilepath,threads,statsfilepath,kee
             logfile.write("{0} | ERROR! Metafunk2 has stopped due to an error. Check error file \r\n".format(current_time))
             logfile.close()
             os.kill(os.getpid(), signal.SIGSTOP)
-
-    #Unoad software
-    unloadCmd = 'module unload pigz/2.3.4 samtools/1.9 bwa/0.7.15'
-    subprocess.check_call(unloadCmd, shell=True)
