@@ -50,18 +50,18 @@ def binning(outpath,name,logfilepath,threads):
     ######## Maxbin #########
     #########################
 
-    #maxbindir = os.path.join(absnewdir, 'metabat')
-    #if not os.path.exists(maxbindir):
-#        os.makedirs(maxbindir)
-    #maxbindepthfile = os.path.join(maxbindir, name + '.depth.txt')
+    maxbindir = os.path.join(absnewdir, 'maxbin')
+    if not os.path.exists(maxbindir):
+        os.makedirs(maxbindir)
+    maxbindepthfile = os.path.join(maxbindir, name + '.depth.txt')
 
     #Generate depth file
-    #logfile=open(logfilepath,"a+")
-    #current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-    #logfile.write("{0} |    Generating maxbin depth file from the reads mapped to the assembly \r\n".format(current_time))
-    #logfile.close()
-    #metabatdepthfileCmd = 'jgi_summarize_bam_contig_depths --outputDepth '+maxbindepthfile+' --noIntraDepthVariance '+assemblybampath+''
-    #subprocess.check_call(metabatdepthfileCmd, shell=True)
+    logfile=open(logfilepath,"a+")
+    current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+    logfile.write("{0} |    Generating maxbin depth file from the reads mapped to the assembly \r\n".format(current_time))
+    logfile.close()
+    maxbindepthfileCmd = 'jgi_summarize_bam_contig_depths --outputDepth '+maxbindepthfile+' --noIntraDepthVariance '+assemblybampath+''
+    subprocess.check_call(maxbindepthfileCmd, shell=True)
 
     #Run maxbin
     #logfile=open(logfilepath,"a+")
@@ -72,26 +72,26 @@ def binning(outpath,name,logfilepath,threads):
     #subprocess.check_call(metabatCmd, shell=True)
 
     #######################
-    ######## MyCC #########
+    ######## MyCC ######### 2019/11/23 - yelding an error: ValueError: invalid literal for int() with base 10: 'Traceback (most recent call last):\n  File "/services/tools/mycc/20170301/GetThr.py", line 22, in <module>\n    print sorted(dlist,reverse=True)[thr]\nIndexError: list index out of range'
     #######################
 
-    myccdir = os.path.join(absnewdir, 'mycc')
-    if not os.path.exists(myccdir):
-        os.makedirs(myccdir)
-    myccdepthfile = os.path.join(myccdir, name + '.depth.txt')
+    #myccdir = os.path.join(absnewdir, 'mycc')
+    #if not os.path.exists(myccdir):
+    #    os.makedirs(myccdir)
+    #myccdepthfile = os.path.join(myccdir, name + '.depth.txt')
 
     #Generate depth file
-    logfile=open(logfilepath,"a+")
-    current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-    logfile.write("{0} |    Generating mycc depth file from the reads mapped to the assembly \r\n".format(current_time))
-    logfile.close()
-    metabatdepthfileCmd = 'jgi_summarize_bam_contig_depths --outputDepth '+metabatdepthfile+' '+assemblybampath+''
-    subprocess.check_call(metabatdepthfileCmd, shell=True)
+    #logfile=open(logfilepath,"a+")
+    #current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+    #logfile.write("{0} |    Generating mycc depth file from the reads mapped to the assembly \r\n".format(current_time))
+    #logfile.close()
+    #metabatdepthfileCmd = 'jgi_summarize_bam_contig_depths --outputDepth '+metabatdepthfile+' '+assemblybampath+''
+    #subprocess.check_call(metabatdepthfileCmd, shell=True)
 
     #Run MyCC
-    logfile=open(logfilepath,"a+")
-    current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-    logfile.write("{0} |    Running MyCC binning\r\n".format(current_time))
-    logfile.close()
-    myccCmd = 'MyCC.py '+assemblypath+' -a '+metabatdepthfile+' '
-    subprocess.check_call(myccCmd, shell=True)
+    #logfile=open(logfilepath,"a+")
+    #current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+    #logfile.write("{0} |    Running MyCC binning\r\n".format(current_time))
+    #logfile.close()
+    #myccCmd = 'MyCC.py '+assemblypath+' -a '+metabatdepthfile+' '
+    #subprocess.check_call(myccCmd, shell=True)
