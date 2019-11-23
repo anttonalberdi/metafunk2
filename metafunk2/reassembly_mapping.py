@@ -14,7 +14,7 @@ from check_software import is_tool
 
 def reassembly_indexing(projectname,projectpath,threads,memory,logfilepath):
 
-    if is_tool('pigz'):
+    if is_tool('samtools'):
         print("     samtools = TRUE \r\n")
     else:
         print("     samtools = FALSE \r\n")
@@ -22,7 +22,7 @@ def reassembly_indexing(projectname,projectpath,threads,memory,logfilepath):
     loadCmd = 'module load pigz/2.3.4 samtools/1.9 bwa/0.7.15'
     subprocess.check_call(loadCmd, shell=True)
 
-    if is_tool('pigz'):
+    if is_tool('samtools'):
         print("     samtools = TRUE \r\n")
     else:
         print("     samtools = FALSE \r\n")
@@ -44,7 +44,7 @@ def reassembly_indexing(projectname,projectpath,threads,memory,logfilepath):
         current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
         logfile.write("{0} |    Indexing metagenomic reassembly (merged assemblies) \r\n".format(current_time))
         logfile.close()
-        samtoolsindexCmd = 'samtools faidx '+reassemblypath+''
+        samtoolsindexCmd = 'module load samtools/1.9 && samtools faidx '+reassemblypath+''
         bwaindexCmd = 'bwa index '+reassemblypath+''
         subprocess.check_call(samtoolsindexCmd, shell=True)
         subprocess.check_call(bwaindexCmd, shell=True)
