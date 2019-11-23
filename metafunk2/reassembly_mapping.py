@@ -32,7 +32,7 @@ def reassembly_indexing(projectname,projectpath,threads,memory,logfilepath):
         logfile.write("{0} |    Indexing metagenomic reassembly (merged assemblies) \r\n".format(current_time))
         logfile.close()
         samtoolsindexCmd = 'module load samtools/1.9 && samtools faidx '+reassemblypath+''
-        bwaindexCmd = 'bwa/0.7.15 && bwa index '+reassemblypath+''
+        bwaindexCmd = 'module load bwa/0.7.15 && bwa index '+reassemblypath+''
         subprocess.check_call(samtoolsindexCmd, shell=True)
         subprocess.check_call(bwaindexCmd, shell=True)
     else:
