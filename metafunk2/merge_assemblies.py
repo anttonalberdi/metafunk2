@@ -55,8 +55,11 @@ def merge_assemblies(projectname,projectpath,threads,memory,logfilepath):
     mergedassemblies_contig = os.path.join(mergedassembliesbase + '.contig')
     mergedassemblies_reassembly  = os.path.join(merged_abs, 'reassembly.fna')
 
+    #Load software
+    loadSoftware = 'module load perl/5.20.2 ncbi-blast/2.6.0+ cd-hit/4.8.1 MUMmer/3.23 kentUtils/350 amos/20121115'
+
     #Modify merged assembly to afg format
-    toamosCmd = 'toAmos -s '+mergedassembliespath+' -o '+afgassembliespath+''
+    toamosCmd = ''+loadSoftware+' toAmos -s '+mergedassembliespath+' -o '+afgassembliespath+''
     subprocess.check_call(toamosCmd, shell=True)
 
     #Remove path if does not exist
@@ -64,49 +67,49 @@ def merge_assemblies(projectname,projectpath,threads,memory,logfilepath):
     subprocess.check_call(rmbankCmd, shell=True)
 
     #Create bank
-    bankCmd = 'bank-transact -c -z -b '+mergedassemblies_bnk+' -m '+mergedassemblies_afg+''
+    bankCmd = ''+loadSoftware+' bank-transact -c -z -b '+mergedassemblies_bnk+' -m '+mergedassemblies_afg+''
     subprocess.check_call(bankCmd, shell=True)
 
     #Dump1
-    dump1Cmd = 'dumpreads '+mergedassemblies_bnk+' -M 0 > '+mergedassemblies_refseq+''
+    dump1Cmd = ''+loadSoftware+' dumpreads '+mergedassemblies_bnk+' -M 0 > '+mergedassemblies_refseq+''
     subprocess.check_call(dump1Cmd, shell=True)
 
     #Dump2
-    dump2Cmd = 'dumpreads '+mergedassemblies_bnk+' -m 0 > '+mergedassemblies_qryseq+''
+    dump2Cmd = ''+loadSoftware+' dumpreads '+mergedassemblies_bnk+' -m 0 > '+mergedassemblies_qryseq+''
     subprocess.check_call(dump2Cmd, shell=True)
 
     #Nucmer
-    nucmerCmd = 'nucmer -maxmatch -c 100 '+mergedassemblies_refseq+' '+mergedassemblies_qryseq+' -p '+mergedassembliesbase+''
+    nucmerCmd = ''+loadSoftware+' nucmer -maxmatch -c 100 '+mergedassemblies_refseq+' '+mergedassemblies_qryseq+' -p '+mergedassembliesbase+''
     subprocess.check_call(nucmerCmd, shell=True)
 
     #Coords
-    coordsCmd = 'show-coords -H -c -l -o -r -I 95 '+mergedassemblies_delta+' | nucmerAnnotate | egrep "BEGIN|END|CONTAIN|IDENTITY" > '+mergedassemblies_coords+''
+    coordsCmd = ''+loadSoftware+' show-coords -H -c -l -o -r -I 95 '+mergedassemblies_delta+' | nucmerAnnotate | egrep "BEGIN|END|CONTAIN|IDENTITY" > '+mergedassemblies_coords+''
     subprocess.check_call(coordsCmd, shell=True)
 
     #ovl
-    ovlCmd = 'nucmer2ovl -ignore 20 -tab '+mergedassemblies_coords+' | sort2 > '+mergedassemblies_ovl+''
+    ovlCmd = ''+loadSoftware+' nucmer2ovl -ignore 20 -tab '+mergedassemblies_coords+' | sort2 > '+mergedassemblies_ovl+''
     subprocess.check_call(ovlCmd, shell=True)
 
     #OVL
-    OVLCmd = 'ovl2OVL '+mergedassemblies_ovl+' > '+mergedassemblies_OVL+''
+    OVLCmd = ''+loadSoftware+' ovl2OVL '+mergedassemblies_ovl+' > '+mergedassemblies_OVL+''
     subprocess.check_call(OVLCmd, shell=True)
 
     #Transact
-    transactCmd = 'bank-transact -z -b '+mergedassemblies_bnk+' -m '+mergedassemblies_OVL+''
+    transactCmd = ''+loadSoftware+' bank-transact -z -b '+mergedassemblies_bnk+' -m '+mergedassemblies_OVL+''
     subprocess.check_call(transactCmd, shell=True)
 
     #Tigger
-    tiggerCmd = 'tigger -b '+mergedassemblies_bnk+''
+    tiggerCmd = ''+loadSoftware+' tigger -b '+mergedassemblies_bnk+''
     subprocess.check_call(tiggerCmd, shell=True)
 
     #Consensus
-    consensusCmd = 'make-consensus -B -e 0.06 -b '+mergedassemblies_bnk+' -w 15'
+    consensusCmd = ''+loadSoftware+' make-consensus -B -e 0.06 -b '+mergedassemblies_bnk+' -w 15'
     subprocess.check_call(consensusCmd, shell=True)
 
     #Contig
-    contigCmd = 'bank2contig '+mergedassemblies_bnk+' > '+mergedassemblies_contig+''
+    contigCmd = ''+loadSoftware+' bank2contig '+mergedassemblies_bnk+' > '+mergedassemblies_contig+''
     subprocess.check_call(contigCmd, shell=True)
 
     #Fasta
-    fastaCmd = 'bank2fasta -b '+mergedassemblies_bnk+' > '+mergedassemblies_reassembly+''
+    fastaCmd = ''+loadSoftware+' bank2fasta -b '+mergedassemblies_bnk+' > '+mergedassemblies_reassembly+''
     subprocess.check_call(fastaCmd, shell=True)
