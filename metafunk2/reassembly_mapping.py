@@ -18,7 +18,7 @@ def reassembly_indexing(projectname,projectpath,threads,memory,logfilepath):
     subprocess.check_call(loadCmd, shell=True)
 
     newdir = "reassembly_mapping"
-    reassemblypath = os.path.join(outpath, 'merged', 'reassembly.fna')
+    reassemblypath = os.path.join(projectpath, 'merged', 'reassembly.fna')
     if not os.path.exists(reassemblypath):
         logfile=open(logfilepath,"a+")
         current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
