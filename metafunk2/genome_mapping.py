@@ -14,6 +14,10 @@ import shutil
 
 #Copy reference genome to working directory
 def copy_genome(refgenlist,outpath,name,logfilepath):
+    #Load software
+    loadCmd = 'module load pigz/2.3.4 samtools/1.9 bwa/0.7.15'
+    subprocess.check_call(loadCmd, shell=True)
+
     #Create genome_mapping directory if it does not exist
     genome_mapping_dir = "genome_mapping"
     genome_mapping_dir_abs = os.path.join(outpath, name + '.' + genome_mapping_dir)
@@ -221,3 +225,7 @@ def genome_mapping(refgenlist,outpath,name,logfilepath,threads,statsfilepath,kee
             logfile.write("{0} | ERROR! Metafunk2 has stopped due to an error. Check error file \r\n".format(current_time))
             logfile.close()
             os.kill(os.getpid(), signal.SIGSTOP)
+
+    #Unoad software
+    unloadCmd = 'module unload pigz/2.3.4 samtools/1.9 bwa/0.7.15'
+    subprocess.check_call(unloadCmd, shell=True)

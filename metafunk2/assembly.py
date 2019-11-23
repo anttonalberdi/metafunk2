@@ -13,6 +13,10 @@ import gzip
 import shutil
 
 def assembly(outpath,name,logfilepath,statsfilepath,threads,memory,keep):
+    #Load software
+    loadCmd = 'module load anaconda3/2.1.0 spades/3.13.1 perl/5.20.2'
+    subprocess.check_call(loadCmd, shell=True)
+
     prevdir = "genome_mapping"
     absprevdirr = os.path.join(outpath, name + '.' + prevdir)
     #Create assembly directory if it does not exist
@@ -70,3 +74,7 @@ def assembly(outpath,name,logfilepath,statsfilepath,threads,memory,keep):
         logfile.write("{0} | ERROR! Metafunk2 has stopped due to an error. Check error file \r\n".format(current_time))
         logfile.close()
         os.kill(os.getpid(), signal.SIGSTOP)
+
+    #Unload software
+    unloadCmd = 'module unload anaconda3/2.1.0 spades/3.13.1 perl/5.20.2'
+    subprocess.check_call(unloadCmd, shell=True)

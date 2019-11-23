@@ -11,6 +11,10 @@ import subprocess
 import gzip
 
 def quality_filtering(read1,read2,outpath,name,threads,statsfilepath,logfilepath):
+    #Load software
+    loadCmd = 'module load AdapterRemoval/2.1.3 pigz/2.3.4'
+    subprocess.check_call(loadCmd, shell=True)
+
     #Create quality_filtering subdirectory
     subdir = "quality_filtering"
     absdir = os.path.join(outpath, name + '.' + subdir)
@@ -79,3 +83,7 @@ def quality_filtering(read1,read2,outpath,name,threads,statsfilepath,logfilepath
         logfile.write("{0} | ERROR! Metafunk2 has stopped due to an error. Check error file \r\n".format(current_time))
         logfile.close()
         os.kill(os.getpid(), signal.SIGSTOP)
+
+    #Unload software
+    unloadCmd = 'module unload AdapterRemoval/2.1.3 pigz/2.3.4'
+    subprocess.check_call(unloadCmd, shell=True)
