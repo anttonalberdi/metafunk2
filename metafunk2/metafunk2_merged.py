@@ -90,7 +90,7 @@ if ( 2 in includesteps and 2 not in skipsteps ):
     logfile.write("{0} | Metafunk2_merged is mapping reads of different samples to the reassembly (merged assemblies) \r\n".format(current_time))
     logfile.close()
 
-    from reassembly_mapping import reassembly_mapping
+    from reassembly_mapping import reassembly_indexing
     reassembly_indexing(projectname,projectpath,threads,memory,logfilepath)
 
     #from reassembly_mapping import reassembly_mapping
