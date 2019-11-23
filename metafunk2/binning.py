@@ -18,11 +18,11 @@ def binning(outpath,name,logfilepath,threads):
         os.makedirs(absnewdir)
 
     #Declare input files
-    assemblypath = os.path.join(outpath, name + '.assembly','contigs.fasta')
+    assemblypath = os.path.join(outpath, name + '.fna')
     assemblybampath = os.path.join(outpath,name + '.assembly_mapping', name + '.mapped.bam')
 
     #########################
-    ######## Metabat ########
+    ######## Metabat ########x
     #########################
 
     metabatdir = os.path.join(absnewdir, 'metabat')
