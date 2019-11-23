@@ -45,7 +45,7 @@ module unload gcc/5.1.0
 module load metabat/2.12.1 #conflicts with gcc
 
 #MaxBin
-module load maxbin/2.2.7
+module load maxbin/2.2.4
 
 #MyCC
 module unload perl/5.20.2

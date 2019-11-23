@@ -47,7 +47,7 @@ def binning(outpath,name,logfilepath,threads):
     subprocess.check_call(metabatCmd, shell=True)
 
     #########################
-    ######## Maxbin #########
+    ######## Maxbin ######### ERROR! requires FragGeneScan
     #########################
 
     maxbindir = os.path.join(absnewdir, 'maxbin')
@@ -64,12 +64,12 @@ def binning(outpath,name,logfilepath,threads):
     subprocess.check_call(maxbindepthfileCmd, shell=True)
 
     #Run maxbin
-    #logfile=open(logfilepath,"a+")
-    #current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-    #logfile.write("{0} |    Running maxbin \r\n".format(current_time))
-    #logfile.close()
-    #metabatCmd = 'metabat2 -i '+assemblypath+' -a '+metabatdepthfile+' -o '+metabatdir+' -m 1500 -t '+threads+' --unbinned '
-    #subprocess.check_call(metabatCmd, shell=True)
+    logfile=open(logfilepath,"a+")
+    current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+    logfile.write("{0} |    Running maxbin \r\n".format(current_time))
+    logfile.close()
+    maxbinCmd = 'run_MaxBin.pl -contig '+assemblypath+' -abund '+maxbindepthfile+' out '+maxbindir+' -m 1500 -thread '+threads+''
+    subprocess.check_call(maxbinCmd, shell=True)
 
     #######################
     ######## MyCC ######### 2019/11/23 - yelding an error: ValueError: invalid literal for int() with base 10: 'Traceback (most recent call last):\n  File "/services/tools/mycc/20170301/GetThr.py", line 22, in <module>\n    print sorted(dlist,reverse=True)[thr]\nIndexError: list index out of range'
