@@ -41,7 +41,7 @@ def binning(outpath,name,logfilepath,threads):
     #Run metabat
     logfile=open(logfilepath,"a+")
     current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-    logfile.write("{0} |    Running metabat \r\n".format(current_time))
+    logfile.write("{0} |    Running metabat binning\r\n".format(current_time))
     logfile.close()
     metabatCmd = 'metabat2 -i '+assemblypath+' -a '+metabatdepthfile+' -o '+metabatdir+' -m 1500 -t '+threads+' --unbinned '
     subprocess.check_call(metabatCmd, shell=True)
@@ -70,3 +70,28 @@ def binning(outpath,name,logfilepath,threads):
     #logfile.close()
     #metabatCmd = 'metabat2 -i '+assemblypath+' -a '+metabatdepthfile+' -o '+metabatdir+' -m 1500 -t '+threads+' --unbinned '
     #subprocess.check_call(metabatCmd, shell=True)
+
+    #######################
+    ######## MyCC #########
+    #######################
+
+    myccdir = os.path.join(absnewdir, 'mycc')
+    if not os.path.exists(myccdir):
+        os.makedirs(myccdir)
+    myccdepthfile = os.path.join(myccdir, name + '.depth.txt')
+
+    #Generate depth file
+    logfile=open(logfilepath,"a+")
+    current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+    logfile.write("{0} |    Generating mycc depth file from the reads mapped to the assembly \r\n".format(current_time))
+    logfile.close()
+    metabatdepthfileCmd = 'jgi_summarize_bam_contig_depths --outputDepth '+metabatdepthfile+' '+assemblybampath+''
+    subprocess.check_call(metabatdepthfileCmd, shell=True)
+
+    #Run MyCC
+    logfile=open(logfilepath,"a+")
+    current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+    logfile.write("{0} |    Running MyCC binning\r\n".format(current_time))
+    logfile.close()
+    myccCmd = 'MyCC.py '+assemblypath+' -a '+metabatdepthfile+' '
+    subprocess.check_call(myccCmd, shell=True)
