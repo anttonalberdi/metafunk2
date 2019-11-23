@@ -10,7 +10,7 @@ import argparse
 import subprocess
 import gzip
 
-def quality_filtering(read1,read2,outpath,name,threads,statsfilepath):
+def quality_filtering(read1,read2,outpath,name,threads,statsfilepath,logfilepath):
     #Create quality_filtering subdirectory
     subdir = "quality_filtering"
     absdir = os.path.join(outpath, name + '.' + subdir)
