@@ -11,7 +11,7 @@ import subprocess
 import gzip
 import shutil
 
-def duplicate_removal(read1,read2,outpath,name,threads,statsfilepath,keep):
+def duplicate_removal(read1,read2,outpath,name,threads,statsfilepath,logfilepath,keep):
     #Create quality_filtering subdirectory
     prevdir = "quality_filtering"
     absprevdirr = os.path.join(outpath, name + '.' + prevdir)

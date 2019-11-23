@@ -129,7 +129,7 @@ if ( 1 in includesteps and 1 not in skipsteps ):
     logfile.close()
 
     from quality_filtering import quality_filtering
-    quality_filtering(read1,read2,outpath,name,threads,statsfilepath)
+    quality_filtering(read1,read2,outpath,name,threads,statsfilepath,logfilepath)
 
 #####
 # 2) Duplicate removal step
@@ -152,7 +152,7 @@ if ( 2 in includesteps and 2 not in skipsteps ):
     logfile.close()
 
     from duplicate_removal import duplicate_removal
-    duplicate_removal(read1,read2,outpath,name,threads,statsfilepath,keep)
+    duplicate_removal(read1,read2,outpath,name,threads,statsfilepath,logfilepath,keep)
 
 #####
 # 3) Mapping against reference genomes
