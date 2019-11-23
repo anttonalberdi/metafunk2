@@ -88,5 +88,5 @@ if ( 2 in includesteps and 2 not in skipsteps ):
     logfile.write("{0} | Metafunk2_merged has started to map reads of different samples to the merged assembly \r\n".format(current_time))
     logfile.close()
 
-    from merged_assembly_mapping import map_reassembly
+    from map_reassembly import map_reassembly
     map_reassembly(projectname,projectpath,threads,memory,logfilepath)
