@@ -68,7 +68,7 @@ def binning(outpath,name,logfilepath,threads):
     current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
     logfile.write("{0} |    Running maxbin \r\n".format(current_time))
     logfile.close()
-    maxbinCmd = 'run_MaxBin.pl -contig '+assemblypath+' -abund '+maxbindepthfile+' out '+maxbindir+' -m 1500 -thread '+threads+''
+    maxbinCmd = 'run_MaxBin.pl -contig '+assemblypath+' -abund '+maxbindepthfile+' -out '+maxbindir+' -thread '+threads+''
     subprocess.check_call(maxbinCmd, shell=True)
 
     #######################
