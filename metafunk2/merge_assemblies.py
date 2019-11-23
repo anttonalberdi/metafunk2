@@ -44,6 +44,6 @@ def merge_assemblies(projectname,projectpath,threads,memory,logfilepath):
     toamosCmd = 'toAmos -s '+mergedassembliespath+' -o '+afgassembliespath+''
     subprocess.check_call(toamosCmd, shell=True)
 
-    #Reassemble assemblies
+    #Reassemble assemblies - 20191122 show-coords path issue
     minimusCmd = 'minimus2 '+mergedassembliesbase+' -D OVERLAP=100 -D MINID=95 -D THREADS='+threads+''
-    subprocess.check_call(minimusCmd, shell=True)
+    #subprocess.check_call(minimusCmd, shell=True)

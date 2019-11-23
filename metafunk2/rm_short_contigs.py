@@ -13,12 +13,14 @@ import gzip
 import shutil
 
 
-def rm_short_contigs(minlength,assembly):
+def rm_short_contigs(minlength,assemblyin,assemblyout):
+    file = open(sys.argv[3],'a+')
     for line in open(sys.argv[2]):
-        if not line.startswith(">"): print line.strip()
+        if noy line.startswith(">"): file.write(line.strip())
 	    else:
             if int(line.split("_")[3])<int(sys.argv[1]): break
-            else: print line.strip()
+            else: file.write(line.strip())
+    file.close()
 
 def assembly(outpath,name,logfilepath,statsfilepath,threads,memory,keep):
     prevdir = "genome_mapping"
@@ -38,9 +40,11 @@ def assembly(outpath,name,logfilepath,statsfilepath,threads,memory,keep):
     subprocess.check_call(assemblyCmd, shell=True)
 
     #Move reads to working directory
-    assembly = os.path.join(assembly_abs, 'contigs.fasta')
-    assemblyfinal = os.path.join(outpath, name +  '.fna')
-    shutil.copy(assembly, assemblyfinal)
+    #assembly = os.path.join(assembly_abs, 'contigs.fasta')
+    #assemblyfinal = os.path.join(outpath, name +  '.fna')
+    #shutil.copy(assembly, assemblyfinal)
+
+    rm_short_contigs(1500,assembly,assemblyfinal)
 
     #Print error to log file if final files are not created
     if not os.path.exists(assemblyfinal):
