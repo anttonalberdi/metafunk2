@@ -77,7 +77,7 @@ def merge_assemblies(projectname,projectpath,threads,memory,logfilepath):
     subprocess.check_call(nucmerCmd, shell=True)
 
     #Coords
-    coordsCmd = 'show-coords -H -c -l -o -r -I 95 '+mergedassemblies_delta+' | nucmerAnnotate | egrep 'BEGIN|END|CONTAIN|IDENTITY' > '+mergedassemblies_coords+''
+    coordsCmd = 'show-coords -H -c -l -o -r -I 95 '+mergedassemblies_delta+' | nucmerAnnotate | egrep "BEGIN|END|CONTAIN|IDENTITY" > '+mergedassemblies_coords+''
     subprocess.check_call(coordsCmd, shell=True)
 
     #ovl
