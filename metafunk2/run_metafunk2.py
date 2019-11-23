@@ -116,6 +116,7 @@ if is_tool('bwa'):
 else:
     logfile.write("     bwa = FALSE \r\n")
 
+logfile.write("\r\nMetafunk2 pipeline begins:\r\n")
 logfile.close()
 
 #####
@@ -187,6 +188,10 @@ if ( 4 in includesteps and 4 not in skipsteps ):
     from assembly import assembly
     assembly(outpath,name,logfilepath,statsfilepath,threads,memory,keep)
 
+#Split merged Binning
+    #https://github.com/jtamames/SqueezeMeta/blob/master/scripts/01.merge_assemblies.pl
+    #https://github.com/sanger-pathogens/circlator/wiki/Minimus2-circularization-pipeline
+
 #####
 # 5) Map reads to assembly
 #####
@@ -199,10 +204,6 @@ if ( 5 in includesteps and 5 not in skipsteps ):
 
     from assembly_mapping import assembly_mapping
     assembly_mapping(outpath,name,logfilepath,threads)
-
-#Split merged Binning
-    #https://github.com/jtamames/SqueezeMeta/blob/master/scripts/01.merge_assemblies.pl
-    #https://github.com/sanger-pathogens/circlator/wiki/Minimus2-circularization-pipeline
 
 #####
 # 6) Binning
@@ -224,5 +225,5 @@ if ( 6 in includesteps and 6 not in skipsteps ):
 logfilepath=os.path.join(outpath,name + '.log')
 logfile=open(logfilepath,"a+")
 current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-logfile.write("{0} | Metafunk2 has finished succesfully!\r\n\r\n".format(current_time))
+logfile.write("{0} | Well done! Metafunk2 has finished succesfully!\r\n\r\n".format(current_time))
 logfile.close()

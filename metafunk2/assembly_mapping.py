@@ -17,7 +17,7 @@ def assembly_mapping(outpath,name,logfilepath,threads):
     if not os.path.exists(absnewdir):
         os.makedirs(absnewdir)
 
-    assemblypath = os.path.join(outpath, name + '.assembly','contigs.fasta')
+    assemblypath = os.path.join(outpath, name + '.fna')
     assemblybampath = os.path.join(absnewdir, name + '.mapped.bam')
     read1in = os.path.join(outpath, name + '.genome_mapping',name + '.1.fq')
     read2in = os.path.join(outpath, name + '.genome_mapping',name + '.2.fq')
