@@ -14,11 +14,12 @@ import shutil
 
 
 def rm_short_contigs(minlength,assembly):
+    file=open(logfilepath,"a+")
     for line in open(sys.argv[2]):
-        if not line.startswith(">"): print line.strip()
+        if not line.startswith(">"): file.write(line.strip())
 	    else:
             if int(line.split("_")[3])<int(sys.argv[1]): break
-            else: print line.strip()
+            else: print file.write(line.strip())
 
 def assembly(outpath,name,logfilepath,statsfilepath,threads,memory,keep):
     prevdir = "genome_mapping"
@@ -40,7 +41,8 @@ def assembly(outpath,name,logfilepath,statsfilepath,threads,memory,keep):
     #Move reads to working directory
     assembly = os.path.join(assembly_abs, 'contigs.fasta')
     assemblyfinal = os.path.join(outpath, name +  '.fna')
-    shutil.copy(assembly, assemblyfinal)
+    rm_short_contigs(1500,assembly,assemblyfinal)
+    #shutil.copy(assembly, assemblyfinal)
 
     #Print error to log file if final files are not created
     if not os.path.exists(assemblyfinal):
