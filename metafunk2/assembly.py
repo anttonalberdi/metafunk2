@@ -42,20 +42,16 @@ def assembly(outpath,name,logfilepath,statsfilepath,threads,memory,keep):
         logfile.close()
 
     #Get stats
-    seqs = 0
-    with open(assemblyfinal, 'rb') as read:
-        for line in read:
-            if line.startswith(">"):
-                seqs += 1
+    contigs = len([1 for line in open(assemblyfinal) if line.startswith(">")])
 
     #Print stats to stats file
     statsfile=open(statsfilepath,"a+")
-    statsfile.write("Assembly contigs\t{0} \r\n".format(seqs))
+    statsfile.write("Assembly contigs\t{0} \r\n".format(contigs))
     statsfile.close()
 
     #Print stats to logfile
     logfile=open(logfilepath,"a+")
-    logfile.write("                     The assemblt produced {0} rcontigs\r\n".format(seqs))
+    logfile.write("                     The assemblt produced {0} rcontigs\r\n".format(contigs))
     logfile.close()
 
     #If keep is not selected, remove previous directory
