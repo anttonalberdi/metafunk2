@@ -71,7 +71,7 @@ def reassembly_mapping(projectname,projectpath,threads,memory,logfilepath):
     #Declare mapping command
     reassemblypath = os.path.join(projectpath, 'merged', 'reassembly.fna')
 
-    samplecount = len(reads1)
+    samplecount = len(read1)
     for i in range(samplecount):
         read1in = read1[i]
         read2in = read1[i]
