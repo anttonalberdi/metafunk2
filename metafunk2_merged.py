@@ -77,7 +77,7 @@ if ( 1 in includesteps and 1 not in skipsteps ):
     logfile.write("{0} | Metafunk2_merged is merging assemblies \r\n".format(current_time))
     logfile.close()
 
-    import metafunk2.merge_assemblies
+    from metafunk2 import merge_assemblies
     merge_assemblies(projectname,projectpath,threads,memory,logfilepath)
 
 #####
