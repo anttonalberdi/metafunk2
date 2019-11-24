@@ -76,6 +76,7 @@ def reassembly_mapping(projectname,projectpath,threads,memory,logfilepath):
     for i in range(samplecount):
         read1in = read1[i]
         read2in = read1[i]
+        #Extract sample name from file path
         name = os.path.splitext(os.path.splitext(os.path.basename(read1in))[0]+'')[0]+''
         bampath_mapped = os.path.join(reassembly_mapping_dir_abs, name + '.bam')
 

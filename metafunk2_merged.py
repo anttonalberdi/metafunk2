@@ -81,7 +81,7 @@ if ( 1 in includesteps and 1 not in skipsteps ):
     merge_assemblies.merge_assemblies(projectname,projectpath,threads,memory,logfilepath)
 
 #####
-# 2) Merged assembly mapping - CURRENTLY WORKING
+# 2) Merged assembly mapping
 #####
 
 if ( 2 in includesteps and 2 not in skipsteps ):
@@ -95,3 +95,16 @@ if ( 2 in includesteps and 2 not in skipsteps ):
 
     from metafunk2 import reassembly_mapping
     reassembly_mapping.reassembly_mapping(projectname,projectpath,threads,memory,logfilepath)
+
+#####
+# 3) Merged assembly binning
+#####
+
+if ( 3 in includesteps and 3 not in skipsteps ):
+    logfile=open(logfilepath,"a+")
+    current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+    logfile.write("{0} | Metafunk2_merged is binning \r\n".format(current_time))
+    logfile.close()
+
+    from metafunk2 import binning_merged
+    binning_merged.binning_merged(projectname,projectpath,threads,memory,logfilepath)
