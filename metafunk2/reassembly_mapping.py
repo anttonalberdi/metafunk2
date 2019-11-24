@@ -50,7 +50,6 @@ def reassembly_mapping(projectname,projectpath,threads,memory,logfilepath):
         os.makedirs(absnewdir)
 
     assembliespath = os.path.join(projectpath, 'merged','assemblies.fna')
-    assembliesbampath = os.path.join(absnewdir, name + '.mapped.bam')
 
     #Index merged assembly
     assembliesfai = os.path.join(assembliespath + '.fai')
@@ -96,7 +95,7 @@ def reassembly_mapping(projectname,projectpath,threads,memory,logfilepath):
         reads1in = reads1[i]
         reads2in = reads1[i]
         name = os.path.splitext(os.path.basename(reads1in))[0]+''
-        bampath_mapped = os.path.join(reassemblypath,name + '.bam')
+        bampath_mapped = os.path.join(reassemblypath, name + '.bam')
 
         #Run mapping
         logfile=open(logfilepath,"a+")
