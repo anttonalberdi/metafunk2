@@ -51,8 +51,8 @@ def reassembly_indexing(projectname,projectpath,threads,memory,logfilepath):
 def reassembly_mapping(projectname,projectpath,threads,memory,logfilepath):
     #Map reads from each sample to the assembly
     #Detect samples
-    reads1 = glob.glob(os.path.join(projectpath, '*.1.fq'))
-    reads2 = glob.glob(os.path.join(projectpath, '*.2.fq'))
+    read1 = glob.glob(os.path.join(projectpath, '*.1.fq'))
+    read2 = glob.glob(os.path.join(projectpath, '*.2.fq'))
 
     #Error if 1 and 2 reads of all samples are not present
     if len(reads1) != len(reads2):
@@ -74,8 +74,8 @@ def reassembly_mapping(projectname,projectpath,threads,memory,logfilepath):
 
     samplecount = len(reads1)
     for i in range(samplecount):
-        reads1in = reads1[i]
-        reads2in = reads1[i]
+        read1in = read1[i]
+        read2in = read1[i]
         name = os.path.splitext(os.path.basename(reads1in))[0]+''
         bampath_mapped = os.path.join(reassembly_mapping_dir_abs, name + '.bam')
 
