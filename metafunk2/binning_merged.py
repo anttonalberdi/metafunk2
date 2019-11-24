@@ -19,7 +19,7 @@ def binning_merged(projectname,projectpath,threads,memory,logfilepath):
 
     #Declare input files
     reassemblypath = os.path.join(projectpath, 'merged', 'reassembly.fna')
-    reassemblybampaths = os.path.join(projectpath, 'merged','reassembly_mapping','*.bam')
+    reassemblybampaths = os.path.join(projectpath, 'merged','reassembly_mapping','*.sorted.bam')
 
     #########################
     ######## Metabat ########x

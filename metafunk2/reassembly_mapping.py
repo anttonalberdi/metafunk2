@@ -79,11 +79,17 @@ def reassembly_mapping(projectname,projectpath,threads,memory,logfilepath):
         #Extract sample name from file path
         name = os.path.splitext(os.path.splitext(os.path.basename(read1in))[0]+'')[0]+''
         bampath_mapped = os.path.join(reassembly_mapping_dir_abs, name + '.bam')
+        bampath_sorted = os.path.join(reassembly_mapping_dir_abs, name + '.sorted.bam')
 
         #Run mapping
         logfile=open(logfilepath,"a+")
         current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
         logfile.write("{0} |            Mapping {1} reads to the reassembly\r\n".format(current_time,name))
         logfile.close()
-        mapCmd = 'module load samtools/1.9 bwa/0.7.15 && bwa mem -t '+threads+' -R "@RG\tID:ProjectName\tCN:AuthorName\tDS:Mappingt\tPL:Illumina1.9\tSM:Sample" '+reassemblypath+' '+read1in+' '+read2in+' | samtools view -T '+reassemblypath+' -b -F12 - | samtools sort - > '+bampath_mapped+''
+        mapCmd = 'module load samtools/1.9 bwa/0.7.15 && bwa mem -t '+threads+' -R "@RG\tID:ProjectName\tCN:AuthorName\tDS:Mappingt\tPL:Illumina1.9\tSM:Sample" '+reassemblypath+' '+read1in+' '+read2in+' | samtools view -T '+reassemblypath+' -b -F12 - > '+bampath_mapped+''
         subprocess.check_call(mapCmd, shell=True)
+        sortCmd = 'module load samtools/1.9 && samtools sort '+bampath_mapped+' > '+bampath_sorted+''
+        subprocess.check_call(sortCmd, shell=True)
+
+        #mapCmd = 'module load samtools/1.9 bwa/0.7.15 && bwa mem -t '+threads+' -R "@RG\tID:ProjectName\tCN:AuthorName\tDS:Mappingt\tPL:Illumina1.9\tSM:Sample" '+reassemblypath+' '+read1in+' '+read2in+' | samtools view -T '+reassemblypath+' -b -F12 - | samtools sort - > '+bampath_mapped+''
+        #subprocess.check_call(mapCmd, shell=True)
