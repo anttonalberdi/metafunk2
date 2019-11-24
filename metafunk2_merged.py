@@ -78,7 +78,7 @@ if ( 1 in includesteps and 1 not in skipsteps ):
     logfile.close()
 
     from metafunk2 import merge_assemblies
-    merge_assemblies(projectname,projectpath,threads,memory,logfilepath)
+    merge_assemblies.merge_assemblies(projectname,projectpath,threads,memory,logfilepath)
 
 #####
 # 2) Merged assembly mapping - CURRENTLY WORKING
