@@ -15,8 +15,13 @@ import ntpath
 from check_software import is_tool
 
 def reassembly_indexing(projectname,projectpath,threads,memory,logfilepath):
+    #Create reassembly_mapping directory if it does not exist
+    reassembly_mapping_dir = "reassembly_mapping"
+    reassembly_mapping_dir_abs = os.path.join(projectpath, 'merged', reassembly_mapping_dir)
+    #Create genomes directory if it does not exist
+    if not os.path.exists(reassembly_mapping_dir_abs):
+        os.makedirs(reassembly_mapping_dir_abs)
 
-    newdir = "reassembly_mapping"
     reassemblypath = os.path.join(projectpath, 'merged', 'reassembly.fna')
     if not os.path.exists(reassemblypath):
         logfile=open(logfilepath,"a+")
@@ -64,6 +69,7 @@ def reassembly_mapping(projectname,projectpath,threads,memory,logfilepath):
     logfile.close()
 
     #Declare mapping command
+    reassemblypath = os.path.join(projectpath, 'merged', 'reassembly.fna')
     mapCmd = 'module load samtools/1.9 bwa/0.7.15 && bwa mem -t '+threads+' -R "@RG\tID:ProjectName\tCN:AuthorName\tDS:Mappingt\tPL:Illumina1.9\tSM:Sample" '+reassemblypath+' '+read1in+' '+read2in+' | samtools view -T '+reassemblypath+' -b -f12 - > '+bampath_mapped+''
 
     samplecount = len(reads1)
@@ -71,7 +77,7 @@ def reassembly_mapping(projectname,projectpath,threads,memory,logfilepath):
         reads1in = reads1[i]
         reads2in = reads1[i]
         name = os.path.splitext(os.path.basename(reads1in))[0]+''
-        bampath_mapped = os.path.join(reassemblypath, name + '.bam')
+        bampath_mapped = os.path.join(reassembly_mapping_dir_abs, name + '.bam')
 
         #Run mapping
         logfile=open(logfilepath,"a+")
