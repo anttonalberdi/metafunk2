@@ -127,7 +127,7 @@ if ( 4 in includesteps and 4 not in skipsteps ):
 # Close log file
 #####
 
-logfilepath=os.path.join(outpath,name + '.log')
+logfilepath=os.path.join(projectpath,name + '.log')
 logfile=open(logfilepath,"a+")
 current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
 logfile.write("{0} | Well done! Metafunk2_merged has finished succesfully!\r\n\r\n".format(current_time))
