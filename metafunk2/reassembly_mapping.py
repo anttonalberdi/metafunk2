@@ -55,7 +55,7 @@ def reassembly_mapping(projectname,projectpath,threads,memory,logfilepath):
     read2 = glob.glob(os.path.join(projectpath, '*.2.fq'))
 
     #Error if 1 and 2 reads of all samples are not present
-    if len(reads1) != len(reads2):
+    if len(read1) != len(read2):
         logfile=open(logfilepath,"a+")
         current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
         logfile.write("{0} |    ERROR! The automatically detected number of forward and reverse reads is not the same.\r\n".format(current_time))
