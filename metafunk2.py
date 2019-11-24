@@ -129,8 +129,8 @@ if ( 1 in includesteps and 1 not in skipsteps ):
     logfile.write("\r\n\r\n{0} | Metafunk2 has started quality filtering the reads \r\n".format(current_time))
     logfile.close()
 
-    from quality_filtering import quality_filtering
-    quality_filtering(read1,read2,outpath,name,threads,statsfilepath,logfilepath)
+    from metafunk2 import quality_filtering
+    quality_filtering.quality_filtering(read1,read2,outpath,name,threads,statsfilepath,logfilepath)
 
 #####
 # 2) Duplicate removal step
@@ -152,8 +152,8 @@ if ( 2 in includesteps and 2 not in skipsteps ):
     logfile.write("{0} | Metafunk2 has started to remove duplicated reads (clonality) \r\n".format(current_time))
     logfile.close()
 
-    from duplicate_removal import duplicate_removal
-    duplicate_removal(read1,read2,outpath,name,threads,statsfilepath,logfilepath,keep)
+    from metafunk2 import duplicate_removal
+    duplicate_removal.duplicate_removal(read1,read2,outpath,name,threads,statsfilepath,logfilepath,keep)
 
 #####
 # 3) Mapping against reference genomes
@@ -165,14 +165,14 @@ if ( 3 in includesteps and 3 not in skipsteps ):
     logfile.write("{0} | Metafunk2 has started to map reads against reference genomes \r\n".format(current_time))
     logfile.close()
 
-    from genome_mapping import copy_genome
-    copy_genome(refgenlist,outpath,name,logfilepath)
+    from metafunk2 import genome_mapping
+    genome_mapping.copy_genome(refgenlist,outpath,name,logfilepath)
 
-    from genome_mapping import index_genome
-    index_genome(refgenlist,outpath,name,logfilepath)
+    from metafunk2 import index_genome
+    genome_mapping.index_genome(refgenlist,outpath,name,logfilepath)
 
-    from genome_mapping import genome_mapping
-    genome_mapping(refgenlist,outpath,name,logfilepath,threads,statsfilepath,keep)
+    from metafunk2 import genome_mapping
+    genome_mapping.genome_mapping(refgenlist,outpath,name,logfilepath,threads,statsfilepath,keep)
 
 
 #####
@@ -185,8 +185,8 @@ if ( 4 in includesteps and 4 not in skipsteps ):
     logfile.write("{0} | Metafunk2 has started the metagenomic assembly \r\n".format(current_time))
     logfile.close()
 
-    from assembly import assembly
-    assembly(outpath,name,logfilepath,statsfilepath,threads,memory,keep)
+    from metafunk2 import assembly
+    assembly.assembly(outpath,name,logfilepath,statsfilepath,threads,memory,keep)
 
 #Split merged Binning
     #https://github.com/jtamames/SqueezeMeta/blob/master/scripts/01.merge_assemblies.pl
@@ -202,8 +202,8 @@ if ( 5 in includesteps and 5 not in skipsteps ):
     logfile.write("{0} | Metafunk2 has started mapping back reads to the metagenomic assembly \r\n".format(current_time))
     logfile.close()
 
-    from assembly_mapping import assembly_mapping
-    assembly_mapping(outpath,name,logfilepath,threads)
+    from metafunk2 import assembly_mapping
+    assembly_mapping.assembly_mapping(outpath,name,logfilepath,threads)
 
 #####
 # 6) Binning
@@ -215,8 +215,8 @@ if ( 6 in includesteps and 6 not in skipsteps ):
     logfile.write("{0} | Metafunk2 has started binning \r\n".format(current_time))
     logfile.close()
 
-    from binning import binning
-    binning(outpath,name,logfilepath,threads)
+    from metafunk2 import binning
+    binning.binning(outpath,name,logfilepath,threads)
 
 #####
 # Close log file
