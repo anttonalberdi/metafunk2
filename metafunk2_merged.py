@@ -108,3 +108,27 @@ if ( 3 in includesteps and 3 not in skipsteps ):
 
     from metafunk2 import binning_merged
     binning_merged.binning_merged(projectname,projectpath,threads,memory,logfilepath)
+
+#####
+# 4) Bin quality check
+#####
+
+if ( 4 in includesteps and 4 not in skipsteps ):
+    logfile=open(logfilepath,"a+")
+    current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+    logfile.write("{0} | Metafunk2_merged is assessing quality of bins \r\n".format(current_time))
+    logfile.close()
+
+    from metafunk2 import bin_qc
+    bin_qc.bin_qc(projectname,projectpath,threads,memory,logfilepath)
+
+
+#####
+# Close log file
+#####
+
+logfilepath=os.path.join(outpath,name + '.log')
+logfile=open(logfilepath,"a+")
+current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+logfile.write("{0} | Well done! Metafunk2_merged has finished succesfully!\r\n\r\n".format(current_time))
+logfile.close()
