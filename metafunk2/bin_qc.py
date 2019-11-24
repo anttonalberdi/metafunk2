@@ -20,5 +20,5 @@ def bin_qc(projectpath,threads,memory,logfilepath):
     if not os.path.exists(outputdir):
         os.makedirs(outputdir)
 
-    checkmCmd = 'module load anaconda2/4.0.0 && checkm lineage_wf -t '+threads+' --pplacer_threads '+threads+' --tmpdir '+bindirtemp+' '+bindir+' '+outputdir+''
+    checkmCmd = 'module load anaconda2/4.0.0 && checkm lineage_wf -t '+threads+' --pplacer_threads '+threads+' --tmpdir '+bindirtemp+' -x fa '+bindir+' '+outputdir+''
     subprocess.check_call(checkmCmd, shell=True)
