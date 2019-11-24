@@ -11,7 +11,7 @@ import subprocess
 import time
 import gzip
 
-def binning(projectname,projectpath,threads,memory,logfilepath):
+def binning_merged(projectname,projectpath,threads,memory,logfilepath):
     binningdir = "binning"
     binningdir_abs = os.path.join(projectpath, 'merged',binningdir)
     if not os.path.exists(binningdir_abs):
