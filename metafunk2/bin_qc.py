@@ -11,7 +11,7 @@ import subprocess
 import time
 import gzip
 
-def bin_qc(projectpath,logfilepath,threads):
+def bin_qc(projectpath,threads,memory,logfilepath):
     bindir = s.path.join(projectpath, 'merged/binning/metabat')
     bindirtemp = s.path.join(projectpath, 'merged/binning/metabat.tmp')
     outputdir = s.path.join(projectpath, 'merged/binning/metabat.checkm')
