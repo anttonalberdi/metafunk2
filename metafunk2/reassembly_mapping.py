@@ -64,7 +64,7 @@ def reassembly_mapping(projectname,projectpath,threads,memory,logfilepath):
     logfile.close()
 
     #Declare mapping command
-    mapCmd = 'module load samtools/1.9 bwa/0.7.15 && bwa mem -t '+threads+' -R "@RG\tID:ProjectName\tCN:AuthorName\tDS:Mappingt\tPL:Illumina1.9\tSM:Sample" '+refgenpath+' '+read1in+' '+read2in+' | samtools view -T '+refgenpath+' -b -f12 - > '+bampath_mapped+''
+    mapCmd = 'module load samtools/1.9 bwa/0.7.15 && bwa mem -t '+threads+' -R "@RG\tID:ProjectName\tCN:AuthorName\tDS:Mappingt\tPL:Illumina1.9\tSM:Sample" '+reassemblypath+' '+read1in+' '+read2in+' | samtools view -T '+reassemblypath+' -b -f12 - > '+bampath_mapped+''
 
     samplecount = len(reads1)
     for i in range(samplecount):
