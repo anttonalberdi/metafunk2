@@ -44,30 +44,6 @@ def reassembly_indexing(projectname,projectpath,threads,memory,logfilepath):
         logfile.close()
 
 def reassembly_mapping(projectname,projectpath,threads,memory,logfilepath):
-    newdir = "reassembly_mapping"
-    absnewdir = os.path.join(projectpath, 'merged', newdir)
-    if not os.path.exists(absnewdir):
-        os.makedirs(absnewdir)
-
-    assembliespath = os.path.join(projectpath, 'merged','assemblies.fna')
-
-    #Index merged assembly
-    assembliesfai = os.path.join(assembliespath + '.fai')
-    if not os.path.exists(assembliesfai):
-        logfile=open(logfilepath,"a+")
-        current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-        logfile.write("{0} |    Indexing merged assembly \r\n".format(current_time))
-        logfile.close()
-        samtoolsindexCmd = 'samtools faidx '+assembliespath+''
-        bwaindexCmd = 'bwa index '+assembliespath+''
-        subprocess.check_call(samtoolsindexCmd, shell=True)
-        subprocess.check_call(bwaindexCmd, shell=True)
-    else:
-        logfile=open(logfilepath,"a+")
-        current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-        logfile.write("{0} |    Merged assembly is already indexed\r\n".format(current_time))
-        logfile.close()
-
     #Map reads from each sample to the assembly
     #Detect samples
     reads1 = glob.glob(os.path.join(projectpath, '*.1.fq'))
