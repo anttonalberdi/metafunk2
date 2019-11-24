@@ -70,7 +70,6 @@ def reassembly_mapping(projectname,projectpath,threads,memory,logfilepath):
 
     #Declare mapping command
     reassemblypath = os.path.join(projectpath, 'merged', 'reassembly.fna')
-    mapCmd = 'module load samtools/1.9 bwa/0.7.15 && bwa mem -t '+threads+' -R "@RG\tID:ProjectName\tCN:AuthorName\tDS:Mappingt\tPL:Illumina1.9\tSM:Sample" '+reassemblypath+' '+read1in+' '+read2in+' | samtools view -T '+reassemblypath+' -b -f12 - > '+bampath_mapped+''
 
     samplecount = len(reads1)
     for i in range(samplecount):
@@ -84,4 +83,5 @@ def reassembly_mapping(projectname,projectpath,threads,memory,logfilepath):
         current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
         logfile.write("{0} |            Mapping {1} reads to the reassembly\r\n".format(current_time,name))
         logfile.close()
+        mapCmd = 'module load samtools/1.9 bwa/0.7.15 && bwa mem -t '+threads+' -R "@RG\tID:ProjectName\tCN:AuthorName\tDS:Mappingt\tPL:Illumina1.9\tSM:Sample" '+reassemblypath+' '+read1in+' '+read2in+' | samtools view -T '+reassemblypath+' -b -f12 - > '+bampath_mapped+''
         subprocess.check_call(mapCmd, shell=True)
