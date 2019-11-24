@@ -148,7 +148,7 @@ def genome_mapping(refgenlist,outpath,name,logfilepath,threads,statsfilepath,kee
             time.sleep(secs)
 
         #Declare mapping commands
-        mapCmd = 'module load bwa/0.7.15 && bwa mem -t '+threads+' -R "@RG\tID:ProjectName\tCN:AuthorName\tDS:Mappingt\tPL:Illumina1.9\tSM:Sample" '+refgenpath+' '+read1in+' '+read2in+' | samtools view -T '+refgenpath+' -b - > '+bampath_all+''
+        mapCmd = 'module load samtools/1.9 bwa/0.7.15 && bwa mem -t '+threads+' -R "@RG\tID:ProjectName\tCN:AuthorName\tDS:Mappingt\tPL:Illumina1.9\tSM:Sample" '+refgenpath+' '+read1in+' '+read2in+' | samtools view -T '+refgenpath+' -b - > '+bampath_all+''
         hostmapCmd = 'module load samtools/1.9 && samtools view -T '+refgenpath+' -b -F12 '+bampath_all+' > '+bampath_host+''
         mgmapCmd = 'module load samtools/1.9 && samtools view -T '+refgenpath+' -b -f12 '+bampath_all+' > '+bampath_mg+''
         mgfqCmd = 'module load samtools/1.9 && samtools fastq -1 '+read1out+' -2 '+read2out+' '+bampath_mg+''

@@ -93,5 +93,5 @@ if ( 2 in includesteps and 2 not in skipsteps ):
     from metafunk2 import reassembly_mapping
     reassembly_mapping.reassembly_indexing(projectname,projectpath,threads,memory,logfilepath)
 
-    #from reassembly_mapping import reassembly_mapping
-    #reassembly_mapping(projectname,projectpath,threads,memory,logfilepath)
+    from metafunk2 import reassembly_mapping
+    reassembly_mapping.reassembly_mapping(projectname,projectpath,threads,memory,logfilepath)

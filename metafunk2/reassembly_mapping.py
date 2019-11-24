@@ -10,6 +10,8 @@ import argparse
 import subprocess
 import time
 import gzip
+import glob
+import ntpath
 from check_software import is_tool
 
 def reassembly_indexing(projectname,projectpath,threads,memory,logfilepath):
@@ -69,13 +71,36 @@ def reassembly_mapping(projectname,projectpath,threads,memory,logfilepath):
 
     #Map reads from each sample to the assembly
     #Detect samples
+    reads1 = glob.glob(os.path.join(projectpath, '*.1.fq'))
+    reads2 = glob.glob(os.path.join(projectpath, '*.2.fq'))
 
-    #Declare mapping commands
-    mapCmd = 'bwa mem -t '+threads+' -R "@RG\tID:ProjectName\tCN:AuthorName\tDS:Mappingt\tPL:Illumina1.9\tSM:Sample" '+assemblypath+' '+read1in+' '+read2in+' | samtools view -T '+assemblypath+' -b - | samtools sort -T '+assemblypath+' - > '+assemblybampath+''
+    #Error if 1 and 2 reads of all samples are not present
+    if len(reads1) != len(reads2):
+        logfile=open(logfilepath,"a+")
+        current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+        logfile.write("{0} |    ERROR! The automatically detected number of forward and reverse reads is not the same.\r\n".format(current_time))
+        logfile.close()
+        os.kill(os.getpid(), signal.SIGSTOP)
 
-    #Mapping to genome
+    #Add to log
     logfile=open(logfilepath,"a+")
     current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-    logfile.write("{0} |    Mapping reads to assembly \r\n".format(current_time))
+    logfile.write("{0} |    Mapping reads of all samples to the reassembly\r\n".format(current_time))
     logfile.close()
-    subprocess.check_call(mapCmd, shell=True)
+
+    #Declare mapping command
+    mapCmd = 'module load samtools/1.9 bwa/0.7.15 && bwa mem -t '+threads+' -R "@RG\tID:ProjectName\tCN:AuthorName\tDS:Mappingt\tPL:Illumina1.9\tSM:Sample" '+refgenpath+' '+read1in+' '+read2in+' | samtools view -T '+refgenpath+' -b -f12 - > '+bampath_mapped+''
+
+    samplecount = len(reads1)
+    for i in range(samplecount):
+        reads1in = reads1[i]
+        reads2in = reads1[i]
+        name = os.path.splitext(os.path.basename(reads1in))[0]+''
+        bampath_mapped = os.path.join(reassemblypath,name + '.bam')
+
+        #Run mapping
+        logfile=open(logfilepath,"a+")
+        current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+        logfile.write("{0} |            Mapping {1} reads to the reassembly\r\n".format(current_time,name))
+        logfile.close()
+        subprocess.check_call(mapCmd, shell=True)
