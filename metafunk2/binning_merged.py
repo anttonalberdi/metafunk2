@@ -51,10 +51,10 @@ def binning_merged(projectname,projectpath,threads,memory,logfilepath):
     ######## Maxbin ######### ERROR! requires FragGeneScan. Waiting for Computerome admin to install it
     #########################
 
-    maxbindir = os.path.join(absnewdir, 'maxbin')
+    maxbindir = os.path.join(binningdir_abs, 'maxbin')
     if not os.path.exists(maxbindir):
         os.makedirs(maxbindir)
-    maxbindepthfile = os.path.join(maxbindir, name + '.depth.txt')
+    maxbindepthfile = os.path.join(maxbindir, 'depth.txt')
 
     #Generate depth file
     logfile=open(logfilepath,"a+")
