@@ -12,9 +12,9 @@ import time
 import gzip
 
 def bin_qc(projectpath,threads,memory,logfilepath):
-    bindir = s.path.join(projectpath, 'merged/binning/metabat')
-    bindirtemp = s.path.join(projectpath, 'merged/binning/metabat.tmp')
-    outputdir = s.path.join(projectpath, 'merged/binning/metabat.checkm')
+    bindir = os.path.join(projectpath, 'merged/binning/metabat')
+    bindirtemp = os.path.join(projectpath, 'merged/binning/metabat.tmp')
+    outputdir = os.path.join(projectpath, 'merged/binning/metabat.checkm')
 
     checkmCmd = 'module load anaconda2/4.0.0 && checkm lineage_wf -t '+threads+' --pplacer_threads '+threads+' --tmpdir '+bindirtemp+' '+bindir+' '+outputdir+''
     subprocess.check_call(checkmCmd, shell=True)
