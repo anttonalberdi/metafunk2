@@ -32,7 +32,7 @@ def duplicate_removal(read1,read2,outpath,name,threads,statsfilepath,logfilepath
     #mardreCmd = 'module load hadoop/2.8.5 mardre/1.4 java/1.7.0 && mardrerun -i '+read1in+' -p '+read2in+' -o '+read1tempout+' -r '+read2tempout+''
     #subprocess.check_call(mardreCmd, shell=True)
 
-    pardreCmd = 'module load openmpi/gcc pardre/2.2.5 && ParDRe -i '+read1in+' -p '+read2in+' -o '+read1out+' -r '+read2out+''
+    pardreCmd = 'module load openmpi/gcc pardre/2.2.5 && ParDRe -i '+read1in+' -p '+read2in+' -o '+read1out+' -r '+read2out+' -t '+threads+''
     subprocess.check_call(pardreCmd, shell=True)
 
     #Run seqkit rmdup
