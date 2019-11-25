@@ -22,7 +22,7 @@ def binning_merged(projectname,projectpath,threads,memory,logfilepath):
     reassemblybampaths = os.path.join(projectpath, 'merged','reassembly_mapping','*.sorted.bam')
 
     #########################
-    ######## Metabat ########x
+    ######## Metabat ########
     #########################
 
     metabatdir = os.path.join(binningdir_abs, 'metabat')
@@ -48,7 +48,7 @@ def binning_merged(projectname,projectpath,threads,memory,logfilepath):
     #subprocess.check_call(metabatCmd, shell=True)
 
     #########################
-    ######## Maxbin ######### ERROR! requires FragGeneScan. Waiting for Computerome admin to install it
+    ######## Maxbin #########
     #########################
 
     maxbindir = os.path.join(binningdir_abs, 'maxbin')
@@ -70,6 +70,22 @@ def binning_merged(projectname,projectpath,threads,memory,logfilepath):
     logfile.write("{0} |    Running maxbin \r\n".format(current_time))
     logfile.close()
     maxbinCmd = 'module load maxbin/2.2.7 perl/5.20.2 fraggenescan/1.31 && run_MaxBin.pl -contig '+assemblypath+' -abund '+maxbindepthfile+' -out '+maxbindir+' -thread '+threads+''
+    subprocess.check_call(maxbinCmd, shell=True)
+
+    #########################
+    ######## Vamb #########
+    #########################
+
+    maxbindir = os.path.join(binningdir_abs, 'vamb')
+    if not os.path.exists(maxbindir):
+        os.makedirs(maxbindir)
+
+    #Run vamb
+    logfile=open(logfilepath,"a+")
+    current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+    logfile.write("{0} |    Running vamb \r\n".format(current_time))
+    logfile.close()
+    maxbinCmd = 'module load anaconda3/4.4.0 vamb/20181215 && vamb -contig '+assemblypath+' -abund '+maxbindepthfile+' -out '+maxbindir+' -thread '+threads+''
     subprocess.check_call(maxbinCmd, shell=True)
 
     #######################
@@ -97,11 +113,8 @@ def binning_merged(projectname,projectpath,threads,memory,logfilepath):
     #myccCmd = 'MyCC.py '+assemblypath+' -a '+metabatdepthfile+' '
     #subprocess.check_call(myccCmd, shell=True)
 
-def bin_refinement(projectname,projectpath,threads,memory,logfilepath):
+#def bin_refinement(projectname,projectpath,threads,memory,logfilepath):
 
-    dastoolDependencies = 'module load gcc/5.4.0 intel/perflibs/2018 R/3.6.1 ruby/2.6.3 pullseq/1.0.2 perl/5.24.0 ncbi-blast/2.6.0+ das_tool/1.1.1'
-    dastoolCmd = ''+dastoolDependencies+' && DAS_Tool '
+    #dastoolDependencies = 'module load gcc/5.4.0 intel/perflibs/2018 R/3.6.1 ruby/2.6.3 pullseq/1.0.2 perl/5.24.0 ncbi-blast/2.6.0+ prodigal/2.6.3 das_tool/1.1.1'
+    #dastoolCmd = ''+dastoolDependencies+' && DAS_Tool '
     #https://github.com/cmks/DAS_Tool
-
-
-    binningdir = "binnin
