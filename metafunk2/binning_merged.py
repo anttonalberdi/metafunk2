@@ -126,6 +126,6 @@ def bin_refinement(projectname,projectpath,threads,memory,logfilepath):
     #Move definitive bins to binning directory
     binsource = os.path.join(projectpath, 'merged','binning','dastool','dastool_DASTool_bins')
     bindestination = os.path.join(projectpath, 'merged','binning')
-    binfiles = os.listdir(binsource)
+    binfiles = glob.glob(os.path.join(binsource,'*.fa'))
     for b in binfiles:
         shutil.move(b, bindestination)

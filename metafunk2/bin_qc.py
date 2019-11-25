@@ -12,11 +12,11 @@ import time
 import gzip
 
 def bin_qc(projectpath,threads,memory,logfilepath):
-    bindir = os.path.join(projectpath, 'merged/binning/metabat')
-    bindirtemp = os.path.join(projectpath, 'merged/binning/metabat.tmp')
+    bindir = os.path.join(projectpath, 'merged/binning/')
+    bindirtemp = os.path.join(projectpath, 'merged/binning/tmp')
     if not os.path.exists(bindirtemp):
         os.makedirs(bindirtemp)
-    outputdir = os.path.join(projectpath, 'merged/binning/metabat.checkm')
+    outputdir = os.path.join(projectpath, 'merged/binning/checkm')
     if not os.path.exists(outputdir):
         os.makedirs(outputdir)
 
