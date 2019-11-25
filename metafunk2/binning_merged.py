@@ -11,6 +11,7 @@ import subprocess
 import time
 import gzip
 import glob
+import shutil
 
 def binning_merged(projectname,projectpath,threads,memory,logfilepath):
     binningdir = "binning"
@@ -121,3 +122,10 @@ def bin_refinement(projectname,projectpath,threads,memory,logfilepath):
     dastoolDependencies = 'module load gcc/5.4.0 intel/perflibs/2018 R/3.6.1 ruby/2.6.3 pullseq/1.0.2 perl/5.24.0 ncbi-blast/2.6.0+ prodigal/2.6.3 das_tool/1.1.1 diamond/0.9.24 usearch/11.0.667'
     dastoolCmd = ''+dastoolDependencies+' && DAS_Tool -i '+bincontig_tables+' -c '+reassemblypath+' -o '+dastoolbase+' -l maxbin,metabat --search_engine diamond -t '+threads+' --db_directory '+dastooldb+' --write_bins 1'
     subprocess.check_call(dastoolCmd, shell=True)
+
+    #Move definitive bins to binning directory
+    binsource = os.path.join(projectpath, 'merged','binning','dastool','dastool_DASTool_bins')
+    bindestination = os.path.join(projectpath, 'merged','binning')
+    binfiles = os.listdir(binsource)
+    for b in binfiles:
+        shutil.move(b, bindestination)
