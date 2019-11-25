@@ -10,9 +10,9 @@ python metafunk2/metafunk2.py -n blank4 -1 metafunk2_test/Blank06092017_1.fastq.
 
 
 workdir="/home/projects/ku-cbd/people/antalb/metafunk2_test"
-xqsub -V -A ku-cbd -W group_list=ku-cbd -d `pwd` -e ${workdir}/merged.err -o ${workdir}/merged.out -l nodes=1:ppn=8,mem=50gb,walltime=0:00:05:00 -N pardre -de python metafunk2/metafunk2.py -n AI0_11b_pardre -1 metafunk2_test2/AI0_11b_1.fastq.gz -2 metafunk2_tes2/AI0_11b_2.fastq.gz -r 'gambusia=databases/GCA_003097735.1_ASM309773v1_genomic.fna.gz,human=databases/GCF_000001405.39_GRCh38.p13_genomic.fna.gz' -o /home/projects/ku-cbd/people/antalb/metafunk2_test -t 8 -m 8 -i 1 -k
+xqsub -V -A ku-cbd -W group_list=ku-cbd -d `pwd` -e ${workdir}/pardre.err -o ${workdir}/pardre.out -l nodes=1:ppn=8,mem=50gb,walltime=0:00:05:00 -N pardre -de python metafunk2/metafunk2.py -n AI0_11b_pardre -1 metafunk2_test2/AI0_11b_1.fastq.gz -2 metafunk2_tes2/AI0_11b_2.fastq.gz -r 'gambusia=databases/GCA_003097735.1_ASM309773v1_genomic.fna.gz,human=databases/GCF_000001405.39_GRCh38.p13_genomic.fna.gz' -o /home/projects/ku-cbd/people/antalb/metafunk2_test -t 8 -m 8 -i 2 -k
 
-xqsub -V -A ku-cbd -W group_list=ku-cbd -d `pwd` -e ${workdir}/merged.err -o ${workdir}/merged.out -l nodes=1:ppn=8,mem=50gb,walltime=0:00:05:00 -N original -de python metafunk2/metafunk2.py -n AI0_11b_original -1 metafunk2_test2/AI0_11b_1.fastq.gz -2 metafunk2_test2/AI0_11b_2.fastq.gz -r 'gambusia=databases/GCA_003097735.1_ASM309773v1_genomic.fna.gz,human=databases/GCF_000001405.39_GRCh38.p13_genomic.fna.gz' -o /home/projects/ku-cbd/people/antalb/metafunk2_test -t 8 -m 8 -i 1 -k
+xqsub -V -A ku-cbd -W group_list=ku-cbd -d `pwd` -e ${workdir}/merged.err -o ${workdir}/merged.out -l nodes=1:ppn=8,mem=50gb,walltime=0:00:05:00 -N original -de python metafunk2/metafunk2.py -n AI0_11b_original -1 metafunk2_test2/AI0_11b_1.fastq.gz -2 metafunk2_test2/AI0_11b_2.fastq.gz -r 'gambusia=databases/GCA_003097735.1_ASM309773v1_genomic.fna.gz,human=databases/GCF_000001405.39_GRCh38.p13_genomic.fna.gz' -o /home/projects/ku-cbd/people/antalb/metafunk2_test -t 8 -m 8 -i 2 -k
 
 
 li metafunk2_test
