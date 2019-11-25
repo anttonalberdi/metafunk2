@@ -33,7 +33,7 @@ def duplicate_removal(read1,read2,outpath,name,threads,statsfilepath,logfilepath
     subprocess.check_call(mardreCmd, shell=True)
 
     pardreCmd = 'module load openmpi/gcc pardre/2.2.5 && ParDRe -i '+read1in+' -p '+read2in+' -o '+read1out+' -r '+read2out+''
-    #subprocess.check_call(pardreCmd, shell=True)
+    subprocess.check_call(pardreCmd, shell=True)
 
     #Run seqkit rmdup
     Rmdup1Cmd = 'module load pigz/2.3.4 seqkit/0.7.1 && cat '+read1in+' | seqkit rmdup -s -d bla -o '+read1tempout+''
