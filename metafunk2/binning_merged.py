@@ -116,6 +116,7 @@ def bin_refinement(projectname,projectpath,threads,memory,logfilepath):
     logfile.write("{0} |    Refinning bins using DAS_Tool \r\n".format(current_time))
     logfile.close()
 
+    dastooldb = '/home/projects/ku-cbd/people/antalb/databases/dastool_db'
     dastoolDependencies = 'module load gcc/5.4.0 intel/perflibs/2018 R/3.6.1 ruby/2.6.3 pullseq/1.0.2 perl/5.24.0 ncbi-blast/2.6.0+ prodigal/2.6.3 das_tool/1.1.1 diamond/0.9.24 usearch/11.0.667'
-    dastoolCmd = ''+dastoolDependencies+' && DAS_Tool -i '+bincontig_tables+' -c '+reassemblypath+' -o '+dastoolpath+' --search_engine diamond -t '+threads+''
+    dastoolCmd = ''+dastoolDependencies+' && DAS_Tool -i '+bincontig_tables+' -c '+reassemblypath+' -o '+dastoolpath+' --search_engine diamond -t '+threads+' --db_directory '+dastooldb+''
     subprocess.check_call(dastoolCmd, shell=True)
