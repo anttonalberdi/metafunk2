@@ -44,7 +44,7 @@ def binning_merged(projectname,projectpath,threads,memory,logfilepath):
     current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
     logfile.write("{0} |    Running metabat binning\r\n".format(current_time))
     logfile.close()
-    metabatCmd = 'module unload gcc && module load perl/5.20.2 metabat/2.12.1 && metabat2 -i '+reassemblypath+' -a '+metabatdepthfile+' -o '+metabatbinbase+' -m 1500 -t '+threads+' --unbinned '
+    metabatCmd = 'module unload gcc && module load perl/5.20.2 metabat/2.12.1 && metabat2 -i '+reassemblypath+' -a '+metabatdepthfile+' -o '+metabatbinbase+' -m 1500 -t '+threads+''
     subprocess.check_call(metabatCmd, shell=True)
 
     #########################
@@ -72,6 +72,23 @@ def binning_merged(projectname,projectpath,threads,memory,logfilepath):
     logfile.close()
     maxbinCmd = 'module load perl/5.20.2 maxbin/2.2.7 fraggenescan/1.31 && run_MaxBin.pl -contig '+reassemblypath+' -abund '+maxbindepthfile+' -out '+maxbinbase+' -thread '+threads+''
     subprocess.check_call(maxbinCmd, shell=True)
+
+    #Create contig to bin table
+    bintablefile = os.path.join(binningdir_abs, 'bins_maxbin.txt')
+    bintable=open(bintablefile,"a+")
+
+    maxbindir = "metafunk2_test2/merged/binning/maxbin/maxbin.*.fasta"
+    binlist = glob.glob(maxbindir)
+    for bin in binlist:
+        binname = os.path.splitext(os.path.basename(bin))[0]+''
+        with open(bin, 'r') as binfile:
+           for line in binfile:
+                if line.startswith('>'):
+                    contig = line.strip()
+                    contig = contig.replace(">", "")
+                    print("{0}\t{1}\r\n".format(contig,binname))
+                    bintable.write("{0}\t{1}\r\n".format(contig,binname))
+    bintable.close()
 
     #########################
     ######## Vamb #########
@@ -114,7 +131,9 @@ def binning_merged(projectname,projectpath,threads,memory,logfilepath):
     #myccCmd = 'MyCC.py '+assemblypath+' -a '+metabatdepthfile+' '
     #subprocess.check_call(myccCmd, shell=True)
 
-#def bin_refinement(projectname,projectpath,threads,memory,logfilepath):
+def bin_refinement(projectname,projectpath,threads,memory,logfilepath):
+
+
 
     #dastoolDependencies = 'module load gcc/5.4.0 intel/perflibs/2018 R/3.6.1 ruby/2.6.3 pullseq/1.0.2 perl/5.24.0 ncbi-blast/2.6.0+ prodigal/2.6.3 das_tool/1.1.1'
     #dastoolCmd = ''+dastoolDependencies+' && DAS_Tool '
