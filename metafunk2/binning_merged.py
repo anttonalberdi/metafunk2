@@ -48,6 +48,21 @@ def binning_merged(projectname,projectpath,threads,memory,logfilepath):
     metabatCmd = 'module unload gcc && module load perl/5.20.2 metabat/2.12.1 && metabat2 -i '+reassemblypath+' -a '+metabatdepthfile+' -o '+metabatbinbase+' -m 1500 -t '+threads+''
     subprocess.check_call(metabatCmd, shell=True)
 
+    #Create contig to bin table
+    bintablefile = os.path.join(binningdir_abs, 'bins_metabat.txt')
+    bintable=open(bintablefile,"a+")
+    metabatdir = os.path.join(metabatbinbase + '.*.fa')
+    binlist = glob.glob(metabatdir)
+    for bin in binlist:
+        binname = os.path.splitext(os.path.basename(bin))[0]+''
+        with open(bin, 'r') as binfile:
+           for line in binfile:
+                if line.startswith('>'):
+                    contig = line.strip()
+                    contig = contig.replace(">", "")
+                    bintable.write("{0}\t{1}\r\n".format(contig,binname))
+    bintable.close()
+
     #########################
     ######## Maxbin #########
     #########################
@@ -77,8 +92,7 @@ def binning_merged(projectname,projectpath,threads,memory,logfilepath):
     #Create contig to bin table
     bintablefile = os.path.join(binningdir_abs, 'bins_maxbin.txt')
     bintable=open(bintablefile,"a+")
-
-    maxbindir = "metafunk2_test2/merged/binning/maxbin/maxbin.*.fasta"
+    maxbindir = os.path.join(maxbinbase + '.*.fasta')
     binlist = glob.glob(maxbindir)
     for bin in binlist:
         binname = os.path.splitext(os.path.basename(bin))[0]+''
@@ -87,7 +101,6 @@ def binning_merged(projectname,projectpath,threads,memory,logfilepath):
                 if line.startswith('>'):
                     contig = line.strip()
                     contig = contig.replace(">", "")
-                    print("{0}\t{1}\r\n".format(contig,binname))
                     bintable.write("{0}\t{1}\r\n".format(contig,binname))
     bintable.close()
 
