@@ -45,7 +45,7 @@ def binning_merged(projectname,projectpath,threads,memory,logfilepath):
     logfile.write("{0} |    Running metabat binning\r\n".format(current_time))
     logfile.close()
     metabatCmd = 'module unload gcc && module load perl/5.20.2 metabat/2.12.1 && metabat2 -i '+reassemblypath+' -a '+metabatdepthfile+' -o '+metabatbinbase+' -m 1500 -t '+threads+' --unbinned '
-    #subprocess.check_call(metabatCmd, shell=True)
+    subprocess.check_call(metabatCmd, shell=True)
 
     #########################
     ######## Maxbin #########
