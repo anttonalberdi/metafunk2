@@ -10,6 +10,7 @@ import argparse
 import subprocess
 import time
 import gzip
+import glob
 
 def binning_merged(projectname,projectpath,threads,memory,logfilepath):
     binningdir = "binning"
