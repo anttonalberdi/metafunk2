@@ -30,20 +30,20 @@ def duplicate_removal(read1,read2,outpath,name,threads,statsfilepath,logfilepath
 
     #Run mardre (java error)
     #mardreCmd = 'module load hadoop/2.8.5 mardre/1.4 java/1.7.0 && mardrerun -i '+read1in+' -p '+read2in+' -o '+read1tempout+' -r '+read2tempout+''
-    #subprocess.check_call(mardreCmd, shell=True)
+    subprocess.check_call(mardreCmd, shell=True)
 
     pardreCmd = 'module load openmpi/gcc pardre/2.2.5 && ParDRe -i '+read1in+' -p '+read2in+' -o '+read1out+' -r '+read2out+''
     #subprocess.check_call(pardreCmd, shell=True)
 
     #Run seqkit rmdup
     Rmdup1Cmd = 'module load pigz/2.3.4 seqkit/0.7.1 && cat '+read1in+' | seqkit rmdup -s -d bla -o '+read1tempout+''
-    subprocess.check_call(Rmdup1Cmd, shell=True)
+    #subprocess.check_call(Rmdup1Cmd, shell=True)
     Rmdup2Cmd = 'module load pigz/2.3.4 seqkit/0.7.1 && cat '+read2in+' | seqkit rmdup -s -o '+read2tempout+''
-    subprocess.check_call(Rmdup2Cmd, shell=True)
+    #subprocess.check_call(Rmdup2Cmd, shell=True)
 
     #Repair
     RepCmd = 'module load jre/1.8.0 bbmap/36.49 && repair.sh in='+read1tempout+' in2='+read2tempout+' out='+read1out+' out2='+read2out+' overwrite=t'
-    subprocess.check_call(RepCmd, shell=True)
+    #subprocess.check_call(RepCmd, shell=True)
 
     #Remove temporal files
     os.remove(read1tempout)
