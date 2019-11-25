@@ -29,7 +29,7 @@ def binning_merged(projectname,projectpath,threads,memory,logfilepath):
     if not os.path.exists(metabatdir):
         os.makedirs(metabatdir)
     metabatdepthfile = os.path.join(metabatdir, 'depth.txt')
-    metabatbinbase = os.path.join(metabatdir, 'bin')
+    metabatbinbase = os.path.join(metabatdir, 'metabat')
 
     #Generate depth file
     logfile=open(logfilepath,"a+")
@@ -55,6 +55,7 @@ def binning_merged(projectname,projectpath,threads,memory,logfilepath):
     if not os.path.exists(maxbindir):
         os.makedirs(maxbindir)
     maxbindepthfile = os.path.join(maxbindir, 'depth.txt')
+    maxbinbase = os.path.join(maxbindir, 'maxbin')
 
     #Generate depth file
     logfile=open(logfilepath,"a+")
@@ -69,24 +70,24 @@ def binning_merged(projectname,projectpath,threads,memory,logfilepath):
     current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
     logfile.write("{0} |    Running maxbin \r\n".format(current_time))
     logfile.close()
-    maxbinCmd = 'module load maxbin/2.2.7 perl/5.20.2 fraggenescan/1.31 && run_MaxBin.pl -contig '+reassemblypath+' -abund '+maxbindepthfile+' -out '+maxbindir+' -thread '+threads+''
+    maxbinCmd = 'module load perl/5.20.2 maxbin/2.2.7 fraggenescan/1.31 && run_MaxBin.pl -contig '+reassemblypath+' -abund '+maxbindepthfile+' -out '+maxbinbase+' -thread '+threads+''
     subprocess.check_call(maxbinCmd, shell=True)
 
     #########################
     ######## Vamb #########
     #########################
 
-    maxbindir = os.path.join(binningdir_abs, 'vamb')
-    if not os.path.exists(maxbindir):
-        os.makedirs(maxbindir)
+    #maxbindir = os.path.join(binningdir_abs, 'vamb')
+    #if not os.path.exists(maxbindir):
+        #os.makedirs(maxbindir)
 
     #Run vamb
-    logfile=open(logfilepath,"a+")
-    current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-    logfile.write("{0} |    Running vamb \r\n".format(current_time))
-    logfile.close()
-    maxbinCmd = 'module load anaconda3/4.4.0 vamb/20181215 && vamb -contig '+assemblypath+' -abund '+maxbindepthfile+' -out '+maxbindir+' -thread '+threads+''
-    subprocess.check_call(maxbinCmd, shell=True)
+    #logfile=open(logfilepath,"a+")
+    #current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+    #logfile.write("{0} |    Running vamb \r\n".format(current_time))
+    #logfile.close()
+    #maxbinCmd = 'module load anaconda3/4.4.0 vamb/20181215 && vamb -contig '+assemblypath+' -abund '+maxbindepthfile+' -out '+maxbindir+' -thread '+threads+''
+    #subprocess.check_call(maxbinCmd, shell=True)
 
     #######################
     ######## MyCC ######### 2019/11/23 - yelding an error: ValueError: invalid literal for int() with base 10: 'Traceback (most recent call last):\n  File "/services/tools/mycc/20170301/GetThr.py", line 22, in <module>\n    print sorted(dlist,reverse=True)[thr]\nIndexError: list index out of range'
