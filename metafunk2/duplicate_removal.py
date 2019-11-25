@@ -41,7 +41,7 @@ def duplicate_removal(read1,read2,outpath,name,threads,statsfilepath,logfilepath
     Rmdup2Cmd = 'module load pigz/2.3.4 seqkit/0.7.1 && cat '+read2in+' | seqkit rmdup -s -o '+read2tempout+''
     #subprocess.check_call(Rmdup2Cmd, shell=True)
 
-    #Repa
+    #Repair
     RepCmd = 'module load jre/1.8.0 bbmap/36.49 && repair.sh in='+read1tempout+' in2='+read2tempout+' out='+read1out+' out2='+read2out+' overwrite=t'
     #subprocess.check_call(RepCmd, shell=True)
 
