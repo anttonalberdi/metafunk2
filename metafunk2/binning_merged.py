@@ -61,7 +61,7 @@ def binning_merged(projectname,projectpath,threads,memory,logfilepath):
     current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
     logfile.write("{0} |    Generating maxbin depth file from the reads mapped to the assembly \r\n".format(current_time))
     logfile.close()
-    maxbindepthfileCmd = 'module unload gcc && module load perl/5.20.2 metabat/2.12.1 && jgi_summarize_bam_contig_depths --outputDepth '+maxbindepthfile+' --noIntraDepthVariance '+assemblybampath+''
+    maxbindepthfileCmd = 'module unload gcc && module load perl/5.20.2 metabat/2.12.1 && jgi_summarize_bam_contig_depths --outputDepth '+maxbindepthfile+' --noIntraDepthVariance '+reassemblybampaths+''
     subprocess.check_call(maxbindepthfileCmd, shell=True)
 
     #Run maxbin
@@ -69,7 +69,7 @@ def binning_merged(projectname,projectpath,threads,memory,logfilepath):
     current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
     logfile.write("{0} |    Running maxbin \r\n".format(current_time))
     logfile.close()
-    maxbinCmd = 'module load maxbin/2.2.7 perl/5.20.2 fraggenescan/1.31 && run_MaxBin.pl -contig '+assemblypath+' -abund '+maxbindepthfile+' -out '+maxbindir+' -thread '+threads+''
+    maxbinCmd = 'module load maxbin/2.2.7 perl/5.20.2 fraggenescan/1.31 && run_MaxBin.pl -contig '+reassemblypath+' -abund '+maxbindepthfile+' -out '+maxbindir+' -thread '+threads+''
     subprocess.check_call(maxbinCmd, shell=True)
 
     #########################
