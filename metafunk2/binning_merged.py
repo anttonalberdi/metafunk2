@@ -45,7 +45,7 @@ def binning_merged(projectname,projectpath,threads,memory,logfilepath):
     logfile.write("{0} |    Running metabat binning\r\n".format(current_time))
     logfile.close()
     metabatCmd = 'module unload gcc && module load perl/5.20.2 metabat/2.12.1 && metabat2 -i '+reassemblypath+' -a '+metabatdepthfile+' -o '+metabatbinbase+' -m 1500 -t '+threads+' --unbinned '
-    subprocess.check_call(metabatCmd, shell=True)
+    #subprocess.check_call(metabatCmd, shell=True)
 
     #########################
     ######## Maxbin ######### ERROR! requires FragGeneScan. Waiting for Computerome admin to install it
@@ -69,8 +69,8 @@ def binning_merged(projectname,projectpath,threads,memory,logfilepath):
     current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
     logfile.write("{0} |    Running maxbin \r\n".format(current_time))
     logfile.close()
-    maxbinCmd = 'module load maxbin/2.2.7 && run_MaxBin.pl -contig '+assemblypath+' -abund '+maxbindepthfile+' -out '+maxbindir+' -thread '+threads+''
-    #subprocess.check_call(maxbinCmd, shell=True)
+    maxbinCmd = 'module load maxbin/2.2.7 perl/5.20.2 fraggenescan/1.31 && run_MaxBin.pl -contig '+assemblypath+' -abund '+maxbindepthfile+' -out '+maxbindir+' -thread '+threads+''
+    subprocess.check_call(maxbinCmd, shell=True)
 
     #######################
     ######## MyCC ######### 2019/11/23 - yelding an error: ValueError: invalid literal for int() with base 10: 'Traceback (most recent call last):\n  File "/services/tools/mycc/20170301/GetThr.py", line 22, in <module>\n    print sorted(dlist,reverse=True)[thr]\nIndexError: list index out of range'
@@ -96,3 +96,12 @@ def binning_merged(projectname,projectpath,threads,memory,logfilepath):
     #logfile.close()
     #myccCmd = 'MyCC.py '+assemblypath+' -a '+metabatdepthfile+' '
     #subprocess.check_call(myccCmd, shell=True)
+
+def bin_refinement(projectname,projectpath,threads,memory,logfilepath):
+
+    dastoolDependencies = 'module load gcc/5.4.0 intel/perflibs/2018 R/3.6.1 ruby/2.6.3 pullseq/1.0.2 perl/5.24.0 ncbi-blast/2.6.0+ das_tool/1.1.1'
+    dastoolCmd = ''+dastoolDependencies+' && DAS_Tool '
+    #https://github.com/cmks/DAS_Tool
+
+
+    binningdir = "binnin

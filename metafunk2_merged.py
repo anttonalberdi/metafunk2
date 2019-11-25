@@ -81,7 +81,7 @@ if ( 1 in includesteps and 1 not in skipsteps ):
     merge_assemblies.merge_assemblies(projectname,projectpath,threads,memory,logfilepath)
 
 #####
-# 2) Merged assembly mapping
+# 2) Merged assembly mapping (consider using Salmon)
 #####
 
 if ( 2 in includesteps and 2 not in skipsteps ):
@@ -108,6 +108,9 @@ if ( 3 in includesteps and 3 not in skipsteps ):
 
     from metafunk2 import binning_merged
     binning_merged.binning_merged(projectname,projectpath,threads,memory,logfilepath)
+
+    #rom metafunk2 import binning_merged
+    #binning_merged.bin_refinement(projectname,projectpath,threads,memory,logfilepath)
 
 #####
 # 4) Bin quality check
