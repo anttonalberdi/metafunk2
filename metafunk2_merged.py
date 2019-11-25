@@ -125,7 +125,6 @@ if ( 4 in includesteps and 4 not in skipsteps ):
     from metafunk2 import bin_qc
     bin_qc.bin_qc(projectpath,threads,memory,logfilepath)
 
-
 #####
 # Close log file
 #####
