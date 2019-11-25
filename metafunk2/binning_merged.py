@@ -145,7 +145,13 @@ def binning_merged(projectname,projectpath,threads,memory,logfilepath):
     #myccCmd = 'MyCC.py '+assemblypath+' -a '+metabatdepthfile+' '
     #subprocess.check_call(myccCmd, shell=True)
 
-#def bin_refinement(projectname,projectpath,threads,memory,logfilepath):
-    #dastoolDependencies = 'module load gcc/5.4.0 intel/perflibs/2018 R/3.6.1 ruby/2.6.3 pullseq/1.0.2 perl/5.24.0 ncbi-blast/2.6.0+ prodigal/2.6.3 das_tool/1.1.1'
-    #dastoolCmd = ''+dastoolDependencies+' && DAS_Tool '
-    #https://github.com/cmks/DAS_Tool
+def bin_refinement(projectname,projectpath,threads,memory,logfilepath):
+    bincontig_tables = ",".join(glob.glob(os.path.join(projectpath,'merged/binning', 'bins_*.txt')))
+    reassemblypath = os.path.join(projectpath, 'merged', 'reassembly.fna')
+    dastoolpath = os.path.join(projectpath, 'merged','binning','dastool')
+    if not os.path.exists(dastoolpath):
+        os.makedirs(dastoolpath)
+
+    dastoolDependencies = 'module load gcc/5.4.0 intel/perflibs/2018 R/3.6.1 ruby/2.6.3 pullseq/1.0.2 perl/5.24.0 ncbi-blast/2.6.0+ prodigal/2.6.3 das_tool/1.1.1 diamond/0.9.24'
+    dastoolCmd = ''+dastoolDependencies+' && DAS_Tool -i '+bincontig_tables+' -c '+reassemblypath+' -o '+dastoolpath+' --search_engine diamond -t '+threads+''
+    subprocess.check_call(dastoolCmd, shell=True)
