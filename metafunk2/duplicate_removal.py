@@ -28,6 +28,10 @@ def duplicate_removal(read1,read2,outpath,name,threads,statsfilepath,logfilepath
     read1out = os.path.join(absnewdir, name +  '.1.fq')
     read2out = os.path.join(absnewdir, name +  '.2.fq')
 
+    #Run mardre
+    mardreCmd = 'module load hadoop/2.8.5 mardre/1.4 java/1.8.0 && mardrerun -i '+read1in+' -p '+read2in+' -o '+read1tempout+' -r '+read2tempout+''
+    #subprocess.check_call(mardreCmd, shell=True)
+
     #Run seqkit rmdup
     Rmdup1Cmd = 'module load pigz/2.3.4 seqkit/0.7.1 && cat '+read1in+' | seqkit rmdup -s -d bla -o '+read1tempout+''
     subprocess.check_call(Rmdup1Cmd, shell=True)

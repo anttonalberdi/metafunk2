@@ -84,34 +84,34 @@ logfile=open(logfilepath,"a+")
 current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
 logfile.write("Checking software dependencies: \r\n")
 
-from check_software import is_tool
+from metafunk2 import check_software
 
-if is_tool('AdapterRemoval'):
+if check_software.is_tool('AdapterRemoval'):
     logfile.write("     AdapterRemoval = TRUE \r\n")
 else:
     logfile.write("     AdapterRemoval = FALSE \r\n")
 
-if is_tool('pigz'):
+if check_software.is_tool('pigz'):
     logfile.write("     pigz = TRUE \r\n")
 else:
     logfile.write("     pigz = FALSE \r\n")
 
-if is_tool('seqkit'):
+if check_software.is_tool('seqkit'):
     logfile.write("     seqkit = TRUE \r\n")
 else:
     logfile.write("     seqkit = FALSE \r\n")
 
-if is_tool('repair.sh'):
+if check_software.is_tool('repair.sh'):
     logfile.write("     bbmap = TRUE \r\n")
 else:
     logfile.write("     bbmap = FALSE \r\n")
 
-if is_tool('samtools'):
+if check_software.is_tool('samtools'):
     logfile.write("     samtools = TRUE \r\n")
 else:
     logfile.write("     samtools = FALSE \r\n")
 
-if is_tool('bwa'):
+if check_software.is_tool('bwa'):
     logfile.write("     bwa = TRUE \r\n")
 else:
     logfile.write("     bwa = FALSE \r\n")
