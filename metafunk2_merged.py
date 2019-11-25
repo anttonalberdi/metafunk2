@@ -109,8 +109,8 @@ if ( 3 in includesteps and 3 not in skipsteps ):
     from metafunk2 import binning_merged
     binning_merged.binning_merged(projectname,projectpath,threads,memory,logfilepath)
 
-    #rom metafunk2 import binning_merged
-    #binning_merged.bin_refinement(projectname,projectpath,threads,memory,logfilepath)
+    from metafunk2 import binning_merged
+    binning_merged.bin_refinement(projectname,projectpath,threads,memory,logfilepath)
 
 #####
 # 4) Bin quality check
