@@ -136,7 +136,7 @@ if ( 5 in includesteps and 5 not in skipsteps ):
     logfile.close()
 
     from metafunk2 import bin_annotation
-    bin_annotation.bin_annotation(projectpath,threads,memory,logfilepath,threads)
+    bin_annotation.bin_annotation(projectpath,threads,memory,logfilepath)
 
 
 #####

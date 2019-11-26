@@ -11,7 +11,7 @@ import subprocess
 import time
 import gzip
 
-def bin_annotation(projectpath,threads,memory,logfilepath,threads):
+def bin_annotation(projectpath,threads,memory,logfilepath):
     binannotdir = os.path.join(projectpath, 'merged/binning/annotation')
     if not os.path.exists(binannotdir):
         os.makedirs(binannotdir)
