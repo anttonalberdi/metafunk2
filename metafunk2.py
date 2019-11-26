@@ -76,46 +76,12 @@ statsfile=open(statsfilepath,"w+")
 statsfile.write("Statistic\tValue \r\n".format(current_time))
 statsfile.close()
 
-#####
-# Checking dependencies
-#####
+##############################
+#### Pipeline starts here ####
+##############################
 
 logfile=open(logfilepath,"a+")
 current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-logfile.write("Checking software dependencies: \r\n")
-
-from metafunk2 import check_software
-
-if check_software.is_tool('AdapterRemoval'):
-    logfile.write("     AdapterRemoval = TRUE \r\n")
-else:
-    logfile.write("     AdapterRemoval = FALSE \r\n")
-
-if check_software.is_tool('pigz'):
-    logfile.write("     pigz = TRUE \r\n")
-else:
-    logfile.write("     pigz = FALSE \r\n")
-
-if check_software.is_tool('seqkit'):
-    logfile.write("     seqkit = TRUE \r\n")
-else:
-    logfile.write("     seqkit = FALSE \r\n")
-
-if check_software.is_tool('repair.sh'):
-    logfile.write("     bbmap = TRUE \r\n")
-else:
-    logfile.write("     bbmap = FALSE \r\n")
-
-if check_software.is_tool('samtools'):
-    logfile.write("     samtools = TRUE \r\n")
-else:
-    logfile.write("     samtools = FALSE \r\n")
-
-if check_software.is_tool('bwa'):
-    logfile.write("     bwa = TRUE \r\n")
-else:
-    logfile.write("     bwa = FALSE \r\n")
-
 logfile.write("\r\nMetafunk2 pipeline begins:\r\n")
 logfile.close()
 

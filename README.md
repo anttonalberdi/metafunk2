@@ -12,7 +12,8 @@ metafunk2 pipeline
 
 metafunk2_merged pipeline (starts from individual assemblies generated with the metafunk2 pipeline)
 1) Reassembly (merging) of metagenomic assemblies using Minimus2
-2) Mapping reads against reassembly using hisat2
+2) Mapping reads from individual samples against reassembly using hisat2
 3) Binning using Maxbin and Metabat
 4) Bin refinement using Binning_refiner and DAS_Tool
 5) Bin quality check using checkm
+6) Mapping reads from individual samples to bins using hisat2
