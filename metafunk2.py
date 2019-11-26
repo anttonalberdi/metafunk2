@@ -169,7 +169,7 @@ if ( 3 in includesteps and 3 not in skipsteps ):
     genome_mapping.copy_genome(refgenlist,outpath,name,logfilepath)
 
     from metafunk2 import genome_mapping
-    genome_mapping.index_genome(refgenlist,outpath,name,logfilepath)
+    genome_mapping.index_genome(refgenlist,outpath,name,logfilepath,threads)
 
     from metafunk2 import genome_mapping
     genome_mapping.genome_mapping(refgenlist,outpath,name,logfilepath,threads,statsfilepath,keep)

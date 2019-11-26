@@ -74,7 +74,7 @@ def copy_genome(refgenlist,outpath,name,logfilepath):
                 subprocess.check_call(DecompCmd, shell=True)
 
 #Index reference genomes if not already indexed or being indexed by another job
-def index_genome(refgenlist,outpath,name,logfilepath):
+def index_genome(refgenlist,outpath,name,logfilepath,threads):
     refgencount = len(refgenlist)
     for i in range(refgencount):
         #Declare genome name and path
