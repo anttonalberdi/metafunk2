@@ -37,13 +37,13 @@ def duplicate_removal(read1,read2,outpath,name,threads,statsfilepath,logfilepath
     #subprocess.check_call(pardreCmd, shell=True)
 
     #Run seqkit rmdup
-    Rmdup1Cmd = 'module load pigz/2.3.4 seqkit/0.7.1 && cat '+read1in+' | seqkit rmdup -s -d bla -o '+read1tempout+''
+    Rmdup1Cmd = 'module load tools pigz/2.3.4 seqkit/0.7.1 && cat '+read1in+' | seqkit rmdup -s -d bla -o '+read1tempout+''
     subprocess.check_call(Rmdup1Cmd, shell=True)
-    Rmdup2Cmd = 'module load pigz/2.3.4 seqkit/0.7.1 && cat '+read2in+' | seqkit rmdup -s -o '+read2tempout+''
+    Rmdup2Cmd = 'module load tools pigz/2.3.4 seqkit/0.7.1 && cat '+read2in+' | seqkit rmdup -s -o '+read2tempout+''
     subprocess.check_call(Rmdup2Cmd, shell=True)
 
     #Repair
-    RepCmd = 'module load jre/1.8.0 bbmap/36.49 && repair.sh in='+read1tempout+' in2='+read2tempout+' out='+read1out+' out2='+read2out+' overwrite=t'
+    RepCmd = 'module load tools jre/1.8.0 bbmap/36.49 && repair.sh in='+read1tempout+' in2='+read2tempout+' out='+read1out+' out2='+read2out+' overwrite=t'
     subprocess.check_call(RepCmd, shell=True)
 
     #Remove temporal files
