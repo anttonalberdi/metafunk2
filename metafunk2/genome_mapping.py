@@ -93,12 +93,26 @@ def index_genome(refgenlist,outpath,name,logfilepath,threads):
             logfile.write("{0} |    Indexing {1} genome \r\n".format(current_time,refgenname))
             logfile.close()
             #Index genomes
+            logfile=open(logfilepath,"a+")
+            current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+            logfile.write("{0} |        Samtools index \r\n".format(current_time,refgenname))
+            logfile.close()
             samtoolsindexCmd = 'module load tools samtools/1.9 && samtools faidx '+refgenpath+''
-            bwaindexCmd = 'module load tools bwa/0.7.15 && bwa index '+refgenpath+''
-
             subprocess.check_call(samtoolsindexCmd, shell=True)
+
+            logfile=open(logfilepath,"a+")
+            current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+            logfile.write("{0} |        Bwa index \r\n".format(current_time,refgenname))
+            logfile.close()
+            bwaindexCmd = 'module load tools bwa/0.7.15 && bwa index '+refgenpath+''
             subprocess.check_call(bwaindexCmd, shell=True)
 
+            logfile=open(logfilepath,"a+")
+            current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+            logfile.write("{0} |        Hisat index \r\n".format(current_time,refgenname))
+            logfile.close()
+            hisatindexCmd = 'module load tools anaconda2/4.4.0 hisat2/2.1.0 && hisat2-build '+refgenpath+' '+refgenpath+' -p '+threads+''
+            subprocess.check_call(hisatindexCmd, shell=True)
             #Remove indexing flag when indexing is done
             os.remove(refgenflag)
         else:
@@ -107,8 +121,7 @@ def index_genome(refgenlist,outpath,name,logfilepath,threads):
             logfile.write("{0} |    {1} genome is already indexed \r\n".format(current_time,refgenname))
             logfile.close()
 
-        hisatindexCmd = 'module load tools anaconda2/4.4.0 hisat2/2.1.0 && hisat2-build '+refgenpath+' '+refgenpath+' -p '+threads+''
-        subprocess.check_call(hisatindexCmd, shell=True)
+
 ###
 # add waiting https://blog.miguelgrinberg.com/post/how-to-make-python-wait
 ###
