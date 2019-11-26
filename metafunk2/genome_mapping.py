@@ -111,7 +111,7 @@ def index_genome(refgenlist,outpath,name,logfilepath,threads):
             current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
             logfile.write("{0} |        Hisat index \r\n".format(current_time,refgenname))
             logfile.close()
-            hisatindexCmd = 'module load tools anaconda2/4.4.0 hisat2/2.1.0 && hisat2-build '+refgenpath+' '+refgenpath+' -p '+threads+''
+            hisatindexCmd = 'module unload gcc/5.1.0 && module load tools anaconda2/4.4.0 hisat2/2.1.0 && hisat2-build '+refgenpath+' '+refgenpath+' -p '+threads+''
             subprocess.check_call(hisatindexCmd, shell=True)
             #Remove indexing flag when indexing is done
             os.remove(refgenflag)
