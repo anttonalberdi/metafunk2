@@ -95,10 +95,10 @@ def index_genome(refgenlist,outpath,name,logfilepath):
             #Index genomes
             samtoolsindexCmd = 'module load tools samtools/1.9 && samtools faidx '+refgenpath+''
             bwaindexCmd = 'module load tools bwa/0.7.15 && bwa index '+refgenpath+''
-            hisatindexCmd = 'module load tools anaconda2/4.4.0 hisat2/2.1.0 && hisat2-build -c '+refgenpath+''
+
             subprocess.check_call(samtoolsindexCmd, shell=True)
             subprocess.check_call(bwaindexCmd, shell=True)
-            subprocess.check_call(hisatindexCmd, shell=True)
+
             #Remove indexing flag when indexing is done
             os.remove(refgenflag)
         else:
@@ -107,6 +107,8 @@ def index_genome(refgenlist,outpath,name,logfilepath):
             logfile.write("{0} |    {1} genome is already indexed \r\n".format(current_time,refgenname))
             logfile.close()
 
+        hisatindexCmd = 'module load tools anaconda2/4.4.0 hisat2/2.1.0 && hisat2-build -c '+refgenpath+''
+        subprocess.check_call(hisatindexCmd, shell=True)
 ###
 # add waiting https://blog.miguelgrinberg.com/post/how-to-make-python-wait
 ###
