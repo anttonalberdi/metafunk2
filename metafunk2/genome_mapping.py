@@ -107,7 +107,7 @@ def index_genome(refgenlist,outpath,name,logfilepath):
             logfile.write("{0} |    {1} genome is already indexed \r\n".format(current_time,refgenname))
             logfile.close()
 
-        hisatindexCmd = 'module load tools anaconda2/4.4.0 hisat2/2.1.0 && hisat2-build -c '+refgenpath+''
+        hisatindexCmd = 'module load tools anaconda2/4.4.0 hisat2/2.1.0 && hisat2-build '+refgenpath+' '+refgenpath+' -p '+threads+''
         subprocess.check_call(hisatindexCmd, shell=True)
 ###
 # add waiting https://blog.miguelgrinberg.com/post/how-to-make-python-wait
