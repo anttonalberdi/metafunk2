@@ -166,7 +166,7 @@ def genome_mapping(refgenlist,outpath,name,logfilepath,threads,statsfilepath,kee
 
         #Declare mapping commands
         mapCmd = 'module load tools module load tools anaconda2/4.4.0 hisat2/2.1.0 samtools/1.9 && hisat2 -x '+refgenpath+' -1 '+read1in+' -2 '+read2in+' -p '+threads+' | samtools view -T '+refgenpath+' -b - > '+bampath_all+''
-        #mapCmd = 'module load tools samtools/1.9 bwa/0.7.15 && bwa mem -t '+threads+' -R "@RG\tID:ProjectName\tCN:AuthorName\tDS:Mappingt\tPL:Illumina1.9\tSM:Sample" '+refgenpath+' '+read1in+' '+read2in+' | samtools view -T '+refgenpath+' -b - > '+bampath_all+''
+        mapCmd2 = 'module load tools samtools/1.9 bwa/0.7.15 && bwa mem -t '+threads+' -R "@RG\tID:ProjectName\tCN:AuthorName\tDS:Mappingt\tPL:Illumina1.9\tSM:Sample" '+refgenpath+' '+read1in+' '+read2in+' | samtools view -T '+refgenpath+' -b - > '+bampath_all+''
         hostmapCmd = 'module load tools samtools/1.9 && samtools view -T '+refgenpath+' -b -F12 '+bampath_all+' > '+bampath_host+''
         mgmapCmd = 'module load tools samtools/1.9 && samtools view -T '+refgenpath+' -b -f12 '+bampath_all+' > '+bampath_mg+''
         mgfqCmd = 'module load tools samtools/1.9 && samtools fastq -1 '+read1out+' -2 '+read2out+' '+bampath_mg+''
@@ -174,9 +174,16 @@ def genome_mapping(refgenlist,outpath,name,logfilepath,threads,statsfilepath,kee
         #Mapping to genome
         logfile=open(logfilepath,"a+")
         current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-        logfile.write("{0} |    Mapping reads to {1} genome \r\n".format(current_time,refgenname))
+        logfile.write("{0} |    Mapping reads to {1} genome using bwa \r\n".format(current_time,refgenname))
         logfile.close()
         subprocess.check_call(mapCmd, shell=True)
+
+        #Mapping to genome
+        logfile=open(logfilepath,"a+")
+        current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+        logfile.write("{0} |    Mapping reads to {1} genome using hisat \r\n".format(current_time,refgenname))
+        logfile.close()
+        subprocess.check_call(mapCmd2, shell=True)
 
         #Extracting mapped (genomic) reads
         logfile=open(logfilepath,"a+")
