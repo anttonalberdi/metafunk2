@@ -11,7 +11,7 @@ python metafunk2/metafunk2.py -n blank4 -1 metafunk2_test/Blank06092017_1.fastq.
 
 
 workdir="/home/projects/ku-cbd/people/antalb/metafunk2_test"
-xqsub -V -A ku-cbd -W group_list=ku-cbd -d `pwd` -e ${workdir}/indextest.err -o ${workdir}/indextest.out -l nodes=1:ppn=8,mem=50gb,walltime=0:00:05:00 -N indextest -de python metafunk2/metafunk2.py -n blank -1 metafunk2_test/Blank06092017_1.fastq.gz -2 metafunk2_test/Blank06092017_2.fastq.gz -r 'gambusia=databases/GCA_003097735.1_ASM309773v1_genomic.fna.gz,human=databases/GCF_000001405.39_GRCh38.p13_genomic.fna.gz' -o /home/projects/ku-cbd/people/antalb/metafunk2_test -t 8 -m 8 -i 3 -k
+xqsub -V -A ku-cbd -W group_list=ku-cbd -d `pwd` -e ${workdir}/indextest.err -o ${workdir}/indextest.out -l nodes=1:ppn=8,mem=20gb,walltime=0:02:00:00 -N indextest -de python metafunk2/metafunk2.py -n blank -1 metafunk2_test/Blank06092017_1.fastq.gz -2 metafunk2_test/Blank06092017_2.fastq.gz -r 'gambusia=databases/GCA_003097735.1_ASM309773v1_genomic.fna.gz,human=databases/GCF_000001405.39_GRCh38.p13_genomic.fna.gz' -o /home/projects/ku-cbd/people/antalb/metafunk2_test -t 8 -m 8 -i 3 -k
 
 
 xqsub -V -A ku-cbd -W group_list=ku-cbd -d `pwd` -e ${workdir}/pardre2.err -o ${workdir}/pardre.out -l nodes=1:ppn=8,mem=50gb,walltime=0:00:05:00 -N pardre2 -de python metafunk2/metafunk2.py -n AI0_11b_pardre -1 metafunk2_test2/AI0_11b_1.fastq.gz -2 metafunk2_test2/AI0_11b_2.fastq.gz -r 'gambusia=databases/GCA_003097735.1_ASM309773v1_genomic.fna.gz,human=databases/GCF_000001405.39_GRCh38.p13_genomic.fna.gz' -o /home/projects/ku-cbd/people/antalb/metafunk2_test -t 8 -m 8 -i 2 -k

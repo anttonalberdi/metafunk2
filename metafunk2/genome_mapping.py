@@ -107,12 +107,14 @@ def index_genome(refgenlist,outpath,name,logfilepath,threads):
             bwaindexCmd = 'module load tools bwa/0.7.15 && bwa index '+refgenpath+''
             subprocess.check_call(bwaindexCmd, shell=True)
 
-            logfile=open(logfilepath,"a+")
-            current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-            logfile.write("{0} |        Hisat index \r\n".format(current_time,refgenname))
-            logfile.close()
-            hisatindexCmd = 'module unload gcc/5.1.0 && module load tools anaconda2/4.4.0 hisat2/2.1.0 && hisat2-build '+refgenpath+' '+refgenpath+' -p '+threads+''
-            subprocess.check_call(hisatindexCmd, shell=True)
+            #Hisat2 is too slow compared to bwa
+            #logfile=open(logfilepath,"a+")
+            #current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+            #logfile.write("{0} |        Hisat index \r\n".format(current_time,refgenname))
+            #logfile.close()
+            #hisatindexCmd = 'module unload gcc/5.1.0 && module load tools anaconda2/4.4.0 hisat2/2.1.0 && hisat2-build '+refgenpath+' '+refgenpath+' -p '+threads+''
+            #subprocess.check_call(hisatindexCmd, shell=True)
+
             #Remove indexing flag when indexing is done
             os.remove(refgenflag)
         else:
@@ -174,16 +176,16 @@ def genome_mapping(refgenlist,outpath,name,logfilepath,threads,statsfilepath,kee
         #Mapping to genome
         logfile=open(logfilepath,"a+")
         current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-        logfile.write("{0} |    Mapping reads to {1} genome using bwa \r\n".format(current_time,refgenname))
+        logfile.write("{0} |    Mapping reads to {1} genome \r\n".format(current_time,refgenname))
         logfile.close()
         subprocess.check_call(mapCmd, shell=True)
 
-        #Mapping to genome
-        logfile=open(logfilepath,"a+")
-        current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-        logfile.write("{0} |    Mapping reads to {1} genome using hisat \r\n".format(current_time,refgenname))
-        logfile.close()
-        subprocess.check_call(mapCmd2, shell=True)
+        #Mapping to genome using Hisat2 - too slow
+        #logfile=open(logfilepath,"a+")
+        #current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+        #logfile.write("{0} |    Mapping reads to {1} genome using hisat \r\n".format(current_time,refgenname))
+        #logfile.close()
+        #subprocess.check_call(mapCmd2, shell=True)
 
         #Extracting mapped (genomic) reads
         logfile=open(logfilepath,"a+")
