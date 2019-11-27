@@ -20,13 +20,23 @@ def quality_filtering(read1,read2,outpath,name,threads,statsfilepath,logfilepath
     #Get initial stats
     reads = 0
     bases = 0
-    with gzip.open(read1, 'rb') as read:
-        for id in read:
-            seq = next(read)
-            reads += 1
-            bases += len(seq.strip())
-            next(read)
-            next(read)
+    #If gzipped
+    if read1.endswith('.gz'):
+        with gzip.open(read1, 'rb') as read:
+            for id in read:
+                seq = next(read)
+                reads += 1
+                bases += len(seq.strip())
+                next(read)
+                next(read)
+    else:
+        with open(read1, 'rb') as read:
+            for id in read:
+                seq = next(read)
+                reads += 1
+                bases += len(seq.strip())
+                next(read)
+                next(read)
     statsfile=open(statsfilepath,"a+")
     statsfile.write("Input reads\t{0} ({1} bases)\r\n".format(reads,bases))
     statsfile.close()
