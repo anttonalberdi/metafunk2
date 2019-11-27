@@ -61,5 +61,5 @@ def bin_annotation(projectpath,threads,memory,logfilepath):
         bin = binlist[i]
         binname = os.path.splitext(os.path.basename(bin))[0]+''
         outdir = os.path.join(projectpath, 'merged/binning/annotation/' + binname)
-        prokkaCmd = 'module load perl/5.24.0 prokka/1.14.0 && prokka --outdir '+outdir+' --prefix '+binname+' --cpus '+threads+' --force '+bin+''
+        prokkaCmd = 'module load tools perl/5.24.0 prokka/1.14.0 && prokka --outdir '+outdir+' --prefix '+binname+' --cpus '+threads+' --force '+bin+''
         subprocess.check_call(prokkaCmd, shell=True)
