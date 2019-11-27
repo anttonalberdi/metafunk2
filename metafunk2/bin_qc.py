@@ -20,5 +20,5 @@ def bin_qc(projectpath,threads,memory,logfilepath):
     if not os.path.exists(outputdir):
         os.makedirs(outputdir)
 
-    checkmCmd = 'module unload tools gcc/5.1.0 && module load tools anaconda2/4.0.0 hmmer/3.2.1 prodigal/2.6.3 pplacer/1.1.alpha19 && checkm lineage_wf -t '+threads+' --pplacer_threads '+threads+' --tmpdir '+bindirtemp+' -x fa '+bindir+' '+outputdir+''
+    checkmCmd = 'module unload gcc/5.1.0 && module load tools anaconda2/4.0.0 hmmer/3.2.1 prodigal/2.6.3 pplacer/1.1.alpha19 && checkm lineage_wf -t '+threads+' --pplacer_threads '+threads+' --tmpdir '+bindirtemp+' -x fa '+bindir+' '+outputdir+''
     subprocess.check_call(checkmCmd, shell=True)
