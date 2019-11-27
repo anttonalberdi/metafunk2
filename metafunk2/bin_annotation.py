@@ -27,7 +27,7 @@ def bin_annotation(projectpath,threads,memory,logfilepath):
 
     logfile=open(logfilepath,"a+")
     current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-    logfile.write("{0} |        Running taxonomic annotation using CAT. \r\n".format(current_time,refgenname))
+    logfile.write("{0} |        Running taxonomic annotation using CAT. \r\n".format(current_time))
     logfile.close()
 
     #Run annotation
@@ -52,7 +52,7 @@ def bin_annotation(projectpath,threads,memory,logfilepath):
 
     logfile=open(logfilepath,"a+")
     current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-    logfile.write("{0} |        Running functional annotation using prokka. \r\n".format(current_time,refgenname))
+    logfile.write("{0} |        Running functional annotation using prokka. \r\n".format(current_time))
     logfile.close()
 
     binlist = glob.glob(os.path.join(projectpath, 'merged/binning/*.fa'))
