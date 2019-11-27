@@ -98,4 +98,7 @@ xqsub -V -A ku-cbd -W group_list=ku-cbd -d `pwd` -e ${workdir}/prokka.err -o ${w
 
 rm -rf metafunk2
 git clone https://github.com/anttonalberdi/metafunk2.git
+python metafunk2/metafunk2_merged.py -n merged2 -p /home/projects/ku-cbd/people/antalb/metafunk2_test2 -t 8 -m 8 -i 4
+
+
 python metafunk2/metafunk2_merged.py -n merged -p /home/projects/ku-cbd/people/antalb/metafunk2_test2 -t 8 -m 8 -i 5
