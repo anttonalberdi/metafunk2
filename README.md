@@ -16,5 +16,5 @@ metafunk2_merged pipeline (starts from individual assemblies generated with the 
 3) Binning using Maxbin and Metabat
 4) Bin refinement using Binning_refiner and DAS_Tool
 5) Bin quality check using checkm
-6) Bin annotation using CAT bin
+6) Bin taxonomic annotation using CAT bin
 7) Mapping reads from individual samples to bins using bwa
