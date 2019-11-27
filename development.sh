@@ -91,9 +91,9 @@ xqsub -V -A ku-cbd -W group_list=ku-cbd -d `pwd` -e ${workdir}/GH3_6b.err -o ${w
 xqsub -V -A ku-cbd -W group_list=ku-cbd -d `pwd` -e ${workdir}/AI0_11b.err -o ${workdir}/AI0_11b.out -l nodes=1:ppn=8,mem=50gb,walltime=1:00:00:00 -N AI0_11b -de python metafunk2/metafunk2/run_metafunk2.py -n AI0_11b -1 metafunk2_test2/AI0_11b_1.fastq.gz -2 metafunk2_test2/AI0_11b_2.fastq.gz -r 'gambusia=databases/GCA_003097735.1_ASM309773v1_genomic.fna.gz,human=databases/GCF_000001405.39_GRCh38.p13_genomic.fna.gz' -o /home/projects/ku-cbd/people/antalb/metafunk2_test2 -t 8 -m 50 -i 5,6 -k
 
 #merged
-xqsub -V -A ku-cbd -W group_list=ku-cbd -d `pwd` -e ${workdir}/checkm.err -o ${workdir}/checkm.out -l nodes=1:ppn=8,mem=50gb,walltime=0:01:00:00 -N checkm -de python metafunk2/metafunk2_merged.py -n merged2 -p /home/projects/ku-cbd/people/antalb/metafunk2_test2 -t 8 -m 8 -i 4
+xqsub -V -A ku-cbd -W group_list=ku-cbd -d `pwd` -e ${workdir}/checkm.err -o ${workdir}/checkm.out -l nodes=1:ppn=8,mem=50gb,walltime=0:06:00:00 -N checkm -de python metafunk2/metafunk2_merged.py -n merged2 -p /home/projects/ku-cbd/people/antalb/metafunk2_test2 -t 8 -m 8 -i 4
 
-xqsub -V -A ku-cbd -W group_list=ku-cbd -d `pwd` -e ${workdir}/CAT.err -o ${workdir}/CAT.out -l nodes=1:ppn=8,mem=50gb,walltime=0:06:00:00 -N CAT -de python metafunk2/metafunk2_merged.py -n merged -p /home/projects/ku-cbd/people/antalb/metafunk2_test2 -t 8 -m 8 -i 5
+xqsub -V -A ku-cbd -W group_list=ku-cbd -d `pwd` -e ${workdir}/prokka.err -o ${workdir}/prokka.out -l nodes=1:ppn=8,mem=50gb,walltime=0:06:00:00 -N prokka -de python metafunk2/metafunk2_merged.py -n merged -p /home/projects/ku-cbd/people/antalb/metafunk2_test2 -t 8 -m 8 -i 5
 
 
 rm -rf metafunk2

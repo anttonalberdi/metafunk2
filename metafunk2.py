@@ -140,6 +140,10 @@ if ( 3 in includesteps and 3 not in skipsteps ):
     from metafunk2 import genome_mapping
     genome_mapping.genome_mapping(refgenlist,outpath,name,logfilepath,threads,statsfilepath,keep)
 
+#####
+# 3A) Consider adding option to rarefy reads to a certain seq depth
+#####
+
 
 #####
 # 4) Assemble metagenomic samples
