@@ -37,8 +37,8 @@ def assembly_mapping(outpath,name,logfilepath,threads):
         current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
         logfile.write("{0} |    Indexing metagenomic assembly \r\n".format(current_time))
         logfile.close()
-        samtoolsindexCmd = 'samtools faidx '+assemblypath+''
-        bwaindexCmd = 'bwa index '+assemblypath+''
+        samtoolsindexCmd = 'module load tools samtools/1.9 && samtools faidx '+assemblypath+''
+        bwaindexCmd = 'module load tools bwa/0.7.15 && bwa index '+assemblypath+''
         subprocess.check_call(samtoolsindexCmd, shell=True)
         subprocess.check_call(bwaindexCmd, shell=True)
     else:
@@ -48,7 +48,7 @@ def assembly_mapping(outpath,name,logfilepath,threads):
         logfile.close()
 
     #Declare mapping commands
-    mapCmd = 'bwa mem -t '+threads+' -R "@RG\tID:ProjectName\tCN:AuthorName\tDS:Mappingt\tPL:Illumina1.9\tSM:Sample" '+assemblypath+' '+read1in+' '+read2in+' | samtools view -T '+assemblypath+' -b - | samtools sort -T '+assemblypath+' - > '+assemblybampath+''
+    mapCmd = 'module load tools samtools/1.9 bwa/0.7.15 && bwa mem -t '+threads+' -R "@RG\tID:ProjectName\tCN:AuthorName\tDS:Mappingt\tPL:Illumina1.9\tSM:Sample" '+assemblypath+' '+read1in+' '+read2in+' | samtools view -T '+assemblypath+' -b - | samtools sort -T '+assemblypath+' - > '+assemblybampath+''
 
     #Mapping to genome
     logfile=open(logfilepath,"a+")
