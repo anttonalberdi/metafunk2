@@ -18,9 +18,18 @@ def assembly_mapping(outpath,name,logfilepath,threads):
         os.makedirs(absnewdir)
 
     assemblypath = os.path.join(outpath, name + '.fna')
+    #Print error and quit if the assembly file does not exist
+    if not os.path.exists(assemblypath):
+        logfile=open(logfilepath,"a+")
+        current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+        logfile.write("{0} | ERROR! Assembly file of sample {1} does not exist. \r\n".format(current_time,name))
+        logfile.close()
+        os.kill(os.getpid(), signal.SIGSTOP)
+
     assemblybampath = os.path.join(absnewdir, name + '.mapped.bam')
     read1in = os.path.join(outpath, name + '.1.fq')
     read2in = os.path.join(outpath, name + '.2.fq')
+
     #Index assembly
     assemblyfai = os.path.join(assemblypath + '.fai')
     if not os.path.exists(assemblyfai):
