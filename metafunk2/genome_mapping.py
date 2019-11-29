@@ -167,8 +167,8 @@ def genome_mapping(refgenlist,outpath,name,logfilepath,threads,statsfilepath,kee
             time.sleep(secs)
 
         #Declare mapping commands
-        mapCmd = 'module load tools module load tools anaconda2/4.4.0 hisat2/2.1.0 samtools/1.9 && hisat2 -x '+refgenpath+' -1 '+read1in+' -2 '+read2in+' -p '+threads+' | samtools view -T '+refgenpath+' -b - > '+bampath_all+''
-        mapCmd2 = 'module load tools samtools/1.9 bwa/0.7.15 && bwa mem -t '+threads+' -R "@RG\tID:ProjectName\tCN:AuthorName\tDS:Mappingt\tPL:Illumina1.9\tSM:Sample" '+refgenpath+' '+read1in+' '+read2in+' | samtools view -T '+refgenpath+' -b - > '+bampath_all+''
+        #hisat version mapCmd = 'module load tools module load tools anaconda2/4.4.0 hisat2/2.1.0 samtools/1.9 && hisat2 -x '+refgenpath+' -1 '+read1in+' -2 '+read2in+' -p '+threads+' | samtools view -T '+refgenpath+' -b - > '+bampath_all+''
+        mapCmd = 'module load tools samtools/1.9 bwa/0.7.15 && bwa mem -t '+threads+' -R "@RG\tID:ProjectName\tCN:AuthorName\tDS:Mappingt\tPL:Illumina1.9\tSM:Sample" '+refgenpath+' '+read1in+' '+read2in+' | samtools view -T '+refgenpath+' -b - > '+bampath_all+''
         hostmapCmd = 'module load tools samtools/1.9 && samtools view -T '+refgenpath+' -b -F12 '+bampath_all+' > '+bampath_host+''
         mgmapCmd = 'module load tools samtools/1.9 && samtools view -T '+refgenpath+' -b -f12 '+bampath_all+' > '+bampath_mg+''
         mgfqCmd = 'module load tools samtools/1.9 && samtools fastq -1 '+read1out+' -2 '+read2out+' '+bampath_mg+''
