@@ -39,7 +39,7 @@ def binning_merged(projectname,projectpath,threads,memory,logfilepath):
     logfile.write("{0} |    Generating metabat depth file from the reads mapped to the reassembly \r\n".format(current_time))
     logfile.close()
     metabatdepthfileCmd = 'module unload gcc && module load perl/5.20.2 metabat/2.12.1 && jgi_summarize_bam_contig_depths --outputDepth '+metabatdepthfile+' '+reassemblybampaths+''
-    #subprocess.check_call(metabatdepthfileCmd, shell=True)
+    subprocess.check_call(metabatdepthfileCmd, shell=True)
 
     #Run metabat
     logfile=open(logfilepath,"a+")
@@ -47,7 +47,7 @@ def binning_merged(projectname,projectpath,threads,memory,logfilepath):
     logfile.write("{0} |    Running metabat binning\r\n".format(current_time))
     logfile.close()
     metabatCmd = 'module unload gcc && module load perl/5.20.2 metabat/2.12.1 && metabat2 -i '+reassemblypath+' -a '+metabatdepthfile+' -o '+metabatbinbase+' -m 1500 -t '+threads+''
-    #subprocess.check_call(metabatCmd, shell=True)
+    subprocess.check_call(metabatCmd, shell=True)
 
     #Create contig to bin table
     bintablefile = os.path.join(binningdir_abs, 'bins_metabat.txt')
@@ -80,7 +80,7 @@ def binning_merged(projectname,projectpath,threads,memory,logfilepath):
     logfile.write("{0} |    Generating maxbin depth file from the reads mapped to the assembly \r\n".format(current_time))
     logfile.close()
     maxbindepthfileCmd = 'module unload gcc && module load perl/5.20.2 metabat/2.12.1 && jgi_summarize_bam_contig_depths --outputDepth '+maxbindepthfile+' --noIntraDepthVariance '+reassemblybampaths+''
-    #subprocess.check_call(maxbindepthfileCmd, shell=True)
+    subprocess.check_call(maxbindepthfileCmd, shell=True)
 
     #Run maxbin
     logfile=open(logfilepath,"a+")
@@ -88,7 +88,7 @@ def binning_merged(projectname,projectpath,threads,memory,logfilepath):
     logfile.write("{0} |    Running maxbin \r\n".format(current_time))
     logfile.close()
     maxbinCmd = 'module load perl/5.20.2 maxbin/2.2.7 fraggenescan/1.31 && run_MaxBin.pl -contig '+reassemblypath+' -abund '+maxbindepthfile+' -out '+maxbinbase+' -thread '+threads+''
-    #subprocess.check_call(maxbinCmd, shell=True)
+    subprocess.check_call(maxbinCmd, shell=True)
 
     #Create contig to bin table
     bintablefile = os.path.join(binningdir_abs, 'bins_maxbin.txt')
@@ -124,8 +124,8 @@ def bin_refinement(projectname,projectpath,threads,memory,logfilepath):
     dastoolCmd = ''+dastoolDependencies+' && DAS_Tool -i '+bincontig_tables+' -c '+reassemblypath+' -o '+dastoolbase+' -l maxbin,metabat --search_engine diamond -t '+threads+' --db_directory '+dastooldb+' --write_bins 1'
     subprocess.check_call(dastoolCmd, shell=True)
 
-    #Refinement using Binning_refiner
-    #module load anaconda3/4.0.0 && Binning_refiner -1 metafunk2_test2/merged/binning/metabat -2 metafunk2_test2/merged/binning/maxbin -p metafunk2_test2/merged/binning/refiner/refiner -plot
+    #Refinement using Binning_refiner (problems with R dependencies)
+    #module unload gcc gcc/5.1.0 && module load anaconda3/4.0.0 && Binning_refiner -i metafunk2_test2/merged/binning/refiner/ -p refined -plot
 
     #Move definitive bins to binning directory
     binsource = os.path.join(projectpath, 'merged','binning','dastool','dastool_DASTool_bins')
