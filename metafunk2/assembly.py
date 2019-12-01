@@ -51,7 +51,7 @@ def assembly(outpath,name,logfilepath,statsfilepath,threads,memory,keep,assemble
     if assembler == 'spades':
         assembly = os.path.join(assembly_abs, 'contigs.fasta')
     if assembler == 'megahit':
-        assembly = os.path.join(assembly_abs, 'final.contigs.fasta')
+        assembly = os.path.join(assembly_abs, 'final.contigs.fa')
 
     assemblyfinal = os.path.join(outpath, name +  '.fna')
     shutil.copy(assembly, assemblyfinal)
