@@ -40,7 +40,7 @@ def assembly(outpath,name,logfilepath,statsfilepath,threads,memory,keep,assemble
 
     #Select assembler
     if assembler == 'spades':
-        assemblyCmd = 'module load tools anaconda3/2.1.0 spades/3.13.1 perl/5.20.2 && rm -rf '+assembly_abs+' && metaspades.py -1 '+read1in+' -2 '+read2in+' -t '+threads+' -m '+memory+' -k 21,29,39,59,79,99,119,141 --only-assembler -o '+assembly_abs+''
+        assemblyCmd = 'module load tools anaconda3/2.1.0 spades/3.13.1 perl/5.20.2 && rm -rf '+assembly_abs+' && metaspades.py -1 '+read1in+' -2 '+read2in+' -t '+threads+' -m '+memory+' -k 21,29,39,59,79,99,119 --only-assembler -o '+assembly_abs+''
     if assembler == 'megahit':
         assemblyCmd = 'module load tools megahit/1.1.1 && rm -rf '+assembly_abs+' && megahit -1 '+read1in+' -2 '+read2in+' -t '+threads+' --k-list 21,29,39,59,79,99,119,141 -o '+assembly_abs+''
 
