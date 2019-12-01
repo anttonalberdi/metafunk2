@@ -15,14 +15,14 @@ optional = parser.add_argument_group('optional arguments')
 required.add_argument('-n', help="Sample name", dest="name", required=True)
 required.add_argument('-1', help="Path to forward read", dest="read1", required=True)
 required.add_argument('-2', help="Path to reverse read", dest="read2", required=True)
-required.add_argument('-r', help="Reference genome (RF) sequence name(s) and path(s). RF1name=RF1path,RF2name=RF2path, etc.", dest="refgen", required=True)
+required.add_argument('-r', help="Reference genome (RG) sequence name(s) and path(s). RG1name=RG1path,RG2name=RG2path, etc.", dest="refgen", required=True)
 required.add_argument('-o', help="Output path", dest="outpath", required=True)
-optional.add_argument('-t', help="Number of threads", dest="threads", default=8)
-optional.add_argument('-m', help="RAM memory limit", dest="memory", default=250)
-optional.add_argument('-s', help="Skip steps", dest="skipsteps", type=str)
-optional.add_argument('-i', help="Include steps", dest="includesteps", type=str)
-optional.add_argument('-a', help="Assembler software, either 'spades' or 'megahit'", dest="assembler",  type=str)
+optional.add_argument('-t', help="Number of threads (Default = 1)", dest="threads")
+optional.add_argument('-m', help="RAM memory limit (Default = 50GB)", dest="memory")
+optional.add_argument('-s', help="Skip steps (Default = none)", dest="skipsteps", type=str)
+optional.add_argument('-i', help="Include steps (Default = all)", dest="includesteps", type=str)
 optional.add_argument('-k', help="Keep intermediate files", dest="keep", action='store_true')
+optional.add_argument('-a', help="Assembler software, either 'spades' or 'megahit'", dest="assembler",  type=str)
 
 args = parser.parse_args()
 
@@ -40,9 +40,13 @@ assembler = args.assembler
 refgenlist = [l.split('=') for l in refgen.split(',') if l]
 refgencount = len(refgenlist)
 
+#Prepare threads
+if args.threads is None:
+    threads = 1
+
 #Prepare memory
 if args.memory is None:
-    memory = 250
+    memory = 50
 
 #Prepare skipsteps
 if args.skipsteps is None:
