@@ -57,7 +57,7 @@ def duplicate_removal(read1,read2,outpath,name,threads,statsfilepath,logfilepath
         for id in read:
             seq = next(read)
             reads += 1
-            bases += len(seq.strip())
+            bases += len(seq.strip())*2
             next(read)
             next(read)
 

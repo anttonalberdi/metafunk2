@@ -26,7 +26,7 @@ def quality_filtering(read1,read2,outpath,name,threads,statsfilepath,logfilepath
             for id in read:
                 seq = next(read)
                 reads += 1
-                bases += len(seq.strip())
+                bases += len(seq.strip())*2
                 next(read)
                 next(read)
     else:
@@ -34,12 +34,23 @@ def quality_filtering(read1,read2,outpath,name,threads,statsfilepath,logfilepath
             for id in read:
                 seq = next(read)
                 reads += 1
-                bases += len(seq.strip())
+                bases += len(seq.strip())*2
                 next(read)
                 next(read)
     statsfile=open(statsfilepath,"a+")
     statsfile.write("Input reads\t{0} ({1} bases)\r\n".format(reads,bases))
     statsfile.close()
+
+    #Print stats to logfile
+    logfile=open(logfilepath,"a+")
+    logfile.write("                     The input files contain {0} reads ({1} bases)\r\n".format(reads,bases))
+    logfile.close()
+
+    #Print step to logfile
+    logfile=open(logfilepath,"a+")
+    current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+    logfile.write("\r\n\r\n{0} | Metafunk2 has started quality filtering the reads \r\n".format(current_time))
+    logfile.close()
 
     #Run Adapterremoval
     ARCmd = 'module unload gcc tools ngs && module load tools gcc/5.4.0 AdapterRemoval/2.1.3 && AdapterRemoval --file1 '+read1+' --file2 '+read2+' --basename '+outpath+'/'+name+'.quality_filtering/'+name+' --minquality 30 --trimqualities --trimns --maxns 5 --threads '+threads+''

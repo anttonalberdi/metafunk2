@@ -82,7 +82,7 @@ statsfile.close()
 
 logfile=open(logfilepath,"a+")
 current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-logfile.write("\r\nMetafunk2 pipeline begins:\r\n")
+logfile.write("\r\n{0} | Metafunk2 pipeline begins:\r\n")
 logfile.close()
 
 #####

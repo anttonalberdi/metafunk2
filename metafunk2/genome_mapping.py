@@ -222,7 +222,7 @@ def genome_mapping(refgenlist,outpath,name,logfilepath,threads,statsfilepath,kee
             for id in read:
                 seq = next(read)
                 reads += 1
-                bases += len(seq.strip())
+                bases += len(seq.strip())*2
                 next(read)
                 next(read)
         #Print stats to statsfile
