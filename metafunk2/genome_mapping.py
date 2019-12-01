@@ -144,9 +144,11 @@ def genome_mapping(refgenlist,outpath,name,logfilepath,threads,statsfilepath,kee
     refgencount = len(refgenlist)
     for i in range(refgencount):
         #Declare input files
+        #If first genome, get files from previous step directory
         if i==0:
             read1in = os.path.join(absprevdirr, name +  '.1.fq')
             read2in = os.path.join(absprevdirr, name +  '.2.fq')
+        #If not first genome, get files outputed from previous genome mapping
         else:
             read1in = os.path.join(outpath,name + '.genome_mapping', name +  '.1.fq')
             read2in = os.path.join(outpath,name + '.genome_mapping', name +  '.2.fq')
@@ -231,31 +233,31 @@ def genome_mapping(refgenlist,outpath,name,logfilepath,threads,statsfilepath,kee
         logfile.write("                         {1} reads ({2} bases) were kept after mapping to {0} genome\r\n".format(refgenname,reads,bases))
         logfile.close()
 
-        #Compress and move reads to parent folder
-        read1final = os.path.join(outpath, name +  '.1.fq')
-        read2final = os.path.join(outpath, name +  '.2.fq')
-        read1Cmd = 'module load tools pigz/2.3.4 && pigz -c '+read1out+' > '+read1final+''
-        subprocess.check_call(mapCmd, shell=True)
-        read2Cmd = 'module load tools pigz/2.3.4 && pigz -c '+read1out+' > '+read1final+''
-        subprocess.check_call(mapCmd, shell=True)
+    #Compress and move reads to parent folder
+    read1final = os.path.join(outpath, name +  '.1.fq')
+    read2final = os.path.join(outpath, name +  '.2.fq')
+    read1Cmd = 'module load tools pigz/2.3.4 && pigz -c '+read1out+' > '+read1final+''
+    subprocess.check_call(mapCmd, shell=True)
+    read2Cmd = 'module load tools pigz/2.3.4 && pigz -c '+read1out+' > '+read1final+''
+    subprocess.check_call(mapCmd, shell=True)
 
-        #Print error to log file if final files are not created
-        if ( not os.path.exists(read1final) or not os.path.exists(read2final) ):
-            #Print to log file
-            logfile=open(logfilepath,"a+")
-            current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-            logfile.write("{0} |    There was an error during the genome mapping. Check error file. \r\n".format(current_time,refgenname))
-            logfile.close()
+    #Print error to log file if final files are not created
+    if ( not os.path.exists(read1final) or not os.path.exists(read2final) ):
+        #Print to log file
+        logfile=open(logfilepath,"a+")
+        current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+        logfile.write("{0} |    There was an error during the genome mapping. Check error file. \r\n".format(current_time,refgenname))
+        logfile.close()
 
-        #If keep is not selected, remove previous directory
-        if not keep:
-            if os.path.exists(absprevdirr):
-                shutil.rmtree(absprevdirr)
+    #If keep is not selected, remove previous directory
+    if not keep:
+        if os.path.exists(absprevdirr):
+            shutil.rmtree(absprevdirr)
 
-        #Doublecheck if everything is ok
-        if ( os.stat(read1final).st_size == 0 or  os.stat(read2final).st_size == 0):
-            logfile=open(logfilepath,"a+")
-            current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-            logfile.write("{0} | ERROR! Metafunk2 has stopped due to an error. Check error file \r\n".format(current_time))
-            logfile.close()
-            os.kill(os.getpid(), signal.SIGSTOP)
+    #Doublecheck if everything is ok
+    if ( os.stat(read1final).st_size == 0 or  os.stat(read2final).st_size == 0):
+        logfile=open(logfilepath,"a+")
+        current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+        logfile.write("{0} | ERROR! Metafunk2 has stopped due to an error. Check error file \r\n".format(current_time))
+        logfile.close()
+        os.kill(os.getpid(), signal.SIGSTOP)
