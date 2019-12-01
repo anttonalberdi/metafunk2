@@ -231,11 +231,13 @@ def genome_mapping(refgenlist,outpath,name,logfilepath,threads,statsfilepath,kee
         logfile.write("                         {1} reads ({2} bases) were kept after mapping to {0} genome\r\n".format(refgenname,reads,bases))
         logfile.close()
 
-        #Move reads to parent folder
+        #Compress and move reads to parent folder
         read1final = os.path.join(outpath, name +  '.1.fq')
         read2final = os.path.join(outpath, name +  '.2.fq')
-        shutil.copy(read1out, read1final)
-        shutil.copy(read2out, read2final)
+        read1Cmd = 'module load tools pigz/2.3.4 && pigz -c '+read1out+' > '+read1final+''
+        subprocess.check_call(mapCmd, shell=True)
+        read2Cmd = 'module load tools pigz/2.3.4 && pigz -c '+read1out+' > '+read1final+''
+        subprocess.check_call(mapCmd, shell=True)
 
         #Print error to log file if final files are not created
         if ( not os.path.exists(read1final) or not os.path.exists(read2final) ):
