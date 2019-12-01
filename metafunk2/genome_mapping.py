@@ -242,9 +242,9 @@ def genome_mapping(refgenlist,outpath,name,logfilepath,threads,statsfilepath,kee
     read1final = os.path.join(outpath, name +  '.1.fq.gz')
     read2final = os.path.join(outpath, name +  '.2.fq.gz')
     read1Cmd = 'module load tools pigz/2.3.4 && pigz -p '+threads+' -c '+read1out+' > '+read1final+''
-    subprocess.check_call(mapCmd, shell=True)
+    subprocess.check_call(read1Cmd, shell=True)
     read2Cmd = 'module load tools pigz/2.3.4 && pigz -p '+threads+' -c '+read1out+' > '+read1final+''
-    subprocess.check_call(mapCmd, shell=True)
+    subprocess.check_call(read2Cmd, shell=True)
 
     #If keep is not selected, remove previous directory
     if not keep:
