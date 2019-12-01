@@ -48,7 +48,11 @@ def assembly(outpath,name,logfilepath,statsfilepath,threads,memory,keep,assemble
     subprocess.check_call(assemblyCmd, shell=True)
 
     #Move reads to working directory
-    assembly = os.path.join(assembly_abs, 'contigs.fasta')
+    if assembler == 'spades':
+        assembly = os.path.join(assembly_abs, 'contigs.fasta')
+    if assembler == 'megahit':
+        assembly = os.path.join(assembly_abs, 'final.contigs.fasta')
+
     assemblyfinal = os.path.join(outpath, name +  '.fna')
     shutil.copy(assembly, assemblyfinal)
 
