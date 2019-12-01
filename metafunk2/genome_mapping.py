@@ -243,7 +243,7 @@ def genome_mapping(refgenlist,outpath,name,logfilepath,threads,statsfilepath,kee
             if os.path.exists(absprevdirr):
                 shutil.rmtree(absprevdirr)
         #Doublecheck everything is ok
-        if ( not os.path.exists(read1final) or not os.path.exists(read2final) ):
+        if ( os.stat(read1final).st_size == 0 or  os.stat(read2final).st_size == 0):
             logfile=open(logfilepath,"a+")
             current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
             logfile.write("{0} | ERROR! Metafunk2 has stopped due to an error. Check error file \r\n".format(current_time))
