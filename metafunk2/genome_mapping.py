@@ -242,7 +242,8 @@ def genome_mapping(refgenlist,outpath,name,logfilepath,threads,statsfilepath,kee
         if not keep:
             if os.path.exists(absprevdirr):
                 shutil.rmtree(absprevdirr)
-        #Doublecheck everything is ok
+
+        #Doublecheck if everything is ok
         if ( os.stat(read1final).st_size == 0 or  os.stat(read2final).st_size == 0):
             logfile=open(logfilepath,"a+")
             current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())

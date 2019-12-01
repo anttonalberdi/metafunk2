@@ -82,8 +82,8 @@ def quality_filtering(read1,read2,outpath,name,threads,statsfilepath,logfilepath
     logfile.write("                     {0} reads ({1} bases) were kept after quality filtering\r\n".format(reads,bases))
     logfile.close()
 
-    #Doublecheck everything is ok
-    if ( not os.path.exists(read1out) or not os.path.exists(read2out) ):
+    #Doublecheck if everything is ok
+    if ( os.stat(read1out).st_size == 0 or  os.stat(read1out).st_size == 0):
         logfile=open(logfilepath,"a+")
         current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
         logfile.write("{0} | ERROR! Metafunk2 has stopped due to an error. Check error file \r\n".format(current_time))

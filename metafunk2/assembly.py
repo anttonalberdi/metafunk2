@@ -65,7 +65,7 @@ def assembly(outpath,name,logfilepath,statsfilepath,threads,memory,keep):
             shutil.rmtree(assembly_abs)
 
     #Doublecheck everything is ok
-    if not os.path.exists(assemblyfinal):
+    if ( not os.path.exists(assemblyfinal) or os.stat(assemblyfinal).st_size == 0 ):
         logfile=open(logfilepath,"a+")
         current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
         logfile.write("{0} | ERROR! Metafunk2 has stopped due to an error. Check error file \r\n".format(current_time))
