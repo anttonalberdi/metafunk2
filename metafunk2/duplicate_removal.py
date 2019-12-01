@@ -20,6 +20,12 @@ def duplicate_removal(read1,read2,outpath,name,threads,statsfilepath,logfilepath
     if not os.path.exists(absnewdir):
         os.makedirs(absnewdir)
 
+    #Print to logfile 
+    logfile=open(logfilepath,"a+")
+    current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+    logfile.write("{0} | Metafunk2 has started to remove duplicated reads (clonality) \r\n".format(current_time))
+    logfile.close()
+
     #Declare input and output files
     read1in = os.path.join(absprevdirr, name +  '.1.fq')
     read2in = os.path.join(absprevdirr, name +  '.2.fq')

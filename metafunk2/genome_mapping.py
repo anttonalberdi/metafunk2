@@ -29,6 +29,7 @@ def copy_genome(refgenlist,outpath,name,logfilepath):
     #Print to Log
     logfile=open(logfilepath,"a+")
     current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+    logfile.write("{0} | Metafunk2 has started to map reads against reference genomes \r\n".format(current_time))
     logfile.write("{0} |    Preparing reference genomes \r\n".format(current_time))
     logfile.close()
     #
