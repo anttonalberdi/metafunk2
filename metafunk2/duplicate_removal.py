@@ -37,7 +37,7 @@ def duplicate_removal(read1,read2,outpath,name,threads,statsfilepath,logfilepath
     #subprocess.check_call(pardreCmd, shell=True)
 
     #Run seqkit rmdup
-    Rmdup1Cmd = 'module load tools pigz/2.3.4 seqkit/0.7.1 && cat '+read1in+' | seqkit rmdup -s -d bla -o '+read1tempout+''
+    Rmdup1Cmd = 'module load tools pigz/2.3.4 seqkit/0.7.1 && cat '+read1in+' | seqkit rmdup -s -o '+read1tempout+''
     subprocess.check_call(Rmdup1Cmd, shell=True)
     Rmdup2Cmd = 'module load tools pigz/2.3.4 seqkit/0.7.1 && cat '+read2in+' | seqkit rmdup -s -o '+read2tempout+''
     subprocess.check_call(Rmdup2Cmd, shell=True)
@@ -76,7 +76,6 @@ def duplicate_removal(read1,read2,outpath,name,threads,statsfilepath,logfilepath
         if os.path.exists(absprevdirr):
             shutil.rmtree(absprevdirr)
 
-    #Doublecheck everything is ok
     #Doublecheck if everything is ok
     if ( os.stat(read1out).st_size == 0 or  os.stat(read1out).st_size == 0):
         logfile=open(logfilepath,"a+")
