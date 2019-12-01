@@ -22,7 +22,7 @@ optional.add_argument('-m', help="RAM memory limit", dest="memory", default=250)
 optional.add_argument('-s', help="Skip steps", dest="skipsteps", type=str)
 optional.add_argument('-i', help="Include steps", dest="includesteps", type=str)
 optional.add_argument('-k', help="Keep intermediate files", dest="keep", action='store_true')
-optional.add_argument('--assembler', help="Assembler software, either 'spades' or 'megahit'", dest="assembler",  type=str)
+optional.add_argument('-a', help="Assembler software, either 'spades' or 'megahit'", dest="assembler",  type=str)
 
 args = parser.parse_args()
 
