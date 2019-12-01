@@ -152,7 +152,8 @@ def genome_mapping(refgenlist,outpath,name,logfilepath,threads,statsfilepath,kee
         else:
             read1in = os.path.join(outpath,name + '.genome_mapping', name +  '.1.fq')
             read2in = os.path.join(outpath,name + '.genome_mapping', name +  '.2.fq')
-        #Declare genome name and path
+
+        #Declare genome name and file paths
         refgenname = refgenlist[i][0]
         refgenpath = os.path.join(outpath,'genomes', refgenname + '.fna')
         refgenflag = os.path.join(outpath,'genomes', refgenname + '.indexing')
@@ -233,9 +234,13 @@ def genome_mapping(refgenlist,outpath,name,logfilepath,threads,statsfilepath,kee
         logfile.write("                         {1} reads ({2} bases) were kept after mapping to {0} genome\r\n".format(refgenname,reads,bases))
         logfile.close()
 
-    #Compress and move reads to parent folder
-    read1final = os.path.join(outpath, name +  '.1.fq')
-    read2final = os.path.join(outpath, name +  '.2.fq')
+    ###
+    # Per-genome iteration ends here
+    ###
+
+    #Compress and move final read files to parent folder
+    read1final = os.path.join(outpath, name +  '.1.fq.gz')
+    read2final = os.path.join(outpath, name +  '.2.fq.gz')
     read1Cmd = 'module load tools pigz/2.3.4 && pigz -c '+read1out+' > '+read1final+''
     subprocess.check_call(mapCmd, shell=True)
     read2Cmd = 'module load tools pigz/2.3.4 && pigz -c '+read1out+' > '+read1final+''
