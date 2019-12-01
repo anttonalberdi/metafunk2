@@ -30,7 +30,7 @@ def assembly(outpath,name,logfilepath,statsfilepath,threads,memory,keep,assemble
     if not os.path.exists(read1in):
         read1in = os.path.join(outpath, name +  '.1.fq')
     if not os.path.exists(read2in):
-        read2in = os.path.join(outpath, name +  '.1.fq')
+        read2in = os.path.join(outpath, name +  '.2.fq')
 
     #Log to file
     logfile=open(logfilepath,"a+")
