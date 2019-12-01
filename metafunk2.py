@@ -34,6 +34,7 @@ outpath = args.outpath
 threads = args.threads
 memory = args.memory
 keep = args.keep
+assembler = args.assembler
 
 #Prepare reference genomes
 refgenlist = [l.split('=') for l in refgen.split(',') if l]
