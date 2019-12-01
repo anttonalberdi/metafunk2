@@ -12,7 +12,7 @@ import time
 import gzip
 import shutil
 
-def assembly(outpath,name,logfilepath,statsfilepath,threads,memory,keep):
+def assembly(outpath,name,logfilepath,statsfilepath,threads,memory,keep,assembler):
 
     prevdir = "genome_mapping"
     absprevdirr = os.path.join(outpath, name + '.' + prevdir)
@@ -31,9 +31,20 @@ def assembly(outpath,name,logfilepath,statsfilepath,threads,memory,keep):
         read1in = os.path.join(outpath, name +  '.1.fq')
     if not os.path.exists(read2in):
         read2in = os.path.join(outpath, name +  '.1.fq')
-        
+
+    #Log to file
+    logfile=open(logfilepath,"a+")
+    current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+    logfile.write("{0} | Metafunk2 has started the metagenomic assembly using {1} \r\n".format(current_time,assembler))
+    logfile.close()
+
+    #Select assembler
+    if assembler == 'spades':
+        assemblyCmd = 'module load anaconda3/2.1.0 spades/3.13.1 perl/5.20.2 && metaspades.py -1 '+read1in+' -2 '+read2in+' -t '+threads+' -m '+memory+' -k 21,29,39,59,79,99,119,141 --only-assembler -o '+assembly_abs+''
+    if assembler == 'megahit':
+        assemblyCmd = 'module load tools megahit/1.1.1 && megahit -1 '+read1in+' -2 '+read2in+' -t '+threads+' -m '+memory+' --k-list 21,29,39,59,79,99,119,141 -o '+assembly_abs+''
+
     #Run assembly
-    assemblyCmd = 'module load anaconda3/2.1.0 spades/3.13.1 perl/5.20.2 && metaspades.py -1 '+read1in+' -2 '+read2in+' -t '+threads+' -m '+memory+' -k 21,29,39,59,79,99,119 --only-assembler -o '+assembly_abs+''
     subprocess.check_call(assemblyCmd, shell=True)
 
     #Move reads to working directory

@@ -22,6 +22,8 @@ optional.add_argument('-m', help="RAM memory limit", dest="memory", default=250)
 optional.add_argument('-s', help="Skip steps", dest="skipsteps", type=str)
 optional.add_argument('-i', help="Include steps", dest="includesteps", type=str)
 optional.add_argument('-k', help="Keep intermediate files", dest="keep", action='store_true')
+optional.add_argument('--assembler', help="Assembler software, either 'spades' or 'megahit'", dest="assembler",  type=str)
+
 args = parser.parse_args()
 
 name = args.name
@@ -57,6 +59,10 @@ else:
     if isinstance(includesteps,int):
         includesteps = (includesteps,)
 
+#Declare assembler
+if args.assembler is None:
+    assembler = 'spades'
+
 #####
 # Initiate log file
 #####
@@ -90,11 +96,6 @@ logfile.close()
 #####
 
 if ( 1 in includesteps and 1 not in skipsteps ):
-    logfile=open(logfilepath,"a+")
-    current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-    logfile.write("\r\n\r\n{0} | Metafunk2 has started quality filtering the reads \r\n".format(current_time))
-    logfile.close()
-
     from metafunk2 import quality_filtering
     quality_filtering.quality_filtering(read1,read2,outpath,name,threads,statsfilepath,logfilepath)
 
@@ -113,11 +114,6 @@ if ( 1 in includesteps and 1 not in skipsteps ):
 ##https://www.frontiersin.org/articles/10.3389/fbioe.2015.00028/full
 
 if ( 2 in includesteps and 2 not in skipsteps ):
-    logfile=open(logfilepath,"a+")
-    current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-    logfile.write("{0} | Metafunk2 has started to remove duplicated reads (clonality) \r\n".format(current_time))
-    logfile.close()
-
     from metafunk2 import duplicate_removal
     duplicate_removal.duplicate_removal(read1,read2,outpath,name,threads,statsfilepath,logfilepath,keep)
 
@@ -126,10 +122,6 @@ if ( 2 in includesteps and 2 not in skipsteps ):
 #####
 
 if ( 3 in includesteps and 3 not in skipsteps ):
-    logfile=open(logfilepath,"a+")
-    current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-    logfile.write("{0} | Metafunk2 has started to map reads against reference genomes \r\n".format(current_time))
-    logfile.close()
 
     from metafunk2 import genome_mapping
     genome_mapping.copy_genome(refgenlist,outpath,name,logfilepath)
@@ -150,13 +142,8 @@ if ( 3 in includesteps and 3 not in skipsteps ):
 #####
 
 if ( 4 in includesteps and 4 not in skipsteps ):
-    logfile=open(logfilepath,"a+")
-    current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-    logfile.write("{0} | Metafunk2 has started the metagenomic assembly \r\n".format(current_time))
-    logfile.close()
-
     from metafunk2 import assembly
-    assembly.assembly(outpath,name,logfilepath,statsfilepath,threads,memory,keep)
+    assembly.assembly(outpath,name,logfilepath,statsfilepath,threads,memory,keep,assembler)
 
 #Split merged Binning
     #https://github.com/jtamames/SqueezeMeta/blob/master/scripts/01.merge_assemblies.pl
