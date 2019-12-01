@@ -246,14 +246,6 @@ def genome_mapping(refgenlist,outpath,name,logfilepath,threads,statsfilepath,kee
     read2Cmd = 'module load tools pigz/2.3.4 && pigz -p '+threads+' -c '+read1out+' > '+read1final+''
     subprocess.check_call(mapCmd, shell=True)
 
-    #Print error to log file if final files are not created
-    if ( not os.path.exists(read1final) or not os.path.exists(read2final) ):
-        #Print to log file
-        logfile=open(logfilepath,"a+")
-        current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-        logfile.write("{0} |    There was an error during the genome mapping. Check error file. \r\n".format(current_time,refgenname))
-        logfile.close()
-
     #If keep is not selected, remove previous directory
     if not keep:
         if os.path.exists(absprevdirr):
