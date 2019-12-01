@@ -26,6 +26,12 @@ def assembly(outpath,name,logfilepath,statsfilepath,threads,memory,keep):
     read1in = os.path.join(outpath, name +  '.1.fq.gz')
     read2in = os.path.join(outpath, name +  '.2.fq.gz')
 
+    #Input uncompressed files if compressed do not exist
+    if not os.path.exists(read1in):
+        read1in = os.path.join(outpath, name +  '.1.fq')
+    if not os.path.exists(read2in):
+        read2in = os.path.join(outpath, name +  '.1.fq')
+        
     #Run assembly
     assemblyCmd = 'module load anaconda3/2.1.0 spades/3.13.1 perl/5.20.2 && metaspades.py -1 '+read1in+' -2 '+read2in+' -t '+threads+' -m '+memory+' -k 21,29,39,59,79,99,119 --only-assembler -o '+assembly_abs+''
     subprocess.check_call(assemblyCmd, shell=True)
