@@ -26,6 +26,13 @@ def copy_genome(refgenlist,outpath,name,logfilepath):
     if not os.path.exists(genomes_dir_abs):
         os.makedirs(genomes_dir_abs)
 
+    #Print to Log
+    logfile=open(logfilepath,"a+")
+    current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+    logfile.write("{0} |    Preparing reference genomes \r\n".format(current_time))
+    logfile.close()
+    #
+
     #Copy genome file(s) to genomes directory if it is not already there
     refgencount = len(refgenlist)
     for i in range(refgencount):
@@ -40,26 +47,26 @@ def copy_genome(refgenlist,outpath,name,logfilepath):
             if ( not os.path.exists(refgenpath) and not os.path.exists(refgenpathuncomp) ):
                 logfile=open(logfilepath,"a+")
                 current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-                logfile.write("{0} |    Transferring {1} genome to working directory \r\n".format(current_time,refgenname))
+                logfile.write("{0} |        Transferring {1} genome to working directory \r\n".format(current_time,refgenname))
                 logfile.close()
                 shutil.copy(refgenoriginalpath, refgenpath)
             else:
                 logfile=open(logfilepath,"a+")
                 current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-                logfile.write("{0} |    {1} genome is already in the working directory \r\n".format(current_time,refgenname))
+                logfile.write("{0} |        {1} genome is already in the working directory \r\n".format(current_time,refgenname))
                 logfile.close()
         if ( refgenoriginalpath.endswith('.fasta') or refgenoriginalpath.endswith('.fa') or refgenoriginalpath.endswith('.fna') ):
             refgenpath = os.path.join(genomes_dir_abs, refgenname + '.fna')
             if not os.path.exists(refgenpath):
                 logfile=open(logfilepath,"a+")
                 current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-                logfile.write("{0} |    Transferring {1} genome to working directory \r\n".format(current_time,refgenname))
+                logfile.write("{0} |        Transferring {1} genome to working directory \r\n".format(current_time,refgenname))
                 logfile.close()
                 shutil.copy(refgenoriginalpath, refgenpath)
             else:
                 logfile=open(logfilepath,"a+")
                 current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-                logfile.write("{0} |    {1} genome is already in the working directory \r\n".format(current_time,refgenname))
+                logfile.write("{0} |        {1} genome is already in the working directory \r\n".format(current_time,refgenname))
                 logfile.close()
 
         #Manipulate reference genome
@@ -68,7 +75,7 @@ def copy_genome(refgenlist,outpath,name,logfilepath):
             if not os.path.exists(refgenpathuncomp):
                 logfile=open(logfilepath,"a+")
                 current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-                logfile.write("{0} |    Decompressing {1} genome \r\n".format(current_time,refgenname))
+                logfile.write("{0} |        Decompressing {1} genome \r\n".format(current_time,refgenname))
                 logfile.close()
                 DecompCmd = 'module load tools pigz/2.3.4 && pigz -d '+refgenpath+''
                 subprocess.check_call(DecompCmd, shell=True)
@@ -90,19 +97,19 @@ def index_genome(refgenlist,outpath,name,logfilepath,threads):
             #Print to log file
             logfile=open(logfilepath,"a+")
             current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-            logfile.write("{0} |    Indexing {1} genome \r\n".format(current_time,refgenname))
+            logfile.write("{0} |        Indexing {1} genome \r\n".format(current_time,refgenname))
             logfile.close()
             #Index genomes
             logfile=open(logfilepath,"a+")
             current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-            logfile.write("{0} |        Samtools index \r\n".format(current_time,refgenname))
+            logfile.write("{0} |            Samtools index \r\n".format(current_time,refgenname))
             logfile.close()
             samtoolsindexCmd = 'module load tools samtools/1.9 && samtools faidx '+refgenpath+''
             subprocess.check_call(samtoolsindexCmd, shell=True)
 
             logfile=open(logfilepath,"a+")
             current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-            logfile.write("{0} |        Bwa index \r\n".format(current_time,refgenname))
+            logfile.write("{0} |            Bwa index \r\n".format(current_time,refgenname))
             logfile.close()
             bwaindexCmd = 'module load tools bwa/0.7.15 && bwa index '+refgenpath+''
             subprocess.check_call(bwaindexCmd, shell=True)
@@ -120,7 +127,7 @@ def index_genome(refgenlist,outpath,name,logfilepath,threads):
         else:
             logfile=open(logfilepath,"a+")
             current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
-            logfile.write("{0} |    {1} genome is already indexed \r\n".format(current_time,refgenname))
+            logfile.write("{0} |        {1} genome is already indexed \r\n".format(current_time,refgenname))
             logfile.close()
 
 
