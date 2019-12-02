@@ -10,6 +10,7 @@ import argparse
 import subprocess
 import gzip
 import shutil
+import time
 
 def duplicate_removal(read1,read2,outpath,name,threads,statsfilepath,logfilepath,keep):
     #Create quality_filtering subdirectory
@@ -20,7 +21,7 @@ def duplicate_removal(read1,read2,outpath,name,threads,statsfilepath,logfilepath
     if not os.path.exists(absnewdir):
         os.makedirs(absnewdir)
 
-    #Print to logfile 
+    #Print to logfile
     logfile=open(logfilepath,"a+")
     current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
     logfile.write("{0} | Metafunk2 has started to remove duplicated reads (clonality) \r\n".format(current_time))
