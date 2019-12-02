@@ -17,6 +17,12 @@ def assembly_mapping(outpath,name,logfilepath,threads):
     if not os.path.exists(absnewdir):
         os.makedirs(absnewdir)
 
+    #Print to log
+    logfile=open(logfilepath,"a+")
+    current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
+    logfile.write("{0} | Metafunk2 has started mapping the reads back to the metagenomic assembly \r\n".format(current_time))
+    logfile.close()
+
     ###########
     # 1) DECLARE INPUT AND OUTPUT FILES AND CHECK IF THEY EXIST
     ###########

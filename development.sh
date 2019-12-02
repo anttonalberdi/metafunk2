@@ -13,7 +13,7 @@ python metafunk2/metafunk2.py -n blank4 -1 metafunk2_test/Blank06092017_1.fastq.
 
 
 workdir="/home/projects/ku-cbd/people/antalb/metafunk2_test"
-xqsub -V -A ku-cbd -W group_list=ku-cbd -d `pwd` -e ${workdir}/assembly_spades.err -o ${workdir}/assembly_spades.out -l nodes=1:ppn=8,mem=100gb,walltime=1:00:00:00 -N assembly_spades -de python metafunk2/metafunk2.py -n AI0_11b -1 metafunk2_test2/AI0_11b_1.fastq.gz -2 metafunk2_test2/AI0_11b_2.fastq.gz -r 'gambusia=databases/GCA_003097735.1_ASM309773v1_genomic.fna.gz,human=databases/GCF_000001405.39_GRCh38.p13_genomic.fna.gz' -o /home/projects/ku-cbd/people/antalb/metafunk2_test -t 8 -m 100 -i 4 -k 'spades'
+xqsub -V -A ku-cbd -W group_list=ku-cbd -d `pwd` -e ${workdir}/assembly_spades.err -o ${workdir}/assembly_spades.out -l nodes=1:ppn=8,mem=100gb,walltime=1:00:00:00 -N assembly_spades -de python metafunk2/metafunk2.py -n AI0_11b -1 metafunk2_test2/AI0_11b_1.fastq.gz -2 metafunk2_test2/AI0_11b_2.fastq.gz -r 'gambusia=databases/GCA_003097735.1_ASM309773v1_genomic.fna.gz,human=databases/GCF_000001405.39_GRCh38.p13_genomic.fna.gz' -o /home/projects/ku-cbd/people/antalb/metafunk2_test -t 8 -m 100 -i 4 -k -a 'spades'
 xqsub -V -A ku-cbd -W group_list=ku-cbd -d `pwd` -e ${workdir}/assembly_megahit.err -o ${workdir}/assembly_megahit.out -l nodes=1:ppn=8,mem=100gb,walltime=1:00:00:00 -N assembly_megahit -de python metafunk2/metafunk2.py -n AI0_11b -1 metafunk2_test2/AI0_11b_1.fastq.gz -2 metafunk2_test2/AI0_11b_2.fastq.gz -r 'gambusia=databases/GCA_003097735.1_ASM309773v1_genomic.fna.gz,human=databases/GCF_000001405.39_GRCh38.p13_genomic.fna.gz' -o /home/projects/ku-cbd/people/antalb/metafunk2_test -t 8 -m 100 -i 4 -k -a 'megahit'
 
 
