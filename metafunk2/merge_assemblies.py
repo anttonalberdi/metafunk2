@@ -10,6 +10,7 @@ import argparse
 import subprocess
 import time
 import gzip
+import signal
 
 def merge_assemblies(projectname,projectpath,threads,memory,logfilepath):
     #Create merged and merged/assembly directories if do not exist

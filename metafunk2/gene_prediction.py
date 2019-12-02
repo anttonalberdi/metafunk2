@@ -10,6 +10,7 @@ import argparse
 import subprocess
 import time
 import gzip
+import signal
 
 def gene_prediction(outpath,name):
     newdir = "gene_prediction"

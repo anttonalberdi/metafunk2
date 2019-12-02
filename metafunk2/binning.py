@@ -10,6 +10,7 @@ import argparse
 import subprocess
 import time
 import gzip
+import signal
 
 def binning(outpath,name,logfilepath,threads):
     newdir = "binning"

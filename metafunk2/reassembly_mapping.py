@@ -12,6 +12,7 @@ import time
 import gzip
 import glob
 import ntpath
+import signal
 from check_software import is_tool
 
 def reassembly_indexing(projectname,projectpath,threads,memory,logfilepath):

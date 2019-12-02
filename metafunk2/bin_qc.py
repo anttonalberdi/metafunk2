@@ -10,6 +10,7 @@ import argparse
 import subprocess
 import time
 import gzip
+import signal
 
 def bin_qc(projectpath,threads,memory,logfilepath):
     bindir = os.path.join(projectpath, 'merged/binning/')

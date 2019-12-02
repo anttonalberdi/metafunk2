@@ -11,6 +11,7 @@ import subprocess
 import time
 import gzip
 import shutil
+import signal
 
 def assembly(outpath,name,logfilepath,statsfilepath,threads,memory,keep,assembler):
 

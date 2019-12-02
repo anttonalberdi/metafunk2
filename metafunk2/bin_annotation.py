@@ -11,6 +11,7 @@ import subprocess
 import time
 import gzip
 import glob
+import signal
 
 def bin_annotation(projectpath,threads,memory,logfilepath):
     binannotdir = os.path.join(projectpath, 'merged/binning/annotation')

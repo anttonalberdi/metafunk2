@@ -10,6 +10,7 @@ import argparse
 import subprocess
 import time
 import gzip
+import signal
 
 def assembly_mapping(outpath,name,logfilepath,threads):
     newdir = "assembly_mapping"
