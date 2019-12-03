@@ -43,8 +43,15 @@ def assembly_mapping(outpath,name,logfilepath,threads):
         os.kill(os.getpid(), signal.SIGSTOP)
 
     #Declare the read files
-    read1in = os.path.join(outpath, name + '.1.fq')
-    read2in = os.path.join(outpath, name + '.2.fq')
+    read1in = os.path.join(outpath, name + '.1.fq.gz')
+    read2in = os.path.join(outpath, name + '.2.fq.gz')
+
+    #Input uncompressed files if compressed do not exist
+    if not os.path.exists(read1in):
+        read1in = os.path.join(outpath, name +  '.1.fq')
+    if not os.path.exists(read2in):
+        read2in = os.path.join(outpath, name +  '.2.fq')
+
     #Print error and kill process if the read files do not exist
     if (not os.path.exists(read1in) or not os.path.exists(read2in)):
         ## Print to log
