@@ -8,7 +8,7 @@ metafunk2 pipeline
 1) Quality filtering using AdapterRemoval
 2) Duplicate read removal using seqkit rmdup
 3) Mapping reads against reference genome(s) using bwa
-4) Metagenomic assembly using metaSpades or Megahit
+4) Metagenomic assembly using Megahit (default) or metaSpades
 
 metafunk2_merged pipeline (starts from individual assemblies generated with the metafunk2 pipeline)
 1) Reassembly (merging) of metagenomic assemblies using Minimus2

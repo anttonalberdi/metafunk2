@@ -7,7 +7,10 @@ import argparse
 import time
 import gzip
 
-#Argument parsing
+############################
+##### Argument parsing #####
+############################
+
 parser = argparse.ArgumentParser(description='Runs metafunk2 merged pipeline.')
 required = parser.add_argument_group('required arguments')
 optional = parser.add_argument_group('optional arguments')
@@ -44,9 +47,9 @@ else:
     if isinstance(includesteps,int):
         includesteps = (includesteps,)
 
-#####
-# Initiate log file
-#####
+#############################
+##### Initiate log file #####
+#############################
 
 logfilepath=os.path.join(projectpath,projectname + '.log')
 logfile=open(logfilepath,"w+")
@@ -54,18 +57,18 @@ current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
 logfile.write("{0} | This is Metafunk2_merged starting to run \r\n".format(current_time))
 logfile.close()
 
-#####
-# Initiate stats file
-#####
+###############################
+##### Initiate stats file #####
+###############################
 
 statsfilepath=os.path.join(projectpath,projectname + '.stats')
 statsfile=open(statsfilepath,"w+")
 statsfile.write("Statistic\tValue \r\n".format(current_time))
 statsfile.close()
 
-#####
-# Checking dependencies
-#####
+###############################################################################################################
+############# THE PIPELINE REQUIRES METAFUNK2 PIPELINE STEPS 1,2,3,4 TO BE PREVIOUSLY PERFORMED ##########################
+###############################################################################################################
 
 #####
 # 1) Merging assemblies

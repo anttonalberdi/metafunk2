@@ -8,6 +8,10 @@ import argparse
 import time
 import gzip
 
+############################
+##### Argument parsing #####
+############################
+
 #Argument parsing
 parser = argparse.ArgumentParser(description='Runs metafunk2 pipeline.')
 required = parser.add_argument_group('required arguments')
@@ -23,7 +27,6 @@ optional.add_argument('-s', help="Skip steps (Default = none)", dest="skipsteps"
 optional.add_argument('-i', help="Include steps (Default = all)", dest="includesteps", type=str)
 optional.add_argument('-k', help="Keep intermediate files", dest="keep", action='store_true')
 optional.add_argument('-a', help="Assembler software, either 'spades' or 'megahit'", dest="assembler",  type=str)
-
 args = parser.parse_args()
 
 name = args.name
@@ -66,11 +69,11 @@ else:
 
 #Declare assembler
 if args.assembler is None:
-    assembler = 'spades'
+    assembler = 'megahit'
 
-#####
-# Initiate log file
-#####
+#############################
+##### Initiate log file #####
+#############################
 
 logfilepath=os.path.join(outpath,name + '.log')
 logfile=open(logfilepath,"w+")
@@ -78,9 +81,9 @@ current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
 logfile.write("\r\n\r\n====== Metafunk2 v2.0.0 ======\r\n\r\nSettings:\r\n  Threads: {1}\r\n    Memory: {2}\r\nInput files:\r\n  Read1: {3}\r\n  Read2: {4}\r\nReference genomes:\r\n    Number of reference genomes: {5} \r\n \r\n".format(current_time,threads,memory,read1,read2,refgencount))
 logfile.close()
 
-#####
-# Initiate stats file
-#####
+###############################
+##### Initiate stats file #####
+###############################
 
 statsfilepath=os.path.join(outpath,name + '.stats')
 statsfile=open(statsfilepath,"w+")
@@ -97,18 +100,18 @@ logfile.write("\r\n{0} | Metafunk2 pipeline begins:\r\n".format(current_time))
 logfile.close()
 
 #####
-# 1) Quality filtering step
-#####
+## 1) QUALITY FILTERING
+#############################
 
 if ( 1 in includesteps and 1 not in skipsteps ):
     from metafunk2 import quality_filtering
     quality_filtering.quality_filtering(read1,read2,outpath,name,threads,statsfilepath,logfilepath)
 
 #####
-# 2) Duplicate removal step
-#####
+# 2) DUPLICATE REMOVAL
+#############################
 
-#Need to test
+#None of the following softeare performed better thatn seqkit rmdup
 ##Pardre:
 ##https://academic.oup.com/bioinformatics/article/32/10/1562/1743431
 #Fulcrum (parallel)
@@ -123,17 +126,20 @@ if ( 2 in includesteps and 2 not in skipsteps ):
     duplicate_removal.duplicate_removal(read1,read2,outpath,name,threads,statsfilepath,logfilepath,keep)
 
 #####
-# 3) Mapping against reference genomes
-#####
+# 3) MAPPING AGAINST REFERENCE GENOMES
+#############################
 
 if ( 3 in includesteps and 3 not in skipsteps ):
 
+    #Copy and prepare genomes (unzip, etc.)
     from metafunk2 import genome_mapping
     genome_mapping.copy_genome(refgenlist,outpath,name,logfilepath)
 
+    #Index genomes if necessary
     from metafunk2 import genome_mapping
     genome_mapping.index_genome(refgenlist,outpath,name,logfilepath,threads)
 
+    #Map sequencing reads to reference genomes
     from metafunk2 import genome_mapping
     genome_mapping.genome_mapping(refgenlist,outpath,name,logfilepath,threads,statsfilepath,keep)
 
@@ -141,30 +147,33 @@ if ( 3 in includesteps and 3 not in skipsteps ):
 # 3A) Consider adding option to rarefy reads to a certain seq depth
 #####
 
+###############################################################################################################
+############# THE PIPELINE SHOULD STOP HERE FOR COASSEMBLY-BASED DOWNSTREAM ANALYSES ##########################
+###############################################################################################################
 
 #####
-# 4) Assemble metagenomic samples
-#####
+# 4) ASSEMBLE METAGENOMIC READS
+#############################
 
 if ( 4 in includesteps and 4 not in skipsteps ):
     from metafunk2 import assembly
     assembly.assembly(outpath,name,logfilepath,statsfilepath,threads,memory,keep,assembler)
 
-#Split merged Binning
-    #https://github.com/jtamames/SqueezeMeta/blob/master/scripts/01.merge_assemblies.pl
-    #https://github.com/sanger-pathogens/circlator/wiki/Minimus2-circularization-pipeline
+#################################################################################################################
+############# THE PIPELINE SHOULD STOP HERE FOR MERGED ASSEMBLY-BASED DOWNSTREAM ANALYSES #######################
+#################################################################################################################
 
 #####
-# 5) Map reads to assembly
-#####
+# 5) MAP READS TO ASSEMBLY
+#############################
 
 if ( 5 in includesteps and 5 not in skipsteps ):
     from metafunk2 import assembly_mapping
     assembly_mapping.assembly_mapping(outpath,name,logfilepath,threads)
 
 #####
-# 6) Binning
-#####
+# 6) CONTIG BINNING
+#############################
 
 if ( 6 in includesteps and 6 not in skipsteps ):
     logfile=open(logfilepath,"a+")
@@ -175,9 +184,9 @@ if ( 6 in includesteps and 6 not in skipsteps ):
     from metafunk2 import binning
     binning.binning(outpath,name,logfilepath,threads)
 
-#####
-# Close log file
-#####
+##########################
+##### Close log file #####
+##########################
 
 logfilepath=os.path.join(outpath,name + '.log')
 logfile=open(logfilepath,"a+")
