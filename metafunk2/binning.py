@@ -37,7 +37,7 @@ def binning(outpath,name,logfilepath,threads):
     current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
     logfile.write("{0} |    Generating metabat depth file from the reads mapped to the assembly \r\n".format(current_time))
     logfile.close()
-    metabatdepthfileCmd = 'module unload gcc && module load perl/5.20.2 metabat/2.12.1 && jgi_summarize_bam_contig_depths --outputDepth '+metabatdepthfile+' '+assemblybampath+''
+    metabatdepthfileCmd = 'module unload gcc && module load tools perl/5.20.2 metabat/2.12.1 && jgi_summarize_bam_contig_depths --outputDepth '+metabatdepthfile+' '+assemblybampath+''
     subprocess.check_call(metabatdepthfileCmd, shell=True)
 
     #Run metabat
