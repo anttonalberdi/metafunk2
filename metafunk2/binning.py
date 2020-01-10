@@ -70,7 +70,7 @@ def binning(outpath,name,logfilepath,threads):
     current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
     logfile.write("{0} |    Running maxbin \r\n".format(current_time))
     logfile.close()
-    maxbinCmd = 'module load tools perl/5.20.2 maxbin/2.2.7 fraggenescan/1.31 && run_MaxBin.pl -contig '+assemblypath+' -abund '+maxbindepthfile+' -out '+maxbinbase+' -thread '+threads+''
+    maxbinCmd = 'module unload gcc && module load tools perl/5.20.2 maxbin/2.2.7 fraggenescan/1.31 && run_MaxBin.pl -contig '+assemblypath+' -abund '+maxbindepthfile+' -out '+maxbinbase+' -thread '+threads+''
     subprocess.check_call(maxbinCmd, shell=True)
 
     #######################
