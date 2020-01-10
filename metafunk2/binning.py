@@ -56,6 +56,7 @@ def binning(outpath,name,logfilepath,threads):
     if not os.path.exists(maxbindir):
         os.makedirs(maxbindir)
     maxbindepthfile = os.path.join(maxbindir, name + '.depth.txt')
+    maxbinbase = os.path.join(maxbindir, name + '.bin')
 
     #Generate depth file
     logfile=open(logfilepath,"a+")
