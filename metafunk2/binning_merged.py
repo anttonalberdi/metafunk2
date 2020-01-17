@@ -38,7 +38,7 @@ def binning_merged(projectname,projectpath,threads,memory,logfilepath):
     current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
     logfile.write("{0} |    Generating metabat depth file from the reads mapped to the reassembly \r\n".format(current_time))
     logfile.close()
-    metabatdepthfileCmd = 'module unload gcc && module load tools perl/5.20.2 metabat/2.12.1 && jgi_summarize_bam_contig_depths --outputDepth '+metabatdepthfile+' '+reassemblybampaths+'' #added tools
+    metabatdepthfileCmd = 'module unload gcc && module load perl/5.20.2 metabat/2.12.1 && jgi_summarize_bam_contig_depths --outputDepth '+metabatdepthfile+' '+reassemblybampaths+'' #added tools
     subprocess.check_call(metabatdepthfileCmd, shell=True)
 
     #Run metabat
