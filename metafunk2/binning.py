@@ -134,7 +134,7 @@ def bin_refinement(outpath,name,logfilepath,threads,memory):
     bincontig_tables = ",".join(glob.glob(os.path.join(outpath,name+'.binning','bins_*.txt'))) #CHANGED
     #Input
     assemblypath = os.path.join(outpath, name + '.fna') #CHANGED
-    dastoolpath = os.path.join(outpath,name,'dastool') #CHANGED
+    dastoolpath = os.path.join(outpath,name+'.binning','refinement_dastool') #CHANGED
     if not os.path.exists(dastoolpath):
         os.makedirs(dastoolpath)
     dastoolbase = os.path.join(dastoolpath, 'dastool')
@@ -147,7 +147,7 @@ def bin_refinement(outpath,name,logfilepath,threads,memory):
     #Refinement using DAS_Tool
     dastooldb = '/home/projects/ku-cbd/people/antalb/databases/dastool_db'
     dastoolDependencies = 'module load tools gcc/5.4.0 intel/perflibs/2018 R/3.6.1 ruby/2.6.3 pullseq/1.0.2 perl/5.24.0 ncbi-blast/2.6.0+ prodigal/2.6.3 das_tool/1.1.1 diamond/0.9.24 usearch/11.0.667'
-    dastoolCmd = ''+dastoolDependencies+' && DAS_Tool -i '+bincontig_table+' -c '+assemblypath+' -o '+dastoolbase+' -l maxbin,metabat --search_engine diamond -t '+threads+' --db_directory '+dastooldb+' --write_bins 1'
+    dastoolCmd = ''+dastoolDependencies+' && DAS_Tool -i '+bincontig_tables+' -c '+assemblypath+' -o '+dastoolbase+' -l maxbin,metabat --search_engine diamond -t '+threads+' --db_directory '+dastooldb+' --write_bins 1'
     subprocess.check_call(dastoolCmd, shell=True)
 
     #Refinement using Binning_refiner (problems with R dependencies)
@@ -155,7 +155,7 @@ def bin_refinement(outpath,name,logfilepath,threads,memory):
 
     #Move definitive bins to binning directory
     binsource = os.path.join(dastoolpath)   # dastoolpath,'dastool_DASTool_bins')
-    bindestination = os.path.join(outpath,name,'binning') #CHANGED
+    bindestination = os.path.join(outpath,name+'.binning') #CHANGED
     binfiles = glob.glob(os.path.join(binsource,'*.fa'))
     for b in binfiles:
         shutil.move(b, bindestination)
