@@ -2,7 +2,7 @@
 # -*- coding: utf-8
 
 """The script for contig binning"""
-
+"""Try to upload this into my branch"""
 import os
 import sys
 import random
