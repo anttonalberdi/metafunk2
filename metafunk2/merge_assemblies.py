@@ -57,7 +57,7 @@ def merge_assemblies(projectname,projectpath,threads,memory,logfilepath):
     mergedassemblies_reassembly  = os.path.join(merged_abs, 'reassembly.fna')
 
     #Load software
-    loadSoftware = 'module load perl/5.20.2 ncbi-blast/2.6.0+ cd-hit/4.8.1 MUMmer/3.23 kentUtils/350 amos/20121115 &&'
+    loadSoftware = 'module load tools perl/5.20.2 ncbi-blast/2.6.0+ cd-hit/4.8.1 MUMmer/4.0.0beta2 kentUtils/350 amos/20121115 &&'
 
     #Modify merged assembly to afg format
     toamosCmd = ''+loadSoftware+' toAmos -s '+mergedassembliespath+' -o '+afgassembliespath+''
@@ -80,7 +80,12 @@ def merge_assemblies(projectname,projectpath,threads,memory,logfilepath):
     subprocess.check_call(dump2Cmd, shell=True)
 
     #Nucmer             # GIVES OUT AN ERROR, CHANGED -maxmatch for --maxmatch, change afterwards if does not work
-    nucmerCmd = ''+loadSoftware+' nucmer --maxmatch -c 100 '+mergedassemblies_refseq+' '+mergedassemblies_qryseq+' -p '+mergedassembliesbase+''
+        #/// try -c 40 as in https://github.com/nathanhaigh/amos/blob/master/src/Pipeline/minimus2.acf
+
+        # load new version 4 beta
+        # specify threads
+
+    nucmerCmd = ''+loadSoftware+' nucmer --maxmatch '+mergedassemblies_refseq+' '+mergedassemblies_qryseq+' -p '+mergedassembliesbase+'' -t threads
     subprocess.check_call(nucmerCmd, shell=True)
 
     #Coords
