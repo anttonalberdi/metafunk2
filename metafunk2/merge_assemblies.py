@@ -79,8 +79,8 @@ def merge_assemblies(projectname,projectpath,threads,memory,logfilepath):
     dump2Cmd = ''+loadSoftware+' dumpreads '+mergedassemblies_bnk+' -m 0 > '+mergedassemblies_qryseq+''
     subprocess.check_call(dump2Cmd, shell=True)
 
-    #Nucmer
-    nucmerCmd = ''+loadSoftware+' nucmer -maxmatch -c 100 '+mergedassemblies_refseq+' '+mergedassemblies_qryseq+' -p '+mergedassembliesbase+''
+    #Nucmer             # GIVES OUT AN ERROR, CHANGED -maxmatch for --maxmatch, change afterwards if does not work
+    nucmerCmd = ''+loadSoftware+' nucmer --maxmatch -c 100 '+mergedassemblies_refseq+' '+mergedassemblies_qryseq+' -p '+mergedassembliesbase+''
     subprocess.check_call(nucmerCmd, shell=True)
 
     #Coords
