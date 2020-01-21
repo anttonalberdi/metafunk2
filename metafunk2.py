@@ -1,4 +1,5 @@
 
+# +add bin refinement
 #Import libraries
 import subprocess
 import sys
@@ -183,6 +184,10 @@ if ( 6 in includesteps and 6 not in skipsteps ):
 
     from metafunk2 import binning
     binning.binning(outpath,name,logfilepath,threads)
+
+    from metafunk2 import binning
+    binning.bin_refinement(name,outpath,threads,memory,logfilepath)
+
 
 ##########################
 ##### Close log file #####
