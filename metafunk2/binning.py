@@ -126,12 +126,12 @@ def binning(outpath,name,logfilepath,threads):
 
 
 
-def bin_refinement(name,outpath,threads,memory,logfilepath):
+def bin_refinement(outpath,name,logfilepath,threads,memory):
     #              (projectname,projectpath,threads,memory,logfilepath)
 #/home/projects/ku-cbd/people/nurher/chick_metafunk2_test/CA16_13F1b.binning/metabat
     print("Start bin refinement") #added
 
-    bincontig_tables = ",".join(glob.glob(os.path.join(outpath,name,'binning','bins_*.txt'))) #CHANGED
+    bincontig_tables = ",".join(glob.glob(os.path.join(outpath,name+'.binning','bins_*.txt'))) #CHANGED
     #Input
     assemblypath = os.path.join(outpath, name + '.fna') #CHANGED
     dastoolpath = os.path.join(outpath,name,'dastool') #CHANGED

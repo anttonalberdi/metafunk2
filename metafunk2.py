@@ -186,7 +186,7 @@ if ( 6 in includesteps and 6 not in skipsteps ):
     binning.binning(outpath,name,logfilepath,threads)
 
     from metafunk2 import binning
-    binning.bin_refinement(name,outpath,threads,memory,logfilepath)
+    binning.bin_refinement(outpath,name,logfilepath,threads,memory)
 
 
 ##########################
