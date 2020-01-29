@@ -128,7 +128,7 @@ def bin_refinement(projectname,projectpath,threads,memory,logfilepath):
     #module unload gcc gcc/5.1.0 && module load anaconda3/4.0.0 && Binning_refiner -i metafunk2_test2/merged/binning/refiner/ -p refined -plot
 
     #Move definitive bins to binning directory
-    binsource = os.path.join(dastoolpath,'dastool_DASTool_bins') #### DELETED DASTOOL_DASTOOLBINS IN TEST NOW
+    binsource = os.path.join(dastoolpath) #### Check
     bindestination = os.path.join(projectpath, 'merged','binning')
     binfiles = glob.glob(os.path.join(binsource,'*.fa'))
     for b in binfiles:
