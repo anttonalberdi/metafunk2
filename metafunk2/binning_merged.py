@@ -46,7 +46,7 @@ def binning_merged(projectname,projectpath,threads,memory,logfilepath):
     current_time = time.strftime("%m.%d.%y %H:%M", time.localtime())
     logfile.write("{0} |    Running metabat binning\r\n".format(current_time))
     logfile.close()
-    metabatCmd = 'module unload gcc && module load perl/5.20.2 metabat/2.12.1 && metabat2 -i '+reassemblypath+' -a '+metabatdepthfile+' -o '+metabatbinbase+' -m 1500 -t '+threads+'' 
+    metabatCmd = 'module unload gcc && module load perl/5.20.2 metabat/2.12.1 && metabat2 -i '+reassemblypath+' -a '+metabatdepthfile+' -o '+metabatbinbase+' -m 1500 -t '+threads+''
     subprocess.check_call(metabatCmd, shell=True)
 
     #Create contig to bin table
@@ -128,7 +128,7 @@ def bin_refinement(projectname,projectpath,threads,memory,logfilepath):
     #module unload gcc gcc/5.1.0 && module load anaconda3/4.0.0 && Binning_refiner -i metafunk2_test2/merged/binning/refiner/ -p refined -plot
 
     #Move definitive bins to binning directory
-    binsource = os.path.join(projectpath, 'merged','binning','dastool','dastool_DASTool_bins')
+    binsource = os.path.join(dastoolpath,'dastool_DASTool_bins') #### DELETED DASTOOL_DASTOOLBINS IN TEST NOW
     bindestination = os.path.join(projectpath, 'merged','binning')
     binfiles = glob.glob(os.path.join(binsource,'*.fa'))
     for b in binfiles:
